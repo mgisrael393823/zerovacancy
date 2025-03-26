@@ -3,4 +3,4 @@
  * Import from '@/components/ui/layout/card' instead.
  */
 
-export * from './layout/card'
+export * from '@/components/ui/layout/card/card'

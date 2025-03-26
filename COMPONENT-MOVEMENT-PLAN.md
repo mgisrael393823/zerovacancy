@@ -91,12 +91,52 @@ This document outlines the plan for moving components to the new directory struc
 | calendar.tsx | /src/components/ui/calendar.tsx | /src/components/ui/data-display/calendar/calendar.tsx | ✅ Completed | Verify calendars display and function correctly |
 | skeleton.tsx | /src/components/ui/skeleton.tsx | /src/components/ui/data-display/skeleton/skeleton.tsx | ✅ Completed | Verify skeleton loaders display correctly |
 
+#### Animation Components
+
+| Component | Source Path | Destination Path | Status | Testing Criteria |
+|-----------|-------------|-----------------|--------|------------------|
+| border-beam.tsx | /src/components/ui/border-beam.tsx | /src/components/ui/animations/borders/border-beam/border-beam.tsx | ✅ Completed | Verify border beam animations display correctly |
+| optimized-border-beam.tsx | /src/components/ui/optimized-border-beam.tsx | /src/components/ui/animations/borders/border-beam/optimized-border-beam.tsx | ✅ Completed | Verify optimized border beam animations display correctly |
+| moving-border.tsx | /src/components/ui/moving-border.tsx | /src/components/ui/animations/borders/moving-border/moving-border.tsx | ✅ Completed | Verify moving border animations display correctly |
+| border-trail.tsx | /src/components/ui/border-trail.tsx | /src/components/ui/animations/borders/border-trail/border-trail.tsx | ✅ Completed | Verify border trail animations display correctly |
+| spotlight.tsx | /src/components/ui/spotlight.tsx | /src/components/ui/animations/spotlight/spotlight.tsx | ✅ Completed | Verify spotlight effects display correctly |
+| optimized-spotlight.tsx | /src/components/ui/optimized-spotlight.tsx | /src/components/ui/animations/spotlight/optimized-spotlight.tsx | ✅ Completed | Verify optimized spotlight effects display correctly |
+| animated-grid.tsx | /src/components/ui/animated-grid.tsx | /src/components/ui/animations/grid/animated-grid.tsx | ✅ Completed | Verify animated grid displays correctly |
+| optimized-animated-grid.tsx | /src/components/ui/optimized-animated-grid.tsx | /src/components/ui/animations/grid/optimized-animated-grid.tsx | ✅ Completed | Verify optimized animated grid displays correctly |
+| animated-shiny-text.tsx | /src/components/ui/animated-shiny-text.tsx | /src/components/ui/animations/text/animated-shiny-text.tsx | ✅ Completed | Verify animated shiny text displays correctly |
+| gradient-blob-background.tsx | /src/components/ui/gradient-blob-background.tsx | /src/components/ui/animations/backgrounds/gradient-blob-background.tsx | ✅ Completed | Verify gradient blob backgrounds display correctly |
+| floating-background.tsx | /src/components/ui/floating-background.tsx | /src/components/ui/animations/backgrounds/floating-background.tsx | ✅ Completed | Verify floating backgrounds display correctly |
+| scroll-fade-effect.tsx | /src/components/ui/scroll-fade-effect.tsx | /src/components/ui/animations/effects/scroll-fade-effect.tsx | ✅ Completed | Verify scroll fade effects work correctly |
+| confetti.tsx | /src/components/ui/confetti.tsx | /src/components/ui/animations/effects/confetti.tsx | ✅ Completed | Verify confetti animations display correctly |
+
+#### Utility Components
+
+| Component | Source Path | Destination Path | Status | Testing Criteria |
+|-----------|-------------|-----------------|--------|------------------|
+| badge.tsx | /src/components/ui/badge.tsx | /src/components/ui/utilities/badge/badge.tsx | ✅ Completed | Verify badges display correctly in various contexts |
+| separator.tsx | /src/components/ui/separator.tsx | /src/components/ui/utilities/separator/separator.tsx | ✅ Completed | Verify separators display correctly |
+| scroll-area.tsx | /src/components/ui/scroll-area.tsx | /src/components/ui/utilities/scroll-area/scroll-area.tsx | ✅ Completed | Verify scrollable areas function properly |
+| switch.tsx | /src/components/ui/switch.tsx | /src/components/ui/utilities/switch/switch.tsx | ✅ Completed | Verify switches toggle correctly |
+| aspect-ratio.tsx | /src/components/ui/aspect-ratio.tsx | /src/components/ui/utilities/aspect-ratio/aspect-ratio.tsx | ✅ Completed | Verify aspect ratio component maintains proper ratios |
+| tooltip.tsx | /src/components/ui/tooltip.tsx | /src/components/ui/feedback/tooltip/tooltip.tsx | ✅ Completed | Verify tooltips display correctly on hover |
+| breadcrumb.tsx | /src/components/ui/breadcrumb.tsx | /src/components/ui/navigation/breadcrumb/breadcrumb.tsx | ✅ Completed | Verify breadcrumb navigation is displayed properly |
+| command.tsx | /src/components/ui/command.tsx | /src/components/ui/input-command/command.tsx | ✅ Completed | Verify command menu functions correctly |
+
+#### Interaction Components
+
+| Component | Source Path | Destination Path | Status | Testing Criteria |
+|-----------|-------------|-----------------|--------|------------------|
+| toggle.tsx | /src/components/ui/toggle.tsx | /src/components/ui/interaction/toggle/toggle.tsx | ✅ Completed | Verify toggle buttons display and function correctly |
+| toggle-group.tsx | /src/components/ui/toggle-group.tsx | /src/components/ui/interaction/toggle-group/toggle-group.tsx | ✅ Completed | Verify toggle groups display and function correctly |
+| collapsible.tsx | /src/components/ui/collapsible.tsx | /src/components/ui/interaction/collapsible/collapsible.tsx | ✅ Completed | Verify collapsible sections expand and collapse correctly |
+| accordion.tsx | /src/components/ui/accordion.tsx | /src/components/ui/interaction/accordion/accordion.tsx | ✅ Completed | Verify accordion sections expand and collapse correctly |
+
 ### Layout Components
 
-| Component | Source Path | Destination Path | Import Updates | Testing Criteria |
-|-----------|-------------|-----------------|----------------|------------------|
-| Header.tsx | /src/components/Header.tsx | /src/components/layout/Header.tsx | Update imports from `@/components/Header` or `../components/Header` to `@/components/layout/Header` | Check header renders correctly on all pages |
-| ... | ... | ... | ... | ... |
+| Component | Source Path | Destination Path | Status | Testing Criteria |
+|-----------|-------------|-----------------|--------|------------------|
+| Header.tsx | /src/components/Header.tsx | /src/components/layout/header/header.tsx | ✅ Completed | Check header renders correctly on all pages |
+| Footer.tsx | /src/components/Footer.tsx | /src/components/layout/footer/footer.tsx | ✅ Completed | Check footer renders correctly on all pages |
 
 ### Feature Components
 
