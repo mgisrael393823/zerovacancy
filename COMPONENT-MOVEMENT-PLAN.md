@@ -73,6 +73,14 @@ This document outlines the plan for moving components to the new directory struc
 | optimized-image.tsx | /src/components/ui/optimized-image.tsx | /src/components/ui/media/image/optimized-image.tsx | ✅ Completed | Verify optimized images display correctly |
 | desktop-optimized-image.tsx | /src/components/ui/desktop-optimized-image.tsx | /src/components/ui/media/image/desktop-optimized-image.tsx | ✅ Completed | Verify desktop optimized images display correctly |
 
+#### Navigation Components
+
+| Component | Source Path | Destination Path | Status | Testing Criteria |
+|-----------|-------------|-----------------|--------|------------------|
+| navigation-menu.tsx | /src/components/ui/navigation-menu.tsx | /src/components/ui/navigation/menu/navigation-menu.tsx | ✅ Completed | Verify navigation menus display and function correctly |
+| menubar.tsx | /src/components/ui/menubar.tsx | /src/components/ui/navigation/menubar/menubar.tsx | ✅ Completed | Verify menubars display and function correctly |
+| tabs.tsx | /src/components/ui/tabs.tsx | /src/components/ui/navigation/tabs/tabs.tsx | ✅ Completed | Verify tabs display and function correctly |
+
 ### Layout Components
 
 | Component | Source Path | Destination Path | Import Updates | Testing Criteria |
