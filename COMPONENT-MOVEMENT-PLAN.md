@@ -58,14 +58,15 @@ This document outlines the plan for moving components to the new directory struc
 
 | Component | Source Path | Destination Path | Status | Testing Criteria |
 |-----------|-------------|-----------------|--------|------------------|
-| dialog.tsx | /src/components/ui/dialog.tsx | /src/components/ui/overlays/dialog.tsx | ✅ Completed | Verify dialogs open and close correctly |
-| glow-dialog.tsx | /src/components/ui/glow-dialog.tsx | /src/components/ui/overlays/glow-dialog.tsx | ✅ Completed | Verify glow dialogs display correctly |
+| dialog.tsx | /src/components/ui/dialog.tsx | /src/components/ui/overlays/dialog/dialog.tsx | ✅ Completed | Verify dialogs open and close correctly |
+| glow-dialog.tsx | /src/components/ui/glow-dialog.tsx | /src/components/ui/overlays/glow-dialog/glow-dialog.tsx | ✅ Completed | Verify glow dialogs display correctly |
 | alert-dialog.tsx | /src/components/ui/alert-dialog.tsx | /src/components/ui/overlays/alert-dialog/alert-dialog.tsx | ✅ Completed | Verify alert dialogs function properly |
 | hover-card.tsx | /src/components/ui/hover-card.tsx | /src/components/ui/overlays/hover-card/hover-card.tsx | ✅ Completed | Verify hover cards display and function correctly |
 | popover.tsx | /src/components/ui/popover.tsx | /src/components/ui/overlays/popover/popover.tsx | ✅ Completed | Verify popovers display and function correctly |
 | dropdown-menu.tsx | /src/components/ui/dropdown-menu.tsx | /src/components/ui/overlays/dropdown-menu/dropdown-menu.tsx | ✅ Completed | Verify dropdown menus display and function correctly |
 | context-menu.tsx | /src/components/ui/context-menu.tsx | /src/components/ui/overlays/context-menu/context-menu.tsx | ✅ Completed | Verify context menus display and function correctly |
 | sheet.tsx | /src/components/ui/sheet.tsx | /src/components/ui/overlays/sheet/sheet.tsx | ✅ Completed | Verify sheets display and function correctly |
+| drawer.tsx | /src/components/ui/drawer.tsx | /src/components/ui/overlays/drawer/drawer.tsx | ✅ Completed | Verify drawer opens, closes, and slides correctly |
 
 #### Media Components
 

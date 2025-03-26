@@ -6,3 +6,4 @@ export * from './popover';
 export * from './dropdown-menu';
 export * from './context-menu';
 export * from './sheet';
+export * from './drawer';
