@@ -148,6 +148,13 @@ This document outlines the plan for moving components to the new directory struc
 | squares.tsx | /src/components/ui/squares.tsx | /src/components/ui/visualizations/squares/squares.tsx | ✅ Completed | Verify squares animations render correctly |
 | sparkles-core.tsx | /src/components/ui/sparkles-core.tsx | /src/components/ui/visualizations/sparkles/sparkles-core.tsx | ✅ Completed | Verify sparkles animations render correctly |
 
+#### Call-to-Action Components
+
+| Component | Source Path | Destination Path | Status | Testing Criteria |
+|-----------|-------------|-----------------|--------|------------------|
+| waitlist-cta.tsx | /src/components/ui/waitlist-cta.tsx | /src/components/ui/cta/waitlist/waitlist-cta.tsx | ✅ Completed | Verify waitlist CTA buttons function correctly |
+| waitlist-creator-cta.tsx | /src/components/ui/waitlist-creator-cta.tsx | /src/components/ui/cta/waitlist/waitlist-creator-cta.tsx | ✅ Completed | Verify creator waitlist CTA buttons function correctly |
+
 #### Utility Components
 
 | Component | Source Path | Destination Path | Status | Testing Criteria |
