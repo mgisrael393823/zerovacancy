@@ -81,6 +81,16 @@ This document outlines the plan for moving components to the new directory struc
 | menubar.tsx | /src/components/ui/menubar.tsx | /src/components/ui/navigation/menubar/menubar.tsx | ✅ Completed | Verify menubars display and function correctly |
 | tabs.tsx | /src/components/ui/tabs.tsx | /src/components/ui/navigation/tabs/tabs.tsx | ✅ Completed | Verify tabs display and function correctly |
 
+#### Data Display Components
+
+| Component | Source Path | Destination Path | Status | Testing Criteria |
+|-----------|-------------|-----------------|--------|------------------|
+| table.tsx | /src/components/ui/table.tsx | /src/components/ui/data-display/table/table.tsx | ✅ Completed | Verify tables display correctly |
+| progress.tsx | /src/components/ui/progress.tsx | /src/components/ui/data-display/progress/progress.tsx | ✅ Completed | Verify progress bars display correctly |
+| slider.tsx | /src/components/ui/slider.tsx | /src/components/ui/data-display/slider/slider.tsx | ✅ Completed | Verify sliders display and function correctly |
+| calendar.tsx | /src/components/ui/calendar.tsx | /src/components/ui/data-display/calendar/calendar.tsx | ✅ Completed | Verify calendars display and function correctly |
+| skeleton.tsx | /src/components/ui/skeleton.tsx | /src/components/ui/data-display/skeleton/skeleton.tsx | ✅ Completed | Verify skeleton loaders display correctly |
+
 ### Layout Components
 
 | Component | Source Path | Destination Path | Import Updates | Testing Criteria |
