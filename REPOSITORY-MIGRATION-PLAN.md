@@ -162,6 +162,43 @@ The `scripts/verify-structure.js` script ensures the codebase follows structural
 node scripts/verify-structure.js
 ```
 
+## Handling Parallel Development
+
+### Integrating Live Site Changes
+
+During the reorganization process, the main branch will continue to receive updates for the live site. To ensure these changes are incorporated into the reorganized structure:
+
+1. **Regular Synchronization**:
+   - Periodically merge changes from main into the reorganization branch
+   - Resolve conflicts by adapting new code to follow the new structure
+   - Update imports as needed for compatibility
+
+2. **Pre-Merge Review**:
+   - Before completing the reorganization, perform a thorough review of all changes made to main
+   - Create a checklist of all components, features, and utilities added or modified in main
+   - Ensure all new code has been properly migrated to the new structure
+
+3. **Change Tracking**:
+   - Keep a log of significant changes made to the main branch during reorganization
+   - Document in `MAIN-BRANCH-CHANGES.md` with dates, PR numbers, and affected components
+   - Use this log during final review to ensure nothing is missed
+
+### Development Workflow During Reorganization
+
+1. **Feature Development**:
+   - New features and visual changes should be developed in branches from main
+   - Deploy these changes independently of the reorganization effort
+   - Document these changes in the tracking log
+
+2. **Bug Fixes**:
+   - Critical bugs should be fixed in the main branch
+   - Non-critical bugs affecting code being reorganized can be fixed directly in the reorganization branch
+
+3. **Coordinating Work**:
+   - Communicate with the team about which files are being reorganized
+   - Avoid major refactoring of files that are actively being reorganized
+   - Consider "code freezes" for specific modules during their migration
+
 ## Testing Strategy
 
 See [TESTING-STRATEGY.md](./TESTING-STRATEGY.md) for detailed testing approach.
