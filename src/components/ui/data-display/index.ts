@@ -3,3 +3,4 @@ export * from './progress';
 export * from './slider';
 export * from './calendar';
 export * from './skeleton';
+export * from './chart';

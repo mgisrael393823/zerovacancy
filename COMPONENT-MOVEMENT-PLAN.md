@@ -95,6 +95,7 @@ This document outlines the plan for moving components to the new directory struc
 | slider.tsx | /src/components/ui/slider.tsx | /src/components/ui/data-display/slider/slider.tsx | ✅ Completed | Verify sliders display and function correctly |
 | calendar.tsx | /src/components/ui/calendar.tsx | /src/components/ui/data-display/calendar/calendar.tsx | ✅ Completed | Verify calendars display and function correctly |
 | skeleton.tsx | /src/components/ui/skeleton.tsx | /src/components/ui/data-display/skeleton/skeleton.tsx | ✅ Completed | Verify skeleton loaders display correctly |
+| chart.tsx | /src/components/ui/chart.tsx | /src/components/ui/data-display/chart/chart.tsx | ✅ Completed | Verify charts display and function correctly |
 
 #### Animation Components
 

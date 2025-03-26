@@ -9,6 +9,7 @@ This directory contains components that are used to display and visualize data i
 - **Slider**: A slider input component for selecting values from a range
 - **Calendar**: A date selection and display component
 - **Skeleton**: A loading state component for showing placeholders while content loads
+- **Chart**: A component for creating data visualizations with Recharts integration
 
 ## Usage
 
@@ -17,9 +18,10 @@ Each component can be imported individually from its respective subdirectory, or
 ```tsx
 // Individual import
 import { Table } from "@/components/ui/data-display/table";
+import { ChartContainer, ChartTooltip } from "@/components/ui/data-display/chart";
 
 // Or from the main barrel export
-import { Table, Progress, Skeleton } from "@/components/ui/data-display";
+import { Table, Progress, Skeleton, ChartContainer } from "@/components/ui/data-display";
 ```
 
 ## Design Principles
