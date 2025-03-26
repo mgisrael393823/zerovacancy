@@ -1,12 +1,6 @@
-
-/**
- * @deprecated This file is maintained for backward compatibility. 
- * Import from '@/components/layout/Footer' instead.
- */
-
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import TermsModal from './TermsModal';
+import TermsModal from '../TermsModal';
 import { Mail, Clock, MapPin, ExternalLink, Search, Users, HelpCircle, ChevronUp } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useIsMobile } from '@/hooks/use-mobile';

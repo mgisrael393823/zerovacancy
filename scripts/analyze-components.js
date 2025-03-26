@@ -10,9 +10,14 @@
  * node scripts/analyze-components.js > component-analysis.md
  */
 
-const fs = require('fs');
-const path = require('path');
-const { exec } = require('child_process');
+import fs from 'fs';
+import path from 'path';
+import { exec } from 'child_process';
+import { fileURLToPath } from 'url';
+
+// Get the directory name in ESM
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 // Configuration
 const SRC_DIR = path.join(__dirname, '..', 'src');
@@ -213,3 +218,6 @@ async function analyzeComponents() {
 
 // Run the analysis
 analyzeComponents().catch(console.error);
+
+// Export nothing for ESM compatibility
+export {};
