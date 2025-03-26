@@ -1,10 +1,6 @@
-/**
- * @deprecated This file is maintained for backward compatibility. 
- * Import from '@/components/common/SEO' instead.
- */
-
-export * from './common/SEO';
-export { default } from './common/SEO';
+import React from 'react';
+import { Helmet, HelmetProvider } from 'react-helmet-async';
+import { formatCanonicalURL } from '@/lib/utils';
 
 export interface SEOProps {
   title?: string;

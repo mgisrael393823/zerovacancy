@@ -1,0 +1,1 @@
+export { default as SEO, SEOProvider } from './SEO'
