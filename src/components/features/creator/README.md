@@ -1,17 +1,20 @@
 # Creator Components
 
-This directory contains components related to creator profiles, portfolios, and interactions.
+This directory contains all components related to the Creator domain in the ZeroVacancy application.
 
-## Component Categories
+## Directory Structure
 
-- **/profile**: Components for displaying creator profiles and information
-- **/portfolio**: Components for displaying creator works and media
-- **/card**: Components for creator cards and previews in search results
-- **/ratings**: Components for displaying and managing creator ratings
+- `/card` - Components related to the Creator card display
+- `/media` - Components for handling creator media (images, videos)
+- `/rating` - Components for displaying creator ratings and availability
+- `/types` - Type definitions for creator-related data
 
-## Usage Guidelines
+## Usage
 
-- Use shared UI components for presentation
-- Keep business logic related to creators in these components
-- Maintain consistent styling across creator components
-- Consider both mobile and desktop experiences
+Import components directly from the feature domain:
+
+```tsx
+import { CreatorCard, CreatorMedia, CreatorRating } from '@/components/features/creator';
+```
+
+This structure helps organize components by domain while maintaining clean imports.
