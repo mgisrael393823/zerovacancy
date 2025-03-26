@@ -122,12 +122,7 @@ export const PreviewContent: React.FC<PreviewContentProps> = ({
   
   // Render different views based on mobile status
   return (
-    <div className={cn(
-      "w-full transform-gpu will-change-transform", 
-      className
-    )} 
-      ref={contentRef}
-    >
+    <div className={cn("w-full", className)} ref={contentRef}>
       {/* Skeleton loader states */}
       {(isLoading || showSkeletons) && (
         <div className={cn(

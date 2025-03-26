@@ -84,7 +84,7 @@ const PreviewSearch = () => {
     "w-full",
     // Remove content-visibility-auto which can cause jitter when combined with IntersectionObserver
     isMobile ? "py-6 pb-8" : "py-6 sm:py-6 md:py-8",
-    isMobile ? "relative mt-3" : ""
+    isMobile ? "relative" : "" // Removed mt-3 to eliminate extra spacing
   ), [isMobile]);
   
   // Optimize the Intersection Observer to use only when needed
