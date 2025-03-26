@@ -139,6 +139,15 @@ This document outlines the plan for moving components to the new directory struc
 | parallax-section.tsx | /src/components/ui/parallax-section.tsx | /src/components/ui/effects/parallax/parallax-section.tsx | ✅ Completed | Verify parallax effect works correctly on scroll |
 | magnetic.tsx | /src/components/ui/magnetic.tsx | /src/components/ui/effects/magnetic/magnetic.tsx | ✅ Completed | Verify magnetic attraction effect works on hover |
 
+#### Visualization Components
+
+| Component | Source Path | Destination Path | Status | Testing Criteria |
+|-----------|-------------|-----------------|--------|------------------|
+| waves.tsx | /src/components/ui/waves.tsx | /src/components/ui/visualizations/waves/waves.tsx | ✅ Completed | Verify wave animations render correctly |
+| pill-rating.tsx | /src/components/ui/pill-rating.tsx | /src/components/ui/visualizations/rating/pill-rating.tsx | ✅ Completed | Verify rating pills display correctly |
+| squares.tsx | /src/components/ui/squares.tsx | /src/components/ui/visualizations/squares/squares.tsx | ✅ Completed | Verify squares animations render correctly |
+| sparkles-core.tsx | /src/components/ui/sparkles-core.tsx | /src/components/ui/visualizations/sparkles/sparkles-core.tsx | ✅ Completed | Verify sparkles animations render correctly |
+
 #### Utility Components
 
 | Component | Source Path | Destination Path | Status | Testing Criteria |
