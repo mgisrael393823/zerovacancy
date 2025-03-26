@@ -1,0 +1,97 @@
+/* Desktop-specific smooth transitions */
+@media (min-width: 768px) {
+  /* General transition styling */
+  .section-transition {
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    perspective: 1000px;
+    will-change: transform;
+    overflow: hidden !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    position: relative;
+    z-index: 10;
+    height: 30px !important;
+    max-height: 30px !important;
+  }
+  
+  /* Ensure sections blend properly without visible dividing lines */
+  .section-transition::before,
+  .section-transition::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: transparent;
+    z-index: 1;
+  }
+  
+  /* Prevent any potential flicker at the edges */
+  .section-transition::before {
+    top: 0;
+  }
+  .section-transition::after {
+    bottom: 0;
+  }
+  
+  /* Optimize z-index layering */
+  section {
+    position: relative;
+    z-index: 1;
+  }
+  
+  /* Fix any potential overlap issues */
+  main section:not(:first-child) {
+    margin-top: 0 !important;
+  }
+  
+  /* Ensure smooth rendering */
+  .section-transition > div {
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    transition: background 0.3s ease-out;
+  }
+  
+  /* Override specific section transition elements */
+  .w-full.overflow-visible.relative.z-30.section-transition,
+  .w-full.overflow-visible.relative.z-30 {
+    height: 30px !important;
+    max-height: 30px !important;
+    margin: -10px 0 !important;
+  }
+  
+  /* Make gradient transitions more subtle */
+  .w-full.overflow-visible.relative.z-30 > div,
+  .section-transition > div {
+    background: linear-gradient(to bottom, 
+      var(--from-color, transparent) 0%, 
+      var(--blend-85, transparent) 15%,
+      var(--blend-65, transparent) 30%,
+      var(--blend-50, transparent) 50%,
+      var(--blend-35, transparent) 70%,
+      var(--blend-15, transparent) 85%,
+      var(--to-color, transparent) 100%) !important;
+    height: calc(100% + 40px) !important;
+    top: -20px !important;
+    bottom: -20px !important;
+  }
+  
+  /* Progressive height reduction for deeper sections */
+  .section-transition:nth-of-type(2) {
+    height: 25px !important;
+    max-height: 25px !important;
+  }
+  .section-transition:nth-of-type(3) {
+    height: 20px !important;
+    max-height: 20px !important;
+  }
+  .section-transition:nth-of-type(4) {
+    height: 18px !important;
+    max-height: 18px !important;
+  }
+  .section-transition:nth-of-type(5) {
+    height: 15px !important;
+    max-height: 15px !important;
+  }
+}

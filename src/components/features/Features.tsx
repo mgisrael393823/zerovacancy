@@ -24,7 +24,7 @@ export function FeaturesSectionWithHoverEffects() {
     : features;
 
   return (
-    <section className="relative py-4 sm:py-6 lg:py-8 mt-1 overflow-hidden">
+    <section className="relative py-4 sm:py-6 lg:py-8 overflow-hidden"> {/* Removed mt-1 to eliminate extra spacing */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <FeatureHeader 
           title="THE CREATIVE ADVANTAGE"

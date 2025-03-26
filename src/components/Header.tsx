@@ -1,4 +1,9 @@
 
+/**
+ * @deprecated This file is maintained for backward compatibility. 
+ * Import from '@/components/layout/Header' instead.
+ */
+
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Menu, X } from 'lucide-react';
