@@ -25,24 +25,14 @@ The following component categories have been successfully refactored:
 - ✅ **Background Components**: Background effects and patterns moved to dedicated structure
 - ✅ **Scroll Components**: Progress, to-top, and anchor components moved
 - ✅ **Effects Components**: Parallax and magnetic effect components moved
+- ✅ **Visualization Components**: Waves, pill rating, squares, and sparkles components moved
+- ✅ **CTA Components**: Waitlist and creator waitlist CTAs moved
 
 ## Next Steps
 
 The remaining components to refactor include:
 
-1. **Miscellaneous UI Components**:
-   - Waves component
-   - Pills (pill-rating.tsx)
-   - Squares component
-   - Sparkles components
-   - Any other specialized UI components not yet categorized
-
-2. **Waitlist Components**:
-   - waitlist-cta.tsx
-   - waitlist-creator-cta.tsx
-   - Consider moving into a new "cta" or "waitlist" directory
-
-3. **Demo/Example Components**:
+1. **Demo/Example Components**:
    - button-3d-demo.tsx
    - button-3d-border-demo.tsx
    - button-3d-enhanced-demo.tsx
