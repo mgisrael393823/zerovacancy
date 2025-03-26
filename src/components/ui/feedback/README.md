@@ -1,20 +1,25 @@
 # Feedback UI Components
 
-This directory contains components that provide feedback to users.
+This directory contains UI components related to user feedback and notifications.
 
-## Component Types
+## Component Categories
 
-- Alerts
-- Toasts
-- Progress indicators
-- Skeletons
-- Error messages
-- Success messages
-- Loaders
+- `alert` - Components for displaying important messages to users
+- `toast` - Components for showing temporary notifications
+- `toaster` - Container component for rendering toast notifications
 
-## Usage Guidelines
+## Usage
 
-- Use appropriate colors and icons for different feedback types
-- Ensure feedback is accessible to screen readers
-- Time-based feedback (toasts) should display long enough to be read
-- Use consistent feedback patterns across the application
+Import components from their specific categories:
+
+```tsx
+import { Alert, AlertTitle, AlertDescription } from '@/components/ui/feedback/alert';
+import { Toast, ToastTitle, ToastDescription } from '@/components/ui/feedback/toast';
+import { Toaster } from '@/components/ui/feedback/toaster';
+```
+
+Or import from the main feedback barrel file:
+
+```tsx
+import { Alert, Toast, Toaster } from '@/components/ui/feedback';
+```

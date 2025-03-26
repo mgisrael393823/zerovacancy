@@ -19,17 +19,33 @@ This document outlines the plan for moving components to the new directory struc
 
 #### Buttons
 
-| Component | Source Path | Destination Path | Import Updates | Testing Criteria |
-|-----------|-------------|-----------------|----------------|------------------|
-| button.tsx | /src/components/ui/button.tsx | /src/components/ui/buttons/button.tsx | Update imports from `@/components/ui/button` to `@/components/ui/buttons/button` | Verify all buttons render correctly across the site |
+| Component | Source Path | Destination Path | Status | Testing Criteria |
+|-----------|-------------|-----------------|--------|------------------|
+| button.tsx | /src/components/ui/button.tsx | /src/components/ui/buttons/button.tsx | Not Started | Verify all buttons render correctly across the site |
 | ... | ... | ... | ... | ... |
 
 #### Inputs
 
-| Component | Source Path | Destination Path | Import Updates | Testing Criteria |
-|-----------|-------------|-----------------|----------------|------------------|
-| input.tsx | /src/components/ui/input.tsx | /src/components/ui/inputs/input.tsx | Update imports from `@/components/ui/input` to `@/components/ui/inputs/input` | Verify all inputs render and function correctly |
+| Component | Source Path | Destination Path | Status | Testing Criteria |
+|-----------|-------------|-----------------|--------|------------------|
+| input.tsx | /src/components/ui/input.tsx | /src/components/ui/inputs/input.tsx | Not Started | Verify all inputs render and function correctly |
 | ... | ... | ... | ... | ... |
+
+#### Feedback Components
+
+| Component | Source Path | Destination Path | Status | Testing Criteria |
+|-----------|-------------|-----------------|--------|------------------|
+| toast.tsx | /src/components/ui/toast.tsx | /src/components/ui/feedback/toast.tsx | ✅ Completed | Verify toast notifications display correctly |
+| toaster.tsx | /src/components/ui/toaster.tsx | /src/components/ui/feedback/toaster.tsx | ✅ Completed | Verify toast container works properly |
+| alert.tsx | /src/components/ui/alert.tsx | /src/components/ui/feedback/alert/alert.tsx | ✅ Completed | Verify alerts display correctly |
+
+#### Overlay Components
+
+| Component | Source Path | Destination Path | Status | Testing Criteria |
+|-----------|-------------|-----------------|--------|------------------|
+| dialog.tsx | /src/components/ui/dialog.tsx | /src/components/ui/overlays/dialog.tsx | ✅ Completed | Verify dialogs open and close correctly |
+| glow-dialog.tsx | /src/components/ui/glow-dialog.tsx | /src/components/ui/overlays/glow-dialog.tsx | ✅ Completed | Verify glow dialogs display correctly |
+| alert-dialog.tsx | /src/components/ui/alert-dialog.tsx | /src/components/ui/overlays/alert-dialog/alert-dialog.tsx | ✅ Completed | Verify alert dialogs function properly |
 
 ### Layout Components
 

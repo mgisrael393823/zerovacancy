@@ -1,22 +1,29 @@
 # Overlay UI Components
 
-This directory contains components that display content as overlays on the page.
+This directory contains UI components related to overlays, dialogs, and modals.
 
-## Component Types
+## Component Categories
 
-- Dialogs
-- Modals
-- Popovers
-- Hover cards
-- Tooltips
-- Context menus
-- Command palettes
-- Sheets
-- Drawers
+- `dialog` - Basic dialog/modal components
+- `glow-dialog` - Enhanced dialog with glow effect
+- `alert-dialog` - Dialog for confirmations and alerts
 
-## Usage Guidelines
+## Usage
 
-- Ensure overlays are keyboard accessible and can be dismissed
-- Use appropriate focus management for modals
-- Implement proper z-index handling
-- Consider mobile-friendly behavior
+Import components from their specific categories:
+
+```tsx
+import { Dialog, DialogContent, DialogTitle } from '@/components/ui/overlays/dialog';
+import { GlowDialog } from '@/components/ui/overlays/glow-dialog';
+import { 
+  AlertDialog, 
+  AlertDialogContent, 
+  AlertDialogAction 
+} from '@/components/ui/overlays/alert-dialog';
+```
+
+Or import from the main overlays barrel file:
+
+```tsx
+import { Dialog, GlowDialog, AlertDialog } from '@/components/ui/overlays';
+```
