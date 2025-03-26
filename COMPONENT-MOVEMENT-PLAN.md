@@ -155,6 +155,16 @@ This document outlines the plan for moving components to the new directory struc
 | waitlist-cta.tsx | /src/components/ui/waitlist-cta.tsx | /src/components/ui/cta/waitlist/waitlist-cta.tsx | ✅ Completed | Verify waitlist CTA buttons function correctly |
 | waitlist-creator-cta.tsx | /src/components/ui/waitlist-creator-cta.tsx | /src/components/ui/cta/waitlist/waitlist-creator-cta.tsx | ✅ Completed | Verify creator waitlist CTA buttons function correctly |
 
+#### Demo Components
+
+| Component | Source Path | Destination Path | Status | Testing Criteria |
+|-----------|-------------|-----------------|--------|------------------|
+| button-3d-demo.tsx | /src/components/ui/button-3d-demo.tsx | /src/components/ui/demos/buttons/button-3d-demo.tsx | ✅ Completed | Verify button demos render correctly |
+| button-3d-border-demo.tsx | /src/components/ui/button-3d-border-demo.tsx | /src/components/ui/demos/buttons/button-3d-border-demo.tsx | ✅ Completed | Verify button border demos render correctly |
+| button-3d-enhanced-demo.tsx | /src/components/ui/button-3d-enhanced-demo.tsx | /src/components/ui/demos/buttons/button-3d-enhanced-demo.tsx | ✅ Completed | Verify enhanced button demos render correctly |
+| button-3d-physical-demo.tsx | /src/components/ui/button-3d-physical-demo.tsx | /src/components/ui/demos/buttons/button-3d-physical-demo.tsx | ✅ Completed | Verify physical button demos render correctly |
+| ButtonStyleGuide.tsx | /src/components/ui/ButtonStyleGuide.tsx | /src/components/ui/demos/styles/ButtonStyleGuide.tsx | ✅ Completed | Verify button style guide renders correctly |
+
 #### Utility Components
 
 | Component | Source Path | Destination Path | Status | Testing Criteria |
