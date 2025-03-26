@@ -21,8 +21,14 @@ This document outlines the plan for moving components to the new directory struc
 
 | Component | Source Path | Destination Path | Status | Testing Criteria |
 |-----------|-------------|-----------------|--------|------------------|
-| button.tsx | /src/components/ui/button.tsx | /src/components/ui/buttons/button.tsx | Not Started | Verify all buttons render correctly across the site |
-| ... | ... | ... | ... | ... |
+| button.tsx | /src/components/ui/button.tsx | /src/components/ui/buttons/button.tsx | ✅ Completed | Verify all buttons render correctly across the site |
+| button-3d.tsx | /src/components/ui/button-3d.tsx | /src/components/ui/buttons/3d/button-3d.tsx | ✅ Completed | Verify 3D buttons render correctly |
+| button-3d-border.tsx | /src/components/ui/button-3d-border.tsx | /src/components/ui/buttons/3d/button-3d-border.tsx | ✅ Completed | Verify 3D border buttons render correctly |
+| button-3d-enhanced.tsx | /src/components/ui/button-3d-enhanced.tsx | /src/components/ui/buttons/3d/button-3d-enhanced.tsx | ✅ Completed | Verify enhanced 3D buttons render correctly |
+| button-3d-physical.tsx | /src/components/ui/button-3d-physical.tsx | /src/components/ui/buttons/3d/button-3d-physical.tsx | ✅ Completed | Verify physical 3D buttons render correctly |
+| button-colorful.tsx | /src/components/ui/button-colorful.tsx | /src/components/ui/buttons/colorful/button-colorful.tsx | ✅ Completed | Verify colorful buttons render correctly |
+| shimmer-button.tsx | /src/components/ui/shimmer-button.tsx | /src/components/ui/buttons/shimmer/shimmer-button.tsx | ✅ Completed | Verify shimmer buttons render correctly |
+| rainbow-button.tsx | /src/components/ui/rainbow-button.tsx | /src/components/ui/buttons/rainbow/rainbow-button.tsx | ✅ Completed | Verify rainbow buttons render correctly |
 
 #### Form Components
 
