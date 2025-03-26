@@ -115,6 +115,15 @@ This document outlines the plan for moving components to the new directory struc
 | scroll-fade-effect.tsx | /src/components/ui/scroll-fade-effect.tsx | /src/components/ui/animations/effects/scroll-fade-effect.tsx | ✅ Completed | Verify scroll fade effects work correctly |
 | confetti.tsx | /src/components/ui/confetti.tsx | /src/components/ui/animations/effects/confetti.tsx | ✅ Completed | Verify confetti animations display correctly |
 
+#### Background Components
+
+| Component | Source Path | Destination Path | Status | Testing Criteria |
+|-----------|-------------|-----------------|--------|------------------|
+| background-gradient.tsx | /src/components/ui/background-gradient.tsx | /src/components/ui/backgrounds/gradient/background-gradient.tsx | ✅ Completed | Verify gradient backgrounds display correctly |
+| warp-background.tsx | /src/components/ui/warp-background.tsx | /src/components/ui/backgrounds/warp/warp-background.tsx | ✅ Completed | Verify warp backgrounds display correctly |
+| beams-background.tsx | /src/components/ui/beams-background.tsx | /src/components/ui/backgrounds/beams/beams-background.tsx | ✅ Completed | Verify beams backgrounds display correctly |
+| wavy-background.tsx | /src/components/ui/wavy-background.tsx | /src/components/ui/backgrounds/wavy/wavy-background.tsx | ✅ Completed | Verify wavy backgrounds display correctly |
+
 #### Utility Components
 
 | Component | Source Path | Destination Path | Status | Testing Criteria |
