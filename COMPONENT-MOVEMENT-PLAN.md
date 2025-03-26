@@ -50,6 +50,9 @@ This document outlines the plan for moving components to the new directory struc
 | toast.tsx | /src/components/ui/toast.tsx | /src/components/ui/feedback/toast.tsx | ✅ Completed | Verify toast notifications display correctly |
 | toaster.tsx | /src/components/ui/toaster.tsx | /src/components/ui/feedback/toaster.tsx | ✅ Completed | Verify toast container works properly |
 | alert.tsx | /src/components/ui/alert.tsx | /src/components/ui/feedback/alert/alert.tsx | ✅ Completed | Verify alerts display correctly |
+| tooltip.tsx | /src/components/ui/tooltip.tsx | /src/components/ui/feedback/tooltip/tooltip.tsx | ✅ Completed | Verify tooltips display correctly on hover |
+| banner.tsx | /src/components/ui/banner.tsx | /src/components/ui/feedback/banner/banner.tsx | ✅ Completed | Verify banners display correctly |
+| cookie-consent.tsx | /src/components/ui/cookie-consent.tsx | /src/components/ui/feedback/cookie-consent/cookie-consent.tsx | ✅ Completed | Verify cookie consent works properly |
 
 #### Overlay Components
 
