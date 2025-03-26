@@ -72,6 +72,7 @@ This document outlines the plan for moving components to the new directory struc
 | avatar-placeholder.tsx | /src/components/ui/avatar-placeholder.tsx | /src/components/ui/media/avatar/avatar-placeholder.tsx | ✅ Completed | Verify avatar placeholders display correctly |
 | optimized-image.tsx | /src/components/ui/optimized-image.tsx | /src/components/ui/media/image/optimized-image.tsx | ✅ Completed | Verify optimized images display correctly |
 | desktop-optimized-image.tsx | /src/components/ui/desktop-optimized-image.tsx | /src/components/ui/media/image/desktop-optimized-image.tsx | ✅ Completed | Verify desktop optimized images display correctly |
+| carousel.tsx | /src/components/ui/carousel.tsx | /src/components/ui/media/carousel/carousel.tsx | ✅ Completed | Verify carousels display and function correctly |
 
 #### Navigation Components
 
