@@ -24,12 +24,18 @@ This document outlines the plan for moving components to the new directory struc
 | button.tsx | /src/components/ui/button.tsx | /src/components/ui/buttons/button.tsx | Not Started | Verify all buttons render correctly across the site |
 | ... | ... | ... | ... | ... |
 
-#### Inputs
+#### Form Components
 
 | Component | Source Path | Destination Path | Status | Testing Criteria |
 |-----------|-------------|-----------------|--------|------------------|
-| input.tsx | /src/components/ui/input.tsx | /src/components/ui/inputs/input.tsx | Not Started | Verify all inputs render and function correctly |
-| ... | ... | ... | ... | ... |
+| input.tsx | /src/components/ui/input.tsx | /src/components/ui/inputs/input.tsx | ✅ Completed | Verify all inputs render and function correctly |
+| input-otp.tsx | /src/components/ui/input-otp.tsx | /src/components/ui/forms/input/input-otp.tsx | ✅ Completed | Verify OTP inputs render and function correctly |
+| form.tsx | /src/components/ui/form.tsx | /src/components/ui/forms/form.tsx | ✅ Completed | Verify forms render and validation works correctly |
+| label.tsx | /src/components/ui/label.tsx | /src/components/ui/forms/label/label.tsx | ✅ Completed | Verify labels render correctly |
+| checkbox.tsx | /src/components/ui/checkbox.tsx | /src/components/ui/forms/checkbox/checkbox.tsx | ✅ Completed | Verify checkboxes render and function correctly |
+| textarea.tsx | /src/components/ui/textarea.tsx | /src/components/ui/forms/textarea/textarea.tsx | ✅ Completed | Verify textareas render and function correctly |
+| select.tsx | /src/components/ui/select.tsx | /src/components/ui/forms/select/select.tsx | ✅ Completed | Verify select dropdowns render and function correctly |
+| radio-group.tsx | /src/components/ui/radio-group.tsx | /src/components/ui/forms/radio/radio-group.tsx | ✅ Completed | Verify radio groups render and function correctly |
 
 #### Feedback Components
 
