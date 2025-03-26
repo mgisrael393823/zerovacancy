@@ -124,6 +124,21 @@ This document outlines the plan for moving components to the new directory struc
 | beams-background.tsx | /src/components/ui/beams-background.tsx | /src/components/ui/backgrounds/beams/beams-background.tsx | ✅ Completed | Verify beams backgrounds display correctly |
 | wavy-background.tsx | /src/components/ui/wavy-background.tsx | /src/components/ui/backgrounds/wavy/wavy-background.tsx | ✅ Completed | Verify wavy backgrounds display correctly |
 
+#### Scroll Components
+
+| Component | Source Path | Destination Path | Status | Testing Criteria |
+|-----------|-------------|-----------------|--------|------------------|
+| scroll-progress.tsx | /src/components/ui/scroll-progress.tsx | /src/components/ui/scroll/progress/scroll-progress.tsx | ✅ Completed | Verify scroll progress bar displays correctly |
+| scroll-to-top.tsx | /src/components/ui/scroll-to-top.tsx | /src/components/ui/scroll/to-top/scroll-to-top.tsx | ✅ Completed | Verify scroll to top button appears and functions correctly |
+| section-anchor.tsx | /src/components/ui/section-anchor.tsx | /src/components/ui/scroll/anchor/section-anchor.tsx | ✅ Completed | Verify section anchors appear on hover and link correctly |
+
+#### Effects Components
+
+| Component | Source Path | Destination Path | Status | Testing Criteria |
+|-----------|-------------|-----------------|--------|------------------|
+| parallax-section.tsx | /src/components/ui/parallax-section.tsx | /src/components/ui/effects/parallax/parallax-section.tsx | ✅ Completed | Verify parallax effect works correctly on scroll |
+| magnetic.tsx | /src/components/ui/magnetic.tsx | /src/components/ui/effects/magnetic/magnetic.tsx | ✅ Completed | Verify magnetic attraction effect works on hover |
+
 #### Utility Components
 
 | Component | Source Path | Destination Path | Status | Testing Criteria |
