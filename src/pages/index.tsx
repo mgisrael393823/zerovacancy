@@ -323,6 +323,20 @@ const Index = () => {
             ...prev,
             [index]: entry.isIntersecting || prev[index] // Keep sections visible once they've been seen
           }));
+          
+          // If this is entering the viewport, update any active section indicators
+          if (entry.isIntersecting) {
+            // Get the section ID
+            const sectionId = entry.target.id || 
+                             entry.target.getAttribute('data-section') || 
+                             ['hero', 'find-creators', 'how-it-works', 'features', 'pricing', 'blog'][index];
+            
+            // Dispatch a custom event that the navigation can listen to
+            const event = new CustomEvent('sectionVisible', { 
+              detail: { section: sectionId }
+            });
+            document.dispatchEvent(event);
+          }
         }
       });
     });
@@ -643,18 +657,43 @@ const Index = () => {
               width: 100vw !important; /* Use viewport width for full coverage */
               max-width: 100vw !important;
               z-index: 9999 !important; /* Super high z-index */
-              transform: none !important; /* Remove ALL transforms */
-              transition: none !important; /* Remove ALL transitions temporarily */
               will-change: auto !important; /* Let browser decide */
               -webkit-backface-visibility: hidden !important; /* Fix iOS rendering */
               backface-visibility: hidden !important;
-              filter: none !important; /* Remove any filters */
-              backdrop-filter: none !important; /* Remove backdrop filters on mobile */
               background-color: rgba(255, 255, 255, 0.98) !important; /* Use solid color instead of blur */
               box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important; /* Add visible shadow */
               height: 56px !important; /* Fix exact height */
               min-height: 56px !important;
               max-height: 56px !important;
+            }
+            
+            /* Restore active section indicator in header navigation */
+            header a.active-nav-item,
+            header a[aria-current="page"],
+            header a.nav-indicator-active {
+              position: relative !important;
+              color: #7633DC !important; /* Purple color for active item */
+              font-weight: 600 !important;
+            }
+            
+            /* Add bottom border indicator */
+            header a.active-nav-item::after,
+            header a[aria-current="page"]::after,
+            header a.nav-indicator-active::after {
+              content: "" !important;
+              position: absolute !important;
+              bottom: -2px !important;
+              left: 50% !important;
+              transform: translateX(-50%) !important;
+              width: 16px !important;
+              height: 2px !important;
+              background-color: #7633DC !important;
+              border-radius: 4px !important;
+              transition: width 0.2s ease !important;
+            }
+            
+            header a:hover::after {
+              width: 24px !important;
             }
             
             /* Fix for iOS Safari */
