@@ -253,16 +253,23 @@ html, body {
     overscroll-behavior-y: none !important; /* Prevent pull-to-refresh */
   }
   
-  /* Add padding to main content for fixed header */
+  /* Add padding to main content for fixed header
+     BUT exclude padding from the heroSection which handles its own spacing */
   body {
-    padding-top: 56px !important; /* Match header height (14*4px) */
+    padding-top: 0 !important; /* Remove default padding */
     margin-top: 0 !important; /* Ensure no additional margin */
   }
   
+  /* Apply padding to content EXCEPT the hero section */
+  main > *:not([data-hero-section="true"]),
+  main > *:not(#hero) {
+    padding-top: 56px !important; /* Add padding to non-hero content */
+  }
+  
   @media (min-width: 768px) {
-    body {
-      padding-top: 64px !important; /* Match md header height (16*4px) */
-      margin-top: 0 !important; /* Ensure no additional margin */
+    main > *:not([data-hero-section="true"]),
+    main > *:not(#hero) {
+      padding-top: 64px !important; /* Desktop padding for non-hero content */
     }
   }
   

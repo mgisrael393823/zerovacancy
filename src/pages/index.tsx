@@ -591,16 +591,16 @@ const Index = () => {
             /* Main hero container */
             section#hero, 
             section[data-hero-section="true"] {
-              padding-top: 0 !important; /* Remove top padding completely */
+              padding-top: 56px !important; /* CRITICAL: Add padding for fixed header */
               height: 460px !important; /* Slightly increase height to ensure social proof visibility */
               min-height: 460px !important;
               max-height: 460px !important;
             }
             
-            /* Inner content container - add space only where needed */
+            /* Inner content container - reset padding */
             section#hero > div,
             section[data-hero-section="true"] > div {
-              padding-top: 48px !important; /* Space for fixed header */
+              padding-top: 0 !important; /* Remove inner padding completely */
             }
             
             /* Main heading - reduce bottom margin */
