@@ -586,43 +586,45 @@ const Index = () => {
             overflow: visible !important;
           }
           
-          /* Mobile-specific height adjustment */
+          /* Mobile Hero Improvements */
           @media (max-width: 768px) {
-            section#hero, section[data-hero-section="true"], div[data-hero-section="true"], [data-hero-section="true"] {
-              height: 450px !important; /* Standard mobile height */
-              min-height: 450px !important;
-              max-height: 450px !important;
-              padding-top: 0 !important; /* Remove all padding to bring content up */
+            /* Main hero container */
+            section#hero, 
+            section[data-hero-section="true"] {
+              padding-top: 0 !important; /* Remove top padding completely */
+              height: 460px !important; /* Slightly increase height to ensure social proof visibility */
+              min-height: 460px !important;
+              max-height: 460px !important;
             }
             
-            /* Reduce top padding to bring content up */
-            section#hero > div, 
-            section[data-hero-section="true"] > div,
-            [data-hero-section="true"] > div {
-              padding-top: 0 !important;
+            /* Inner content container - add space only where needed */
+            section#hero > div,
+            section[data-hero-section="true"] > div {
+              padding-top: 48px !important; /* Space for fixed header */
             }
             
-            /* Minimize spacing in heading elements */
-            section[data-hero-section="true"] h1,
-            section[data-hero-section="true"] #hero-title {
-              margin-top: 0 !important;
-              margin-bottom: 5px !important;
-              padding-top: 0 !important;
-              padding-bottom: 0 !important;
+            /* Main heading - reduce bottom margin */
+            .tracking-tight.font-bold.font-jakarta.text-center {
+              margin-bottom: 8px !important;
             }
             
-            /* Tighten paragraph spacing */
+            /* Property Content That heading text */
+            .text-[2rem].tracking-[-0.02em].font-jakarta,
+            [class*="text-[2rem]"] {
+              margin-bottom: 4px !important;
+            }
+            
+            /* Paragraph text */
+            section#hero p,
             section[data-hero-section="true"] p {
-              margin-top: 5px !important;
-              margin-bottom: 5px !important;
-              padding-top: 0 !important;
-              padding-bottom: 0 !important;
+              margin-bottom: 12px !important;
+              padding: 0 12px !important;
             }
             
-            /* Compress CTA section */
-            #mobile-hero-cta-section {
-              margin-top: 0 !important;
-              padding-top: 0 !important;
+            /* Social proof container */
+            .flex.items-center.animate-fade-in.w-fit {
+              margin-top: 8px !important;
+              box-shadow: 0 4px 12px rgba(0,0,0,0.2) !important; /* Make it stand out more */
             }
           }
           
