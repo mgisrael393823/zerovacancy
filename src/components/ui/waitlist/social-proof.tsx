@@ -126,7 +126,8 @@ export function SocialProof({ className, style }: SocialProofProps) {
       <div 
         className={cn(
           "flex items-center",
-          "animate-fade-in",
+          // Remove fade-in animation on mobile to ensure immediate visibility
+          !isMobile && "animate-fade-in",
           "w-fit",
           "backdrop-blur-sm",
           "relative",
@@ -139,7 +140,9 @@ export function SocialProof({ className, style }: SocialProofProps) {
           transform: 'translateX(-8px)',
           zIndex: 1000,
           position: 'relative',
-          boxShadow: '0 4px 12px rgba(0, 0, 0, 0.15)'
+          boxShadow: '0 4px 12px rgba(0, 0, 0, 0.15)',
+          // Ensure immediate visibility on mobile
+          opacity: 1,
         }}
         onMouseEnter={handleHover}
         onMouseLeave={handleLeave}

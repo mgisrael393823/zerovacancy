@@ -88,7 +88,7 @@ export function WaitlistCTA({
   };
   
   return (
-    <div className={cn("w-full max-w-xl mx-auto px-4 sm:px-0", className)}>
+    <div className={cn("w-full max-w-xl mx-auto px-4 sm:px-0", className)} id="mobile-hero-cta-section">
       <form onSubmit={handleSubmit} className={cn("flex w-full", isMobile ? "flex-col space-y-4" : "flex-row items-center justify-center gap-4")}>
         <EmailInput 
           email={email}
@@ -104,8 +104,14 @@ export function WaitlistCTA({
         />
       </form>
       
-      {/* Social Proof Section - Always visible */}
-      <SocialProof />
+      {/* Social Proof Section - Always visible with reserved space */}
+      <div style={{ 
+        minHeight: isMobile ? '40px' : 'auto', 
+        marginTop: isMobile ? '8px' : '12px', 
+        position: 'relative'
+      }}>
+        <SocialProof />
+      </div>
 
       {/* Success Confirmation with Confetti Effect */}
       <SuccessConfirmation 
