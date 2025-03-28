@@ -30,14 +30,24 @@ const MobileMenu = ({
   
   return (
     <div 
-      className="fixed inset-0 z-[90] bg-black/10 backdrop-blur-sm md:hidden touch-manipulation"
+      className="fixed inset-0 z-[9990] bg-black/10 backdrop-blur-sm md:hidden touch-manipulation"
+      style={{
+        top: '56px', // Start below the header
+        height: 'calc(100% - 56px)' // Full height minus header
+      }}
       onClick={handleBackdropClick}
     >
       <div 
-        className={`absolute top-[60px] left-0 right-0 mx-4 pt-2 pb-4 space-y-1 rounded-xl
+        className={`absolute top-0 left-0 right-0 mx-4 mt-2 pt-2 pb-4 space-y-1 rounded-xl
           ${gradientBgMobile} ${improvedShadowMobile} ${coloredBorderMobile}
           touch-manipulation transform-gpu animate-in fade-in slide-in-from-top duration-300
         `}
+        style={{
+          zIndex: 9998, // Just below the header z-index (9999)
+          maxHeight: 'calc(100vh - 56px)', // Ensure it doesn't go beyond the viewport
+          overflow: 'auto', // Allow scrolling if menu is tall
+          WebkitOverflowScrolling: 'touch' // Smooth scrolling on iOS
+        }}
         onClick={(e) => e.stopPropagation()} // Prevent clicks on menu from closing
       >
         {menuItems.map((item) => (

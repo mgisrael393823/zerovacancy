@@ -253,6 +253,17 @@ html, body {
     overscroll-behavior-y: none !important; /* Prevent pull-to-refresh */
   }
   
+  /* Add padding to main content for fixed header */
+  body {
+    padding-top: 56px !important; /* Match header height (14*4px) */
+  }
+  
+  @media (min-width: 768px) {
+    body {
+      padding-top: 64px !important; /* Match md header height (16*4px) */
+    }
+  }
+  
   /* Fix for root containers on mobile */
   #root, #__next, .app-container, main, [data-reactroot], [id^="__reactContainer"] {
     width: 100vw !important;
@@ -328,13 +339,22 @@ html, body {
     pointer-events: auto !important;
   }
   
-  /* Ensure header always stays sticky */
+  /* Ensure header always stays fixed at top */
   header.sticky, .mobile-sticky-header {
-    position: sticky !important;
+    position: fixed !important;
     top: 0 !important;
-    z-index: 100 !important;
+    left: 0 !important;
+    right: 0 !important;
+    z-index: 9999 !important; /* Very high z-index to ensure it's above everything */
     width: 100% !important;
-    touch-action: none !important;
+    max-width: 100% !important;
+    touch-action: pan-x !important; /* Allow horizontal touch actions but not vertical */
+    will-change: transform !important; /* Optimize for hardware acceleration */
+    transform: translateZ(0) !important; /* Force hardware acceleration */
+    backface-visibility: hidden !important; /* Improve rendering performance */
+    -webkit-backface-visibility: hidden !important;
+    -webkit-transform: translateZ(0) !important;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.05) !important; /* Subtle shadow for visual separation */
   }
   
   /* Fix for features section and all buttons used as cards */
