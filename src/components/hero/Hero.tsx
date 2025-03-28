@@ -607,7 +607,7 @@ export const Hero = () => {
           width: '100%',
           maxWidth: '100%',
           margin: '0 auto',
-          paddingTop: isMobile ? '56px' : '0' // Add padding to account for fixed header on mobile
+          paddingTop: isMobile ? '0' : '0' // Remove padding completely on mobile
         }}
       >
         <div className="flex flex-col items-center w-full" style={{
