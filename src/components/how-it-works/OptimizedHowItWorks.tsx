@@ -54,11 +54,11 @@ const OptimizedHowItWorks: React.FC = () => {
     <section 
       id="how-it-works-section" 
       aria-labelledby="design-title"
-      className={`pt-16 pb-20 w-full ${!isMobile ? "bg-[#EDF7F2]" : ""}`} // Pale mint background
+      className="pt-16 pb-20 w-full bg-[#EDF7F2]" // Pale mint background for both mobile and desktop
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className={`w-full relative transition-all duration-700 ${isVisible ? 'opacity-100' : 'opacity-0 translate-y-10'}`} 
-             style={{ willChange: 'transform, opacity' }}>
+        <div className={`w-full relative ${isMobile ? 'opacity-100' : isVisible ? 'opacity-100 transition-all duration-700' : 'opacity-0 translate-y-10 transition-all duration-700'}`}
+             style={{ willChange: isMobile ? 'auto' : 'transform, opacity' }}>
           <div className="text-center mb-8 sm:mb-12 lg:mb-16">
             <SectionHeaderSimple 
               title="SIMPLE BY DESIGN" 

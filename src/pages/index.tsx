@@ -575,6 +575,109 @@ const Index = () => {
             flex-direction: column;
             min-height: 100vh;
           }
+          
+          /* Fix for champagne divs on mobile only */
+          @media (max-width: 768px) {
+            /* Hide any div that comes right after a section and doesn't have an ID */
+            section + div:not([id]),
+            /* Also hide any div with section-transition class */
+            div.section-transition,
+            /* And divs that have zIndex: 30 styling which are usually transitions */
+            div[style*="zIndex: 30"]:not(section):not([id]) {
+              display: none !important;
+              height: 0 !important;
+              margin: 0 !important;
+              padding: 0 !important;
+              position: absolute !important;
+              visibility: hidden !important;
+              opacity: 0 !important;
+            }
+            
+            /* Keep section spacing as is, just remove borders */
+            section + section {
+              border-top: none !important;
+            }
+            
+            /* Fix for the scroll target divs - more specific to avoid hiding content */
+            div[id="how-it-works"]:not(section):not([data-section]),
+            div[id="features"]:not(section):not([data-section]),
+            div[id="pricing"]:not(section):not([data-section]),
+            div[id="blog"]:not(section):not([data-section]),
+            div[id="find-creators"]:not(section):not([data-section]) {
+              display: none !important;
+              height: 0 !important;
+              position: absolute !important;
+              margin: 0 !important;
+              padding: 0 !important;
+              visibility: hidden !important;
+              pointer-events: none !important;
+              opacity: 0 !important;
+            }
+            
+            /* Ensure How It Works section is visible on mobile */
+            section#how-it-works-section,
+            section[id="how-it-works-section"] {
+              display: block !important;
+              visibility: visible !important;
+              opacity: 1 !important;
+              height: auto !important;
+              min-height: 300px !important;
+              background-color: #EDF7F2 !important; /* Add bg color for mobile */
+            }
+            
+            /* Comprehensive fix for mobile sticky header */
+            body {
+              -webkit-overflow-scrolling: touch !important;
+              overflow-x: hidden !important;
+              height: auto !important; /* Allow body to size naturally */
+              position: relative !important; /* Create proper positioning context */
+              touch-action: manipulation !important; /* Improve touch handling */
+            }
+            
+            /* More aggressive header fixing for mobile, especially iOS */
+            header, .header, nav[role="navigation"], .navigation-header {
+              position: fixed !important;
+              top: 0 !important;
+              left: 0 !important;
+              right: 0 !important;
+              width: 100vw !important; /* Use viewport width for full coverage */
+              max-width: 100vw !important;
+              z-index: 9999 !important; /* Super high z-index */
+              transform: none !important; /* Remove ALL transforms */
+              transition: none !important; /* Remove ALL transitions temporarily */
+              will-change: auto !important; /* Let browser decide */
+              -webkit-backface-visibility: hidden !important; /* Fix iOS rendering */
+              backface-visibility: hidden !important;
+              filter: none !important; /* Remove any filters */
+              backdrop-filter: none !important; /* Remove backdrop filters on mobile */
+              background-color: rgba(255, 255, 255, 0.98) !important; /* Use solid color instead of blur */
+              box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important; /* Add visible shadow */
+              height: 56px !important; /* Fix exact height */
+              min-height: 56px !important;
+              max-height: 56px !important;
+            }
+            
+            /* Fix for iOS Safari */
+            @supports (-webkit-touch-callout: none) {
+              header, .header, nav[role="navigation"], .navigation-header {
+                position: sticky !important; /* Use sticky as fallback on iOS */
+                top: 0 !important;
+              }
+            }
+            
+            /* Add proper spacing below the fixed header */
+            main, #main-content, [role="main"] {
+              padding-top: 56px !important; /* Match header height */
+              margin-top: 0 !important;
+            }
+            
+            /* Ensure no parent element creates stacking context issues */
+            #root, #__next, [data-reactroot], body > div {
+              transform: none !important;
+              filter: none !important;
+              perspective: none !important;
+            }
+          }
 
           /* Ensure hero section has the correct height on all devices */
           /* Target the exact height that's being set on the section */
