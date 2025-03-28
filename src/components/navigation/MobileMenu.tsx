@@ -30,10 +30,13 @@ const MobileMenu = ({
   
   return (
     <div 
-      className="fixed inset-0 z-[9990] bg-black/10 backdrop-blur-sm md:hidden touch-manipulation"
+      className="fixed inset-0 z-[199] bg-black/10 backdrop-blur-sm md:hidden touch-manipulation"
       style={{
-        top: '56px', // Start below the header
-        height: 'calc(100% - 56px)' // Full height minus header
+        top: '56px', // Start below the header's height
+        height: 'calc(100% - 56px)', // Full height minus header
+        transform: 'translateZ(0)', // Hardware acceleration
+        willChange: 'transform, opacity', // Performance hint for browser
+        WebkitOverflowScrolling: 'touch' // Ensure smooth scrolling on iOS
       }}
       onClick={handleBackdropClick}
     >

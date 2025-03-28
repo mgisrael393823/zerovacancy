@@ -39,72 +39,52 @@ const Header = () => {
     };
   }, []); // Empty dependency array to run only on mount/unmount
   
-  // Handle scroll events for showing/hiding header
+  // We're using fixed positioning for better cross-browser compatibility
   useEffect(() => {
-    // Only activate smart hiding on mobile
-    if (!isMobile) {
-      setIsVisible(true);
-      return;
-    }
+    // This ensures the header is always visible
+    setIsVisible(true);
     
-    // Function to control header visibility on scroll
-    const controlHeaderVisibility = () => {
-      // Do nothing if menu is open
-      if (isMenuOpen) {
-        setIsVisible(true);
-        return;
+    // Apply the fixed header style to make sure it's applied correctly cross-browser
+    const applyHeaderStyles = () => {
+      if (headerRef.current) {
+        // Ensure these critical styles are applied
+        headerRef.current.style.position = 'fixed';
+        headerRef.current.style.top = '0';
+        headerRef.current.style.left = '0';
+        headerRef.current.style.right = '0';
+        headerRef.current.style.zIndex = '200';
+        headerRef.current.style.width = '100%';
+        headerRef.current.style.transform = 'translateZ(0)'; // Hardware acceleration
       }
-      
-      const currentScrollY = window.scrollY;
-      
-      // Always show header at the top of the page
-      if (currentScrollY < 50) {
-        setIsVisible(true);
-      } else if (currentScrollY > lastScrollY) {
-        // Scrolling down - hide header
-        setIsVisible(false);
-      } else {
-        // Scrolling up - show header
-        setIsVisible(true);
-      }
-      
-      setLastScrollY(currentScrollY);
     };
     
-    // Use requestAnimationFrame for better performance
-    let frameId: number | null = null;
-    
-    const handleScroll = () => {
-      if (frameId) {
-        cancelAnimationFrame(frameId);
-      }
-      
-      frameId = requestAnimationFrame(controlHeaderVisibility);
-    };
-    
-    // Add scroll event listener
-    window.addEventListener('scroll', handleScroll, { passive: true });
+    // Apply on mount and resize
+    applyHeaderStyles();
+    window.addEventListener('resize', applyHeaderStyles, { passive: true });
     
     // Cleanup
     return () => {
-      window.removeEventListener('scroll', handleScroll);
-      if (frameId) {
-        cancelAnimationFrame(frameId);
-      }
+      window.removeEventListener('resize', applyHeaderStyles);
     };
-  }, [isMobile, lastScrollY, isMenuOpen]);
+  }, []);
   
   return (
     <header 
       ref={headerRef}
       className={cn(
-        "fixed top-0 left-0 right-0 z-[9999] w-full border-b border-gray-200 bg-white/95 backdrop-blur-sm mobile-sticky-header",
-        "transition-transform duration-300",
-        isMobile && !isVisible && !isMenuOpen ? "transform -translate-y-full" : "transform translate-y-0"
+        "fixed top-0 left-0 right-0 z-[200] w-full border-b border-gray-200 bg-white/95 backdrop-blur-sm",
+        "transition-transform duration-300"
       )}
       style={{ 
-        willChange: 'transform', 
-        boxShadow: '0 2px 8px rgba(0, 0, 0, 0.08)'
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        right: 0,
+        width: '100%',
+        zIndex: 200,
+        boxShadow: '0 2px 8px rgba(0, 0, 0, 0.08)',
+        overflow: 'visible',
+        transform: 'translateZ(0)' // Hardware acceleration
       }}
     >
       <div className="mx-auto flex h-14 md:h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
@@ -212,15 +192,8 @@ const Header = () => {
       {/* Mobile menu - force header visibility when menu is open */}
       {isMenuOpen && <MobileMenu menuItems={menuItems} onClose={() => {
         setIsMenuOpen(false);
-        // Ensure header stays visible briefly after closing the menu
+        // Always ensure header stays visible
         setIsVisible(true);
-        // Then allow the normal visibility logic to resume
-        setTimeout(() => {
-          const currentScrollY = window.scrollY;
-          if (currentScrollY > 100) {
-            setIsVisible(false);
-          }
-        }, 1000);
       }} />}
       
       {/* Auth Forms Dialog - temporarily hidden */}

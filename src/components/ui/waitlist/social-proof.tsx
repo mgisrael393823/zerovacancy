@@ -93,7 +93,7 @@ export function SocialProof({ className, style }: SocialProofProps) {
     fontSize: isMobile ? '8px' : '10px',
     fontWeight: 'bold',
     position: 'relative',
-    zIndex: 1,
+    zIndex: 1001,
     textAlign: 'center',
     lineHeight: '1',
     userSelect: 'none'
@@ -121,7 +121,7 @@ export function SocialProof({ className, style }: SocialProofProps) {
   };
 
   return (
-    <div className={cn("flex items-center justify-center w-full", className)}> 
+    <div className={cn("flex items-center justify-center w-full", className)} style={{ zIndex: 1000, position: 'relative' }}> 
       {/* Enhanced social proof pill with sophisticated 3D styling */}
       <div 
         className={cn(
@@ -136,7 +136,10 @@ export function SocialProof({ className, style }: SocialProofProps) {
         )}
         style={{
           ...socialProof3DStyle,
-          transform: 'translateX(-8px)'
+          transform: 'translateX(-8px)',
+          zIndex: 1000,
+          position: 'relative',
+          boxShadow: '0 4px 12px rgba(0, 0, 0, 0.15)'
         }}
         onMouseEnter={handleHover}
         onMouseLeave={handleLeave}

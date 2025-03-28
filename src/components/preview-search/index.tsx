@@ -91,7 +91,7 @@ const PreviewSearch = () => {
   const containerClasses = useMemo(() => cn(
     "w-full",
     // Remove content-visibility-auto which can cause jitter when combined with IntersectionObserver
-    isMobile ? "py-6 pb-8" : "py-6 sm:py-6 md:py-8",
+    isMobile ? "pb-8" : "py-2 sm:py-2 md:py-3", // Significantly reduced padding
     isMobile ? "relative mt-3" : ""
   ), [isMobile]);
   
@@ -151,16 +151,16 @@ const PreviewSearch = () => {
         borderStyle: 'none', // No border style
         outline: 'none', // No outline
         boxShadow: 'none', // No box shadow
-        zIndex: isMobile ? 10 : 20, // Lower z-index on mobile to prevent blocking social proof
-        paddingTop: isMobile ? '80px' : '40px', // Increased from 60px to 80px for more breathing room on mobile
+        zIndex: 50, // Consistent higher z-index to ensure visibility
+        paddingTop: isMobile ? '20px' : '20px', // Significantly reduced padding to minimize empty space
         borderTop: isMobile ? 'none' : '1px solid rgba(138, 66, 245, 0.1)', // Subtle top border on desktop for separation
-        marginTop: isMobile ? '30px' : 0 // Add top margin on mobile to push section down
+        marginTop: isMobile ? '50px' : 0 // Increased top margin on mobile to push section down further
       }}
     >
       {/* Section header with optimized rendering */}
       <div className={cn(
         "text-center relative z-30",
-        "pb-6 mb-6 transform-gpu", // Increased bottom padding and margin
+        "pb-4 mb-4 transform-gpu", // Reduced bottom padding and margin
         isMobile ? "px-2 w-full max-w-full" : "" // Add horizontal padding on mobile
       )}
       style={{
@@ -172,8 +172,8 @@ const PreviewSearch = () => {
         {/* Enhanced section label for better visual distinction */}
         {isMobile ? (
           <div 
-            className="mb-6 flex flex-col items-center justify-center transform-gpu"
-            style={{ transform: 'translateZ(0)', marginTop: '10px' }}
+            className="mb-3 flex flex-col items-center justify-center transform-gpu"
+            style={{ transform: 'translateZ(0)', marginTop: '0' }}
           >
             <div className="bg-purple-100 px-4 py-1.5 rounded-full mb-2 shadow-sm">
               <span className="text-xs uppercase tracking-wider text-purple-700 font-semibold">Creator Network</span>
@@ -182,8 +182,8 @@ const PreviewSearch = () => {
           </div>
         ) : (
           <div 
-            className="mb-6 flex items-center justify-center transform-gpu"
-            style={{ transform: 'translateZ(0)', marginTop: '10px' }}
+            className="mb-3 flex items-center justify-center transform-gpu"
+            style={{ transform: 'translateZ(0)', marginTop: '0' }}
           >
             <div className="h-px w-16 bg-purple-200/60 mr-3"></div>
             <span className="text-sm uppercase tracking-wider text-purple-700 font-semibold px-4 py-1 bg-purple-100/80 rounded-full">Creator Network</span>

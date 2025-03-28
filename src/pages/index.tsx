@@ -354,7 +354,18 @@ const Index = () => {
           'div[style*="background: #EBE3FF"]',
           'div:not([id]):not([class])[style*="393 x"]',
           'div[style*=" x "]',
-          'body > div:not([id]):not([class])'
+          'body > div:not([id]):not([class])',
+          // Target elements showing dimensions with × symbol
+          'div:not([id]):not([class])[class*="section.relative"]',
+          'body > div:empty:not([id]):not([class])',
+          'div[style*="background-color: #EBE3FF"]',
+          'div:not([id]):not([class])[data-lovable]',
+          // Additional specific selectors for dimensions displays
+          'div:not([id]):not([class]):empty',
+          'div:not([id]):not([class])[style*="position: absolute"]',
+          'div:not([id]):not([class])[style*="z-index: 9999"]',
+          'div:not([id]):not([class])[style*="pointer-events: none"]',
+          'div[style*="position: fixed"][style*="top:"][style*="left:"]'
         ];
         
         const debugOverlays = document.querySelectorAll(debugSelectors.join(','));
@@ -427,7 +438,17 @@ const Index = () => {
                 (node.nodeName === 'DIV' && !node.id && !node.className) ||
                 (node instanceof HTMLElement && 
                  (node.style.backgroundColor === '#EBE3FF' || 
-                  (node.getAttribute('style') || '').includes('#EBE3FF')))
+                  (node.getAttribute('style') || '').includes('#EBE3FF') ||
+                  (node.getAttribute('style') || '').includes('position: fixed') ||
+                  (node.getAttribute('style') || '').includes('position: absolute') ||
+                  (node.getAttribute('style') || '').includes('z-index: 9999') ||
+                  (node.getAttribute('style') || '').includes('pointer-events: none') ||
+                  (node.textContent || '').includes(' × ') ||
+                  (node.textContent || '').includes('section.relative') ||
+                  (node.textContent || '').includes('px × ') ||
+                  (node.hasAttribute('data-lovable')) ||
+                  (node.childNodes.length === 0) // Empty divs
+                ))
               ) {
                 hasRelevantChanges = true;
                 break;
@@ -555,20 +576,53 @@ const Index = () => {
             min-height: 100vh;
           }
 
-          /* DIRECT ATTACK ON FIXED HEIGHT */
+          /* Ensure hero section has the correct height on all devices */
           /* Target the exact height that's being set on the section */
           section#hero, section[data-hero-section="true"], div[data-hero-section="true"], [data-hero-section="true"] {
             height: 650px !important; /* Increased height to show full CTAs on desktop */
             min-height: 650px !important;
             max-height: 650px !important;
+            padding-top: 64px !important; /* Account for fixed header on desktop */
+            overflow: visible !important;
           }
           
           /* Mobile-specific height adjustment */
           @media (max-width: 768px) {
             section#hero, section[data-hero-section="true"], div[data-hero-section="true"], [data-hero-section="true"] {
-              height: 450px !important; /* Shorter height only for mobile */
+              height: 450px !important; /* Standard mobile height */
               min-height: 450px !important;
               max-height: 450px !important;
+              padding-top: 0 !important; /* Remove all padding to bring content up */
+            }
+            
+            /* Reduce top padding to bring content up */
+            section#hero > div, 
+            section[data-hero-section="true"] > div,
+            [data-hero-section="true"] > div {
+              padding-top: 0 !important;
+            }
+            
+            /* Minimize spacing in heading elements */
+            section[data-hero-section="true"] h1,
+            section[data-hero-section="true"] #hero-title {
+              margin-top: 0 !important;
+              margin-bottom: 5px !important;
+              padding-top: 0 !important;
+              padding-bottom: 0 !important;
+            }
+            
+            /* Tighten paragraph spacing */
+            section[data-hero-section="true"] p {
+              margin-top: 5px !important;
+              margin-bottom: 5px !important;
+              padding-top: 0 !important;
+              padding-bottom: 0 !important;
+            }
+            
+            /* Compress CTA section */
+            #mobile-hero-cta-section {
+              margin-top: 0 !important;
+              padding-top: 0 !important;
             }
           }
           
@@ -625,7 +679,14 @@ const Index = () => {
           
           /* Target specifically debug elements with lavender background and dimensions */
           div[style*="#EBE3FF"],
-          div:not([id]):not([class])[style*="393 x"] {
+          div:not([id]):not([class])[style*="393 x"],
+          div:not([id]):not([class])[style*=" x "],
+          div:not([id]):not([class]):empty,
+          div:not([id]):not([class])[data-lovable],
+          div:not([id]):not([class])[style*="position: absolute"],
+          div:not([id]):not([class])[style*="z-index: 9999"],
+          div:not([id]):not([class])[style*="pointer-events: none"],
+          div[style*="position: fixed"][style*="top:"][style*="left:"] {
             display: none !important;
             visibility: hidden !important;
             width: 0 !important;
@@ -636,6 +697,10 @@ const Index = () => {
             top: -9999px !important;
             left: -9999px !important;
             z-index: -9999 !important;
+            clip: rect(0, 0, 0, 0) !important;
+            overflow: hidden !important;
+            border: 0 !important;
+            transform: translate(-9999px, -9999px) !important;
           }
           
           /* Fix overlap between hero and creator sections */
@@ -692,7 +757,17 @@ const Index = () => {
                 'div:not([id]):not([class])[style*=" x "]',
                 'body > div:not([id]):not([class]):not([style])',
                 '#root > div:not([id]):not([class]):not([style])',
-                'main > div:not([id]):not([class]):not([style])'
+                'main > div:not([id]):not([class]):not([style])',
+                // Target elements showing dimensions with × symbol
+                'div:not([id]):not([class])[class*="section.relative"]',
+                'body > div:empty:not([id]):not([class])',
+                'div:not([id]):not([class])[data-lovable]',
+                // Additional specific selectors for dimensions displays
+                'div:not([id]):not([class]):empty',
+                'div:not([id]):not([class])[style*="position: absolute"]',
+                'div:not([id]):not([class])[style*="z-index: 9999"]',
+                'div:not([id]):not([class])[style*="pointer-events: none"]',
+                'div[style*="position: fixed"][style*="top:"][style*="left:"]'
               ];
               
               const debugOverlays = document.querySelectorAll(debugSelectors.join(','));
@@ -717,7 +792,17 @@ const Index = () => {
                   // Check for computed style
                   (window.getComputedStyle && window.getComputedStyle(el).backgroundColor === 'rgb(235, 227, 255)') ||
                   // Special check for Lovable tool debug output which shows component dimensions
-                  (content.match(/\d+(\.\d+)? x \d+(\.\d+)?/) !== null)
+                  (content.match(/\d+(\.\d+)? x \d+(\.\d+)?/) !== null) ||
+                  // Additional checks for debugging elements
+                  content.includes('section.relative') ||
+                  content.includes('px × ') ||
+                  content.includes('width:') ||
+                  content.includes('height:') ||
+                  content.includes('position:') ||
+                  el.hasAttribute('data-lovable') ||
+                  (el.children.length === 0 && !el.id && !el.className) || // Empty non-semantic divs
+                  (el.nodeName === 'DIV' && !el.id && !el.className && el.style && 
+                   (el.style.position === 'fixed' || el.style.position === 'absolute'))
                 ) {
                   // First try to make it invisible (in case removal fails)
                   el.style.display = 'none';
@@ -907,13 +992,42 @@ const Index = () => {
           top: isMobile ? 'calc(100vh - 200px)' : 'auto'
         }} />
         
+        {/* Mobile-specific style overrides to fix spacing issues */}
+        {isMobile && (
+          <style dangerouslySetInnerHTML={{ __html: `
+            /* Direct targeting of Creator Network title in the preview search component */
+            .creator-section .mb-3.flex.flex-col.items-center, 
+            .creator-section .mb-3.flex.items-center,
+            .creator-section [class*="text-center relative z-30"] {
+              margin-top: 0 !important;
+              margin-bottom: 0.5rem !important;
+              padding-top: 0 !important;
+            }
+            
+            /* Fix the main section padding */
+            .creator-section {
+              padding-top: 16px !important;
+            }
+
+            /* Target the "CREATOR NETWORK" label directly */
+            .creator-section .bg-purple-100 {
+              margin-top: 0 !important;
+            }
+
+            /* Reduce container padding */
+            #find-creators {
+              padding-top: 0 !important;
+            }
+          `}} />
+        )}
+
         {/* Find Creators Section */}
         <section 
           ref={addSectionRef(1)}
           style={isMobile ?
             {
               position: 'relative',
-              zIndex: 80, // Higher z-index to ensure it's above the Hero section
+              zIndex: 40, // Lower z-index to properly layer with internal content
               contain: 'none',
               willChange: 'auto',
               transform: 'none',
@@ -928,7 +1042,7 @@ const Index = () => {
               backgroundImage: 'none', // Reset backgroundImage
               background: '#EBE3FF', // Solid lavender background for the Creator section
               marginTop: '0', // NO negative margin - clean edge
-              paddingTop: '40px', // Reduced padding for better flow from hero section
+              paddingTop: '110px', // Reduced padding further for mobile optimization
               borderTopWidth: '0', // No border on top
               borderBottomWidth: '0',
               borderLeftWidth: '0',

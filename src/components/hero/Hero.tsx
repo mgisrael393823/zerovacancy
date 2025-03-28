@@ -585,8 +585,8 @@ export const Hero = () => {
         height: 'auto',
         minHeight: 'auto',
         maxHeight: 'none',
-        paddingTop: isMobile ? '80px' : '60px', // More padding on mobile for nav
-        paddingBottom: isMobile ? '90px' : '60px', // Extra padding at bottom on mobile
+        paddingTop: isMobile ? '0px' : '60px', // Remove padding on mobile completely to bring content up
+        paddingBottom: isMobile ? '0px' : '60px', // Remove padding on mobile completely
         margin: 0,
         marginBottom: '20px !important',
         overflow: 'visible',
@@ -606,19 +606,20 @@ export const Hero = () => {
         style={{
           width: '100%',
           maxWidth: '100%',
-          margin: '0 auto'
+          margin: '0 auto',
+          paddingTop: isMobile ? '56px' : '0' // Add padding to account for fixed header on mobile
         }}
       >
         <div className="flex flex-col items-center w-full" style={{
           width: '100%',
           maxWidth: '920px',
-          margin: '0 auto 20px',
+          margin: isMobile ? '0 auto 10px' : '0 auto 20px',
           textAlign: 'center'
         }}>
           {/* Main heading - both screen-reader friendly and visually styled */}
           <h1 id="hero-title" className="tracking-tight font-bold font-jakarta text-center w-full flex flex-col items-center"
           style={{ 
-            margin: '0 0 30px 0',
+            margin: isMobile ? '0 0 10px 0' : '0 0 30px 0',
             padding: '0',
             width: '100%'
           }}>
@@ -635,7 +636,7 @@ export const Hero = () => {
               style={{ 
                 letterSpacing: "-0.02em",
                 lineHeight: "1.3",
-                margin: '0 0 8px 0'
+                margin: isMobile ? '0 0 4px 0' : '0 0 8px 0'
               }}
             >
               PROPERTY CONTENT THAT
@@ -645,7 +646,7 @@ export const Hero = () => {
               className="flex justify-center w-full text-center"
               style={{ 
                 width: "100%",
-                height: isMobile ? "60px" : "70px",
+                height: isMobile ? "50px" : "70px", // Reduced height on mobile
                 margin: '0',
                 padding: '0'
               }}
@@ -687,10 +688,10 @@ export const Hero = () => {
           style={{
             width: '100%',
             maxWidth: isMobile ? '95%' : '650px',
-            margin: '0 auto 40px', // SIGNIFICANT spacing before buttons
-            padding: '0 16px',
-            lineHeight: '1.6',
-            fontSize: isMobile ? '0.95rem' : '1rem'
+            margin: isMobile ? '0 auto 10px' : '0 auto 40px', // Reduced spacing on mobile
+            padding: isMobile ? '0 10px' : '0 16px',
+            lineHeight: isMobile ? '1.4' : '1.6',
+            fontSize: isMobile ? '0.9rem' : '1rem'
           }}
         >
           {isMobile ? (
@@ -779,15 +780,15 @@ export const Hero = () => {
                 minHeight: 'auto',
                 display: 'flex',
                 flexDirection: 'column',
-                gap: '16px',
+                gap: '5px', // Significantly reduced gap
                 alignItems: 'center',
                 justifyContent: 'center',
-                marginTop: '8px',
-                marginBottom: '16px' // SOLUTION: Explicit, controlled bottom margin
+                marginTop: '0px', // Removed top margin 
+                marginBottom: '5px' // Greatly reduced bottom margin
               }}>
               {/* Mobile CTA with inline email form expansion */}
               <div className="w-full flex justify-center items-center" style={{ 
-                marginBottom: '4px !important', 
+                marginBottom: '0 !important', 
                 padding: '0 !important',
                 marginTop: '0 !important'
               }}>
@@ -797,25 +798,40 @@ export const Hero = () => {
               {/* Centered social proof */}
               <div className="flex justify-center items-center w-full" style={{ 
                 marginBottom: '0 !important', 
-                marginTop: '8px !important',
-                padding: '0 !important'
+                marginTop: '10px !important', /* Significantly reduced margin */
+                padding: '0 !important',
+                zIndex: 999, /* Extremely high z-index to ensure visibility */
+                position: 'relative'
               }}>
                 <SocialProof 
                   className="mx-auto"
                   style={{
                     margin: '0 auto !important',
                     width: 'auto',
-                    padding: '6px 10px',
+                    padding: '8px 12px',
                     borderRadius: '10px',
-                    fontSize: '11px',
+                    fontSize: '12px',
+                    fontWeight: '500',
                     marginTop: '0 !important',
-                    marginBottom: '0 !important'
+                    marginBottom: '0 !important',
+                    zIndex: 1000, /* Extremely high z-index to ensure it's on top of everything */
+                    position: 'relative',
+                    boxShadow: '0 4px 12px rgba(0, 0, 0, 0.12), 0 0 0 2px rgba(138, 66, 245, 0.2)', /* Enhanced shadow */
+                    backgroundColor: 'rgba(255, 255, 255, 0.97)', /* More opaque background */
+                    backdropFilter: 'blur(8px)', /* Stronger blur effect */
+                    border: '1px solid rgba(138, 66, 245, 0.2)', /* Stronger border */
+                    transform: 'translateZ(0)', /* Force hardware acceleration */
+                    color: '#333' /* Darker text color for better readability */
                   }}
-                />
               </div>
               
               {/* Scroll indicator */}
-              <div className="flex flex-col items-center opacity-60" style={{ marginTop: '8px !important', marginBottom: '8px !important' }}>
+              <div className="flex flex-col items-center opacity-60" style={{ 
+                marginTop: '10px !important', 
+                marginBottom: '0px !important',
+                zIndex: 90,
+                position: 'relative'
+              }}>
                 <span className="text-[11px] text-purple-600 mb-1 font-medium">Scroll to explore</span>
                 <svg width="16" height="8" viewBox="0 0 20 10" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M1 1L10 9L19 1" stroke="#8A2BE2" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
