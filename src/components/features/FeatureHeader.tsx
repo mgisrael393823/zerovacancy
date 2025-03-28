@@ -46,9 +46,9 @@ export const FeatureHeader = ({
         transition={{ duration: 0.5, ease: "easeOut" }}
         viewport={{ once: true, margin: "-100px" }}
         className={cn(
-          "text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 headingLarge", 
-          isMobile ? "mb-3" : "mb-4 sm:mb-5",
-          "font-jakarta tracking-tight"
+          isMobile ? "text-2xl sm:text-3xl" : "section-header",
+          "text-gray-900 headingLarge", 
+          isMobile ? "mb-3" : "mb-4 sm:mb-5"
         )}
       >
         {title}
@@ -60,7 +60,8 @@ export const FeatureHeader = ({
         transition={{ duration: 0.5, delay: 0.1, ease: "easeOut" }}
         viewport={{ once: true, margin: "-100px" }}
         className={cn(
-          "max-w-2xl mx-auto text-sm sm:text-base md:text-lg text-gray-600 font-inter leading-relaxed bodyText",
+          isMobile ? "text-sm sm:text-base" : "body-text",
+          "max-w-2xl mx-auto text-gray-600 bodyText title-subtitle-spacing",
           isMobile && "px-4"
         )}
       >

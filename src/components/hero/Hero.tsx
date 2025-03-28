@@ -437,7 +437,7 @@ export const Hero = () => {
         applyStyle(hero, 'padding-bottom', '60px');
         applyStyle(hero, 'justify-content', 'flex-start');
       } else {
-        // Desktop padding
+        // Desktop padding and centering
         applyStyle(hero, 'padding-top', '60px');
         applyStyle(hero, 'padding-bottom', '60px');
         applyStyle(hero, 'justify-content', 'center');
@@ -453,12 +453,20 @@ export const Hero = () => {
       
       // Fix title styling - no negative margins
       const heroTitle = hero.querySelector('#hero-title');
-      if (heroTitle && heroTitle instanceof HTMLElement) {
+      if (heroTitle && heroTitle instanceof HTMLElement && !isMobile) {
         applyStyle(heroTitle, 'margin', '0 0 30px 0');
         applyStyle(heroTitle, 'padding', '0');
         applyStyle(heroTitle, 'width', '100%');
         applyStyle(heroTitle, 'min-height', 'auto');
         applyStyle(heroTitle, 'text-align', 'center');
+        
+        // Desktop-specific title size
+        const titleSpans = heroTitle.querySelectorAll('span');
+        titleSpans.forEach(span => {
+          if (span instanceof HTMLElement) {
+            applyStyle(span, 'font-size', '48px');
+          }
+        });
       }
       
       // Fix rotating text container
@@ -477,6 +485,14 @@ export const Hero = () => {
           applyStyle(textRotateContainer, 'height', '60px');
           applyStyle(textRotateContainer, 'min-height', '60px');
           applyStyle(textRotateContainer, 'padding', '0');
+          
+          // Find the actual text elements inside and set their size
+          const textElements = textRotateContainer.querySelectorAll('span');
+          textElements.forEach(el => {
+            if (el instanceof HTMLElement) {
+              applyStyle(el, 'font-size', '48px');
+            }
+          });
         }
       }
       
@@ -485,16 +501,18 @@ export const Hero = () => {
       paragraphs.forEach(el => {
         if (el instanceof HTMLElement) {
           if (isMobile) {
-            applyStyle(el, 'margin-top', '24px'); // MORE space from the heading
-            applyStyle(el, 'margin-bottom', '32px'); // MORE space before buttons
+            applyStyle(el, 'margin-top', '24px');
+            applyStyle(el, 'margin-bottom', '32px');
             applyStyle(el, 'line-height', '1.5');
             applyStyle(el, 'text-align', 'center');
             applyStyle(el, 'font-size', '0.95rem');
             applyStyle(el, 'padding', '0 16px');
           } else {
-            applyStyle(el, 'margin-top', '24px'); // MORE space from the heading
-            applyStyle(el, 'margin-bottom', '32px'); // MORE space before buttons
+            // Desktop-specific paragraph styling with consistent spacing
+            applyStyle(el, 'margin-top', '16px'); // 16px space from title to subtitle
+            applyStyle(el, 'margin-bottom', '32px'); // 32px space from subtitle to CTA buttons
             applyStyle(el, 'line-height', '1.5');
+            applyStyle(el, 'font-size', '18px'); // 18px standardized paragraph size
             applyStyle(el, 'padding', '0 16px');
           }
         }
@@ -530,6 +548,24 @@ export const Hero = () => {
           applyStyle(buttonContainer, 'gap', '24px');
           applyStyle(buttonContainer, 'margin-bottom', '16px');
         }
+        
+        // Fix desktop buttons - set standardized height
+        const buttons = ctaSection.querySelectorAll('button');
+        buttons.forEach(button => {
+          if (button instanceof HTMLElement) {
+            applyStyle(button, 'height', '56px');
+            applyStyle(button, 'min-height', '56px');
+          }
+        });
+        
+        // Handle 3D buttons specifically (they need different selectors)
+        const buttonContainers = ctaSection.querySelectorAll('.button-3d-container');
+        buttonContainers.forEach(container => {
+          if (container instanceof HTMLElement) {
+            applyStyle(container, 'height', '56px');
+            applyStyle(container, 'min-height', '56px');
+          }
+        });
         
         // Fix social proof
         const socialProof = ctaSection.querySelector('.flex.justify-center');
@@ -625,7 +661,7 @@ export const Hero = () => {
           }}>
             <span 
               className={cn(
-                isMobile ? "text-[2rem]" : "text-4xl sm:text-5xl lg:text-6xl",
+                isMobile ? "text-[2rem]" : "section-header",
                 "tracking-[-0.02em]",
                 "font-jakarta mb-2",
                 "bg-clip-text text-transparent",
@@ -662,7 +698,7 @@ export const Hero = () => {
                 rotationInterval={3000}
                 splitLevelClassName="overflow-visible"
                 elementLevelClassName={cn(
-                  isMobile ? "text-[2.4rem]" : "text-4xl sm:text-5xl lg:text-6xl",
+                  isMobile ? "text-[2.4rem]" : "section-header",
                   "font-bold font-jakarta tracking-[-0.03em]",
                   "bg-clip-text text-transparent", 
                   "bg-gradient-to-r from-[#4A2DD9] via-[#8A2BE2] to-[#4169E1]",
@@ -684,14 +720,14 @@ export const Hero = () => {
         </div>
 
         <p 
-          className="text-gray-700 text-center font-inter"
+          className={`text-gray-700 text-center font-inter ${!isMobile ? 'body-text' : ''}`}
           style={{
             width: '100%',
             maxWidth: isMobile ? '95%' : '650px',
-            margin: isMobile ? '0 auto 10px' : '0 auto 40px', // Reduced spacing on mobile
+            margin: isMobile ? '0 auto 10px' : '0 auto 32px', // 32px consistent spacing before CTA on desktop
+            marginTop: isMobile ? 'auto' : '16px', // 16px consistent spacing after title on desktop
             padding: isMobile ? '0 10px' : '0 16px',
-            lineHeight: isMobile ? '1.4' : '1.6',
-            fontSize: isMobile ? '0.9rem' : '1rem'
+            lineHeight: isMobile ? '1.4' : '1.6'
           }}
         >
           {isMobile ? (
@@ -731,7 +767,7 @@ export const Hero = () => {
                   buttonText="RESERVE YOUR SPOT" 
                   showSocialProof={false}
                   aria-label="Reserve your spot"
-                  className="primary-cta w-full"
+                  className="primary-cta w-full button-standard"
                   style={{
                     button: {
                       width: '100%',
@@ -747,7 +783,7 @@ export const Hero = () => {
                   buttonText="JOIN AS CREATOR" 
                   showSocialProof={false}
                   aria-label="Join as a content creator"
-                  className="secondary-cta w-full"
+                  className="secondary-cta w-full button-standard"
                   style={{
                     button: {
                       width: '100%',

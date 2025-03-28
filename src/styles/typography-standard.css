@@ -1,0 +1,31 @@
+@layer components {
+  /* Desktop Section Headers - 48px, weight 600 */
+  .section-header {
+    @apply text-3xl md:text-4xl lg:text-[48px] font-semibold font-jakarta text-brand-purple-dark tracking-tight;
+  }
+
+  /* Desktop Subheadings - 24px, weight 600 */
+  .section-subheading {
+    @apply text-xl md:text-2xl lg:text-[24px] font-semibold font-jakarta text-brand-purple-medium tracking-tight;
+  }
+
+  /* Body Text - 18px with 1.6 line height, weight 400 */
+  .body-text {
+    @apply text-base md:text-lg lg:text-[18px] font-normal font-inter text-brand-text-primary leading-[1.6];
+  }
+
+  /* Title to subtitle spacing - 16px */
+  .title-subtitle-spacing {
+    @apply mb-4 lg:mb-[16px];
+  }
+
+  /* Subtitle to CTA spacing - 32px */
+  .subtitle-cta-spacing {
+    @apply mb-6 lg:mb-[32px];
+  }
+
+  /* Helper class for consistent button height - 56px */
+  .button-standard {
+    @apply h-12 lg:h-[56px];
+  }
+}

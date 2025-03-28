@@ -10,8 +10,8 @@ import { useIsMobile } from '@/hooks/use-mobile';
 const SectionTitle = memo(({ isVisible, isMobile }: { isVisible: boolean; isMobile: boolean }) => {
   // Pre-compute classes to avoid recalculation during render
   const titleClass = useMemo(() => cn(
-    "text-2xl sm:text-3xl font-bold text-gray-900 tracking-tight mb-3",
-    // Use CSS classes for animation instead of JS-based motion
+    isMobile ? "text-2xl sm:text-3xl" : "section-header",
+    "tracking-tight mb-3",
     "transition-all duration-500 transform-gpu", 
     isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2",
     // Add padding for mobile to prevent text overflow
@@ -19,7 +19,8 @@ const SectionTitle = memo(({ isVisible, isMobile }: { isVisible: boolean; isMobi
   ), [isVisible, isMobile]);
 
   const subtitleClass = useMemo(() => cn(
-    "text-sm sm:text-base text-gray-600 max-w-md mx-auto",
+    isMobile ? "text-sm sm:text-base" : "body-text",
+    "max-w-2xl mx-auto text-gray-600 title-subtitle-spacing",
     "transition-all duration-500 delay-200 transform-gpu",
     isVisible ? "opacity-100" : "opacity-0",
     // Add padding for mobile to prevent text overflow
@@ -151,10 +152,12 @@ const PreviewSearch = () => {
         borderStyle: 'none', // No border style
         outline: 'none', // No outline
         boxShadow: 'none', // No box shadow
-        zIndex: 50, // Consistent higher z-index to ensure visibility
-        paddingTop: isMobile ? '20px' : '20px', // Significantly reduced padding to minimize empty space
+        zIndex: 80, // Higher z-index consistent with other sections
+        paddingTop: isMobile ? '20px' : '64px', // Standard 64px top padding on desktop
+        paddingBottom: isMobile ? '20px' : '40px', // Standard 40px bottom padding on desktop
         borderTop: isMobile ? 'none' : '1px solid rgba(138, 66, 245, 0.1)', // Subtle top border on desktop for separation
-        marginTop: isMobile ? '50px' : 0 // Increased top margin on mobile to push section down further
+        marginTop: isMobile ? '50px' : 0, // Increased top margin on mobile to push section down further
+        marginBottom: 0 // Remove any bottom margin
       }}
     >
       {/* Section header with optimized rendering */}
@@ -169,7 +172,7 @@ const PreviewSearch = () => {
         maxWidth: '100%', // Ensure content doesn't overflow
         boxSizing: 'border-box' // Include padding in width calculations
       }}>
-        {/* Enhanced section label for better visual distinction */}
+        {/* Enhanced section label using the same design pattern as Features section */}
         {isMobile ? (
           <div 
             className="mb-3 flex flex-col items-center justify-center transform-gpu"
@@ -181,13 +184,11 @@ const PreviewSearch = () => {
             <div className="h-px w-16 bg-purple-200/70"></div>
           </div>
         ) : (
-          <div 
-            className="mb-3 flex items-center justify-center transform-gpu"
-            style={{ transform: 'translateZ(0)', marginTop: '0' }}
-          >
-            <div className="h-px w-16 bg-purple-200/60 mr-3"></div>
-            <span className="text-sm uppercase tracking-wider text-purple-700 font-semibold px-4 py-1 bg-purple-100/80 rounded-full">Creator Network</span>
-            <div className="h-px w-16 bg-purple-200/60 ml-3"></div>
+          <div className="inline-block mb-3">
+            <div className="flex items-center justify-center gap-1 mb-2">
+              <span className="text-xs font-medium uppercase tracking-wider text-purple-700">Creator Network</span>
+            </div>
+            <div className="h-1.5 w-20 bg-gradient-to-r from-purple-500 to-indigo-500 rounded-full mx-auto mb-6 animate-pulse-subtle" />
           </div>
         )}
         
@@ -211,8 +212,9 @@ const PreviewSearch = () => {
           transform: 'translateZ(0)',
           width: '100%',
           ...(isMobile ? {} : { 
-            padding: '0 20px', // Add padding on desktop only
-            maxWidth: '1280px' // Wider container on desktop
+            padding: '0 24px', // Consistent padding with other sections
+            maxWidth: '1280px', // Wider container on desktop
+            marginTop: '16px' // Add spacing between title and content
           })
         }}
       >

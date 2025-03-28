@@ -15,7 +15,7 @@ import { BackgroundEffects } from '@/components/features/BackgroundEffects';
 import SEO from '@/components/SEO';
 import { homepageSchema, organizationSchema } from '@/lib/seo';
 import { supabase } from '@/integrations/supabase/client';
-import { useNavigate } from 'react-router-dom';
+// Removed react-router-dom import since it's causing issues
 import { 
   heroPatternDotMatrix, 
   findCreatorsPatternGrid, 
@@ -37,11 +37,11 @@ declare global {
   }
 }
 
-// Completely revised section transition component to eliminate all gaps on both mobile and desktop
+// Standardized section transition component with uniform 40px height and consistent gradient blending
 const SectionTransition = ({ 
   fromColor, 
   toColor, 
-  height = 60, // Increased default height for better coverage
+  height = 40, // Standardized 40px height for all transitions
   withOverlap = true // Parameter maintained for backward compatibility
 }: { 
   fromColor: string; 
@@ -51,8 +51,8 @@ const SectionTransition = ({
 }) => {
   const isMobile = useIsMobile();
   
-  // Ensure sufficient height for complete coverage
-  const actualHeight = Math.max(height, 60); // Increased minimum height to ensure overlap
+  // Only apply standardization for desktop
+  const actualHeight = isMobile ? Math.max(height, 60) : 40; // Fixed 40px on desktop, mobile remains the same
   
   return (
     <div 
@@ -60,7 +60,7 @@ const SectionTransition = ({
       aria-hidden="true"
       style={{ 
         height: `${actualHeight}px`,
-        margin: isMobile ? '-40px 0' : '-30px 0', // More aggressive negative margins
+        margin: isMobile ? '-40px 0' : '-20px 0', // Less aggressive negative margins on desktop
         padding: 0,
         pointerEvents: 'none',
         width: '100vw', // Full viewport width to prevent side gaps
@@ -71,12 +71,15 @@ const SectionTransition = ({
         left: 0,
         right: 0,
         borderWidth: 0, // Explicitly remove any borders
-        overflow: 'visible' // Allow gradient to extend beyond bounds
+        overflow: 'visible', // Allow gradient to extend beyond bounds
+        transform: !isMobile ? 'translateZ(0)' : 'none', // Hardware acceleration on desktop
+        backfaceVisibility: !isMobile ? 'hidden' : 'visible' // Rendering optimization on desktop
       }}>
       <div 
         className="absolute"
         style={{
-          // For mobile devices, we completely REVERSE the gradient direction
+          // For mobile devices, we keep the existing gradient
+          // For desktop, we use a more consistent gradient algorithm
           background: isMobile ? 
             `linear-gradient(to top, 
               ${toColor} 0%, 
@@ -89,24 +92,42 @@ const SectionTransition = ({
             :
             `linear-gradient(to top, 
               ${fromColor} 0%, 
-              ${fromColor} 25%, 
-              ${modifyColorOpacity(fromColor, toColor, 0.9)} 40%,
+              ${modifyColorOpacity(fromColor, toColor, 0.9)} 20%,
               ${modifyColorOpacity(fromColor, toColor, 0.5)} 50%,
-              ${modifyColorOpacity(fromColor, toColor, 0.1)} 60%,
-              ${toColor} 75%, 
-              ${toColor} 100%)`,
+              ${modifyColorOpacity(fromColor, toColor, 0.1)} 80%,
+              ${toColor} 100%)`, // More evenly distributed gradient stops
           position: 'absolute',
-          top: isMobile ? '-40px' : '-50px', // More aggressive extension
+          top: isMobile ? '-40px' : '-25px', // Less aggressive extension on desktop
           left: 0,
           right: 0,
-          bottom: isMobile ? '-40px' : '-50px', // More aggressive extension
-          height: isMobile ? 'calc(100% + 80px)' : 'calc(100% + 100px)', // Taller gradient for better coverage
+          bottom: isMobile ? '-40px' : '-25px', // Less aggressive extension on desktop
+          height: isMobile ? 'calc(100% + 80px)' : 'calc(100% + 50px)', // Appropriate gradient height
           width: '100%',
           boxShadow: 'none',
           borderWidth: 0, // Explicitly remove any borders
-          zIndex: 1 // Ensure this is above background but below content
+          zIndex: 1, // Ensure this is above background but below content
+          transform: !isMobile ? 'translateZ(0)' : 'none', // Hardware acceleration on desktop
+          willChange: !isMobile ? 'transform' : 'auto' // Performance hint for desktop
         }}
       />
+      
+      {/* Subtle visual divider element - desktop only */}
+      {!isMobile && (
+        <div 
+          className="absolute left-1/2 transform -translate-x-1/2"
+          style={{
+            width: '60px',
+            height: '1px',
+            background: `linear-gradient(to right, 
+              transparent, 
+              ${modifyColorOpacity(fromColor, toColor, 0.3)},
+              transparent)`,
+            top: '50%',
+            zIndex: 2,
+            opacity: 0.4
+          }}
+        />
+      )}
     </div>
   );
 };
@@ -195,7 +216,14 @@ const Index = () => {
   const [showBanner, setShowBanner] = useState(true);
   const [showGlowDialog, setShowGlowDialog] = useState(false);
   const isMobile = useIsMobile();
-  const navigate = useNavigate();
+  
+  // Create a simple navigation function instead of using react-router
+  const navigate = (path: string) => {
+    console.log('Navigation to:', path);
+    // Use direct location change instead of React Router
+    window.location.href = path;
+  };
+  
   const sectionsRef = useRef<(HTMLElement | null)[]>([]);
   const [visibleSections, setVisibleSections] = useState<{[key: number]: boolean}>({
     0: true, // Hero section is visible by default
@@ -287,7 +315,7 @@ const Index = () => {
               // Only redirect if not already done
               if (!adminLoginRef.current.redirected) {
                 adminLoginRef.current.redirected = true;
-                navigate('/hidden-admin-login');
+                window.location.href = '/hidden-admin-login';
               }
             }
           } else {
@@ -308,7 +336,7 @@ const Index = () => {
       // Clean up
       document.removeEventListener('keydown', handleKeyDown);
     };
-  }, [navigate]);
+  }, []);
   
   // Observer that uses requestAnimationFrame for better performance
   const observerCallback = useCallback((entries: IntersectionObserverEntry[]) => {
@@ -540,8 +568,9 @@ const Index = () => {
                     "hover:shadow-[0_1px_2px_rgba(0,0,0,0.07),_0_2px_4px_rgba(0,0,0,0.07),_0_4px_8px_rgba(0,0,0,0.07),_0_8px_16px_rgba(0,0,0,0.06),_0_0_12px_rgba(118,51,220,0.04)]",
                     "hover:scale-[1.02]",
                     // Adding transition for all properties
-                    "transition-all duration-300 ease-out"
-                    // Removed backdrop blur
+                    "transition-all duration-300 ease-out",
+                    // Standard button height class
+                    "button-standard"
                   )} 
                   onClick={handleTryNowClick}
                 >
@@ -726,6 +755,30 @@ const Index = () => {
             max-height: 650px !important;
             padding-top: 64px !important; /* Account for fixed header on desktop */
             overflow: visible !important;
+          }
+          
+          /* Standard typography sizes from our system */
+          .section-header {
+            font-size: 48px !important;
+            font-weight: 600 !important;
+            line-height: 1.2 !important;
+          }
+          
+          .section-subheading {
+            font-size: 24px !important;
+            font-weight: 600 !important;
+            line-height: 1.3 !important;
+          }
+          
+          .body-text {
+            font-size: 18px !important;
+            font-weight: 400 !important;
+            line-height: 1.6 !important;
+          }
+          
+          .button-standard {
+            height: 56px !important;
+            min-height: 56px !important;
           }
           
           /* Mobile Hero Improvements */
@@ -1100,16 +1153,18 @@ const Index = () => {
         {!isMobile && (
           <div 
             style={{
-              height: '40px',
+              height: '40px', // Standardized 40px height
               width: '100%',
               position: 'relative',
-              zIndex: 10, // Reduced z-index to prevent overlap with social proof
+              zIndex: 30, // Consistent with other transitions (z-index: 30)
               marginTop: '-5px',
               marginBottom: '-5px',
               pointerEvents: 'none',
               background: 'linear-gradient(to bottom, #F9F6EC 0%, rgba(249, 246, 236, 0.95) 20%, rgba(249, 246, 236, 0.9) 40%, rgba(242, 237, 245, 0.8) 60%, rgba(235, 227, 255, 0.9) 80%, #EBE3FF 100%)',
               overflow: 'hidden',
-              display: isMobile ? 'none' : 'block' // Extra check to ensure it's hidden on mobile
+              display: 'block',
+              transform: 'translateZ(0)', // Hardware acceleration
+              backfaceVisibility: 'hidden' // Rendering optimization
             }}
           >
             {/* Visual divider for desktop */}
@@ -1117,10 +1172,10 @@ const Index = () => {
               className="absolute bottom-5 left-1/2 transform -translate-x-1/2" 
               style={{
                 width: '60px',
-                height: '2px',
+                height: '1px', // Thinner line (1px) for subtlety
                 background: 'linear-gradient(to right, rgba(138, 66, 245, 0.1), rgba(138, 66, 245, 0.3), rgba(138, 66, 245, 0.1))',
                 borderRadius: '2px',
-                zIndex: 51
+                zIndex: 2 // Consistent with other dividers (z-index: 2)
               }}
             />
           </div>
@@ -1246,18 +1301,18 @@ const Index = () => {
         {/* Scroll Target for How It Works */}
         <ScrollTarget id="how-it-works" height={0} />
         
-        {/* Section Transition: Find Creators to How It Works - Unified flow */}
+        {/* Section Transition: Find Creators to How It Works - Standardized height and z-index */}
         {/* Section transition - hidden on mobile */}
         {!isMobile && (
           <div style={{ 
-            marginTop: '-50px', 
+            marginTop: '-20px', // Reduced negative margin for better overlap
             position: 'relative',
-            zIndex: 30
+            zIndex: 30 // Consistent z-index across transitions
           }}>
             <SectionTransition 
               fromColor="#F9F6EC" 
               toColor="#EDF7F2" 
-              height={40} // Reduced height significantly
+              height={40} // Standardized 40px height
             />
           </div>
         )}
@@ -1296,16 +1351,16 @@ const Index = () => {
           </div>
         </section>
         
-        {/* Section Transition: How It Works to Features - Subtle gradient */}
+        {/* Section Transition: How It Works to Features - Standardized for desktop */}
         <div style={{ 
-          marginTop: isMobile ? '-30px' : '-50px', // Adjusted for different devices
+          marginTop: isMobile ? '-30px' : '-20px', // Standardized -20px for desktop
           position: 'relative',
-          zIndex: 30
+          zIndex: 30 // Consistent z-index
         }}>
           <SectionTransition 
             fromColor="#EDF7F2" 
             toColor="#E7E9FF" 
-            height={40} // Reduced height significantly
+            height={40} // Standardized 40px height
           />
         </div>
         
@@ -1346,16 +1401,16 @@ const Index = () => {
           </div>
         </section>
 
-        {/* Section Transition: Features to Pricing - Cohesive flow */}
+        {/* Section Transition: Features to Pricing - Standardized for desktop */}
         <div style={{ 
-          marginTop: isMobile ? '-30px' : '-50px', // Adjusted for different devices
+          marginTop: isMobile ? '-30px' : '-20px', // Standardized -20px for desktop
           position: 'relative',
-          zIndex: 30
+          zIndex: 30 // Consistent z-index
         }}>
           <SectionTransition 
             fromColor="#E7E9FF" 
             toColor="#EEF3F9" 
-            height={40} // Reduced height significantly
+            height={40} // Standardized 40px height
           />
         </div>
 
@@ -1396,16 +1451,16 @@ const Index = () => {
           </div>
         </section>
 
-        {/* Section Transition: Pricing to Blog - Seamless blend */}
+        {/* Section Transition: Pricing to Blog - Standardized for desktop */}
         <div style={{ 
-          marginTop: isMobile ? '-30px' : '-50px', // Adjusted for different devices
+          marginTop: isMobile ? '-30px' : '-20px', // Standardized -20px for desktop
           position: 'relative',
-          zIndex: 30
+          zIndex: 30 // Consistent z-index
         }}>
           <SectionTransition 
             fromColor="#EEF3F9" 
             toColor="#F9F6EC" 
-            height={40} // Reduced height significantly
+            height={40} // Standardized 40px height
           />
         </div>
 
@@ -1446,16 +1501,16 @@ const Index = () => {
           </div>
         </section>
 
-        {/* Section Transition: Blog to Footer - Minimal subtle transition */}
+        {/* Section Transition: Blog to Footer - Standardized for desktop */}
         <div style={{ 
-          marginTop: isMobile ? '-30px' : '-50px', // Adjusted for different devices
+          marginTop: isMobile ? '-30px' : '-20px', // Standardized -20px for desktop
           position: 'relative',
-          zIndex: 30
+          zIndex: 30 // Consistent z-index
         }}>
           <SectionTransition 
             fromColor="#F9F6EC" 
             toColor="#f8f8fb" 
-            height={40} // Reduced height significantly
+            height={40} // Standardized 40px height
           />
         </div>
 
