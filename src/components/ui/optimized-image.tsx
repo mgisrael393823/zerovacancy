@@ -211,7 +211,7 @@ export const OptimizedImage = memo(function OptimizedImage({
               height={height}
               loading={loading}
               decoding="async"
-              fetchPriority={(priority || lcpCandidate) ? "high" : "auto"}
+              {...((priority || lcpCandidate) ? {'fetchpriority': "high"} : {})}
               onLoad={handleLoad}
               onError={handleError}
               className={cn(

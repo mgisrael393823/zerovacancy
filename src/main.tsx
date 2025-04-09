@@ -1,11 +1,18 @@
 
-import { createRoot } from 'react-dom/client';
+// Get React from global singleton or import directly
+const React = window.__REACT__ || require('react');
+// Import ReactDOM from client package to fix warning
+const ReactDOM = window.__REACT_DOM__ || require('react-dom/client');
+
 import { ErrorBoundary } from 'react-error-boundary';
 import App from './App.tsx';
 import './index.css';
 import ErrorFallback from './components/ErrorFallback.tsx';
 import { initializePerformanceOptimizations, mobilePerformanceEnhancements } from './utils/performance-optimizations';
 import setupCSSContainment from './utils/css-optimization/init-containment';
+
+// Use createRoot directly from client package
+const { createRoot } = ReactDOM;
 
 /**
  * Initialize performance optimizations early

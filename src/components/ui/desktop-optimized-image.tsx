@@ -150,7 +150,7 @@ export function DesktopOptimizedImage({
             height={height}
             loading={priority ? 'eager' : loading}
             decoding="async"
-            fetchPriority={priority ? "high" : "auto"}
+            {...(priority ? {'fetchpriority': "high"} : {})}
             onLoad={handleLoad}
             className={cn(
               'w-full h-full object-cover transform-gpu',

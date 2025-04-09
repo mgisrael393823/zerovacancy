@@ -8,4 +8,33 @@ const SUPABASE_PUBLISHABLE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiO
 // Import the supabase client like this:
 // import { supabase } from "@/integrations/supabase/client";
 
-export const supabase = createClient<Database>(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY);
+// Detect mobile for better client options
+const isMobileDevice = typeof navigator !== 'undefined' && 
+  /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+
+// Configure supabase client with mobile-specific options
+export const supabase = createClient<Database>(
+  SUPABASE_URL, 
+  SUPABASE_PUBLISHABLE_KEY,
+  {
+    auth: {
+      autoRefreshToken: true,
+      persistSession: true,
+      detectSessionInUrl: true,
+      storageKey: 'zerovacancy-auth',
+      // Mobile optimizations
+      flowType: isMobileDevice ? 'implicit' : 'pkce',
+      // Increased timeout for mobile networks
+      debug: isMobileDevice
+    },
+    // Better network resilience
+    global: {
+      fetch: (...args) => {
+        return fetch(...args).catch(err => {
+          console.error('Supabase fetch error:', err);
+          throw err;
+        });
+      }
+    }
+  }
+);

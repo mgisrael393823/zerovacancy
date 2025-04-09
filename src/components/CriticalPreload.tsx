@@ -106,11 +106,14 @@ export const CriticalPreload = () => {
     });
 
     // 3. Key webfonts - direct font file preloading is much faster than Google Fonts CSS
+    // Updated font URLs to the latest versions to avoid 404s
     const criticalFonts = [
+      // Plus Jakarta Sans Bold (700)
       { 
-        href: 'https://fonts.gstatic.com/s/plusjakartasans/v8/LDIbaomQNQcsA88c7O9yZ4KMCoOg4IA6-91aHEjcWuA_KU7NSg.woff2', 
+        href: 'https://fonts.gstatic.com/s/plusjakartasans/v8/LDIbaomQNQcsA88c7O9yZ4KMCoOg4IA6-91aHEjcWuA.woff2', 
         type: 'font/woff2'
       },
+      // Inter Regular (400)
       { 
         href: 'https://fonts.gstatic.com/s/inter/v13/UcC73FwrK3iLTeHuS_fvQtMwCp50KnMa1ZL7.woff2', 
         type: 'font/woff2' 

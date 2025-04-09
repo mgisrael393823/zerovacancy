@@ -13,6 +13,27 @@ const FontLoader: React.FC = () => {
     
     // Detect if we're on mobile
     const isMobile = isMobileDevice();
+
+    // Tell service worker to preload and cache font resources
+    const preloadFontsViaServiceWorker = () => {
+      if ('serviceWorker' in navigator && navigator.serviceWorker.controller) {
+        // Service worker is active, send message to preload fonts
+        navigator.serviceWorker.controller.postMessage({
+          type: 'PRELOAD_FONTS'
+        });
+        console.log('Instructed service worker to preload fonts');
+      } else if ('serviceWorker' in navigator) {
+        // Wait for service worker to be ready
+        navigator.serviceWorker.ready.then(registration => {
+          registration.active?.postMessage({
+            type: 'PRELOAD_FONTS'
+          });
+          console.log('Instructed service worker to preload fonts after activation');
+        }).catch(err => {
+          console.warn('Failed to instruct service worker to preload fonts:', err);
+        });
+      }
+    };
     
     // Configure fonts differently for mobile vs desktop
     if (isMobile) {
@@ -108,6 +129,25 @@ const FontLoader: React.FC = () => {
       
       // Add fonts-loading class immediately, will be replaced with fonts-loaded when complete
       document.documentElement.classList.add('fonts-loading');
+    }
+    
+    // Preload fonts via service worker after a short delay
+    // This helps ensure the service worker is registered and active
+    setTimeout(() => {
+      preloadFontsViaServiceWorker();
+    }, 1000);
+    
+    // Register or update service worker if needed
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/service-worker.js')
+          .then(registration => {
+            console.log('Service worker registered for font caching:', registration.scope);
+          })
+          .catch(error => {
+            console.warn('Service worker registration failed:', error);
+          });
+      });
     }
   }, []);
 

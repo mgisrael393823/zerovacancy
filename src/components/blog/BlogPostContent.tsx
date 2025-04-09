@@ -10,9 +10,10 @@ interface BlogPostContentProps {
 }
 
 const BlogPostContent = ({ post, relatedPosts = [] }: BlogPostContentProps) => {
-  const formattedDate = post.publishedAt 
-    ? formatDate(post.publishedAt, { format: 'long' }) 
-    : 'Draft';
+  // Format date outside of conditional logic to prevent hook order issues
+  const formattedDate = formatDate(post.publishedAt || new Date(), { format: 'long' });
+  // Only use the formatted date if we have a published date, otherwise show 'Draft'
+  const displayDate = post.publishedAt ? formattedDate : 'Draft';
 
   return (
     <article className="max-w-4xl mx-auto">
@@ -34,7 +35,7 @@ const BlogPostContent = ({ post, relatedPosts = [] }: BlogPostContentProps) => {
       <div className="mb-8">
         <h1 className="text-3xl font-bold mb-4">{post.title}</h1>
         <div className="text-gray-600 mb-4">
-          By {post.author?.name || 'Team Zero'} • {formattedDate}
+          By {post.author?.name || 'Team Zero'} • {displayDate}
         </div>
         <div className="aspect-w-16 aspect-h-9 rounded-lg overflow-hidden">
           <OptimizedImage 

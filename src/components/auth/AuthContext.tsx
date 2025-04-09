@@ -81,14 +81,74 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     const checkUser = async () => {
       try {
         setIsLoading(true);
-        const { data: { user }, error } = await supabase.auth.getUser();
         
-        if (error) {
-          console.error("Error getting user:", error);
-          setUser(null);
+        // First check if there's a valid session
+        const { data: sessionData, error: sessionError } = await supabase.auth.getSession();
+        
+        // If we have a valid session, use it
+        if (sessionData?.session?.user && !sessionError) {
+          console.log("Valid session found");
+          setUser(sessionData.session.user);
+          setIsLoading(false);
+          return;
+        }
+        
+        // Log session check errors, but don't treat as fatal for mobile devices
+        if (sessionError) {
+          console.warn("Session check issue:", sessionError.message);
+        }
+        
+        // Fallback to getUser if session check failed or returned no session
+        const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+        
+        // For mobile browsers, we implement retry logic with increasing timeouts
+        if (isMobile) {
+          console.log("Mobile device detected, using enhanced auth retrieval");
+          
+          // Try multiple times with progressive backoff
+          const retry = async (attempt = 1, maxAttempts = 3): Promise<any> => {
+            try {
+              const timeout = attempt * 1000; // Progressive timeout: 1s, 2s, 3s
+              const userPromise = supabase.auth.getUser();
+              
+              // Race against a timeout for more reliable mobile behavior
+              const result = await Promise.race([
+                userPromise,
+                new Promise((_, reject) => 
+                  setTimeout(() => reject(new Error(`Auth timeout (${timeout}ms)`)), timeout)
+                )
+              ]);
+              
+              return result;
+            } catch (error) {
+              console.warn(`Auth attempt ${attempt} failed:`, error);
+              if (attempt < maxAttempts) {
+                return retry(attempt + 1, maxAttempts);
+              }
+              throw error;
+            }
+          };
+          
+          const { data: { user }, error } = await retry();
+          
+          if (error) {
+            console.error("Mobile auth error after retries:", error);
+            setUser(null);
+          } else {
+            console.log("User authenticated on mobile");
+            setUser(user);
+          }
         } else {
-          console.log("User retrieved:", user ? "Authenticated" : "Not authenticated");
-          setUser(user);
+          // Standard flow for desktop
+          const { data: { user }, error } = await supabase.auth.getUser();
+          
+          if (error) {
+            console.error("Error getting user:", error);
+            setUser(null);
+          } else {
+            console.log("User retrieved:", user ? "Authenticated" : "Not authenticated");
+            setUser(user);
+          }
         }
       } catch (error) {
         console.error('Error checking user:', error);
@@ -100,12 +160,24 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
 
     checkUser();
 
-    const { data: authListener } = supabase.auth.onAuthStateChange((_event, session) => {
-      setUser(session?.user ?? null);
-    });
+    // Set up auth state change listener with error handling
+    let authListener: { subscription: { unsubscribe: () => void } } | null = null;
+    
+    try {
+      const authSubscription = supabase.auth.onAuthStateChange((_event, session) => {
+        console.log("Auth state changed:", _event);
+        setUser(session?.user ?? null);
+      });
+      
+      authListener = authSubscription.data;
+    } catch (error) {
+      console.error("Failed to set up auth listener:", error);
+    }
 
     return () => {
-      authListener.subscription.unsubscribe();
+      if (authListener?.subscription?.unsubscribe) {
+        authListener.subscription.unsubscribe();
+      }
     };
   }, []);
 
@@ -119,9 +191,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
       // Trim email for consistency
       const cleanEmail = String(email).trim();
       
-      console.log(`Attempting to sign in with email: ${cleanEmail.substring(0, 3)}...@... (partially hidden for privacy)`);
-      console.log("User agent:", navigator.userAgent);
-      console.log("Is mobile:", /iPhone|iPad|iPod|Android/i.test(navigator.userAgent));
+      // Removed logging of sensitive PII (even partially masked)
 
       // Add device specific logs for debugging
       const isMobileDevice = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
@@ -159,6 +229,8 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
       // For admin login, set a session flag to indicate admin access
       if (isAdminLogin && data.session) {
         // Store the admin access token in session storage
+        // Note: In a production environment, this should be replaced with a more secure approach
+        // such as JWT claims, secure cookies, or server-side session validation
         sessionStorage.setItem('adminAccessToken', 'granted');
       }
       
@@ -224,9 +296,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
       // Trim email for consistency
       const cleanEmail = String(email).trim();
       
-      console.log(`Attempting to sign up with email: ${cleanEmail.substring(0, 3)}...@... (partially hidden for privacy)`);
-      console.log("User agent:", navigator.userAgent);
-      console.log("Is mobile:", /iPhone|iPad|iPod|Android/i.test(navigator.userAgent));
+      // Removed logging of sensitive PII (even partially masked)
       
       // Add device specific logs for debugging
       const isMobileDevice = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);

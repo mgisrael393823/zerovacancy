@@ -511,39 +511,72 @@ export function setupPerformantEventListeners(): void {
     document.addEventListener(event, () => {}, { passive: true });
   });
   
-  // Add window resize throttle wrapper for better performance
-  const originalAddEventListener = window.addEventListener;
-  (window as any).originalAddEventListener = originalAddEventListener;
-  
-  // Replace addEventListener to automatically throttle resize/scroll events
-  window.addEventListener = function(
-    type: string,
-    listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
-  ): void {
-    // For resize and scroll events, automatically throttle them
-    if (type === 'resize' || type === 'scroll') {
-      // If it's an object event listener
-      if (typeof listener === 'object' && listener.handleEvent) {
-        const originalHandleEvent = listener.handleEvent.bind(listener);
-        const throttledHandler = throttle((event: Event) => {
-          originalHandleEvent(event);
-        }, 100);
-        const newListener = {
-          ...listener,
-          handleEvent: throttledHandler,
-        };
-        (window as any).originalAddEventListener.call(this, type, newListener, options);
-      } else if (typeof listener === 'function') {
-        // If it's a function listener
-        const throttledFunction = throttle(listener as EventListener, 100);
-        (window as any).originalAddEventListener.call(this, type, throttledFunction, options);
+  // Store original addEventListener before replacing it
+  if (!(window as any).originalAddEventListener) {
+    const originalAddEventListener = window.addEventListener;
+    (window as any).originalAddEventListener = originalAddEventListener;
+    
+    // Replace addEventListener to automatically throttle resize/scroll events
+    window.addEventListener = function(
+      type: string,
+      listener: EventListenerOrEventListenerObject,
+      options?: boolean | AddEventListenerOptions
+    ): void {
+      // Guard against recursive calls - if this call came from within our throttle/wrapper
+      if ((window as any)._isEventListenerRecursionGuard) {
+        (window as any).originalAddEventListener.call(this, type, listener, options);
+        return;
       }
-    } else {
-      // For all other events, proceed normally
-      (window as any).originalAddEventListener.call(this, type, listener, options);
-    }
-  };
+      
+      // For resize and scroll events, automatically throttle them
+      if (type === 'resize' || type === 'scroll') {
+        try {
+          // Set recursion guard flag
+          (window as any)._isEventListenerRecursionGuard = true;
+          
+          // If it's an object event listener
+          if (typeof listener === 'object' && listener !== null && 'handleEvent' in listener) {
+            const originalHandleEvent = listener.handleEvent.bind(listener);
+            // Store a reference to throttled handler on the listener to prevent recreation
+            if (!(listener as any)._throttledHandleEvent) {
+              (listener as any)._throttledHandleEvent = throttle((event: Event) => {
+                originalHandleEvent(event);
+              }, 100);
+            }
+            
+            const newListener = {
+              ...listener,
+              handleEvent: (listener as any)._throttledHandleEvent,
+            };
+            (window as any).originalAddEventListener.call(this, type, newListener, options);
+          } else if (typeof listener === 'function') {
+            // Use WeakMap to store throttled versions of function listeners
+            if (!(window as any)._throttledListeners) {
+              (window as any)._throttledListeners = new WeakMap();
+            }
+            
+            // Reuse throttled function if already created
+            let throttledFunction = (window as any)._throttledListeners.get(listener);
+            if (!throttledFunction) {
+              throttledFunction = throttle(listener as EventListener, 100);
+              (window as any)._throttledListeners.set(listener, throttledFunction);
+            }
+            
+            (window as any).originalAddEventListener.call(this, type, throttledFunction, options);
+          } else {
+            // For unknown listener types, fallback to original behavior
+            (window as any).originalAddEventListener.call(this, type, listener, options);
+          }
+        } finally {
+          // Clear recursion guard
+          (window as any)._isEventListenerRecursionGuard = false;
+        }
+      } else {
+        // For all other events, proceed normally
+        (window as any).originalAddEventListener.call(this, type, listener, options);
+      }
+    };
+  }
   
   // Optimize RAF for animation frames
   setupOptimizedRAF();

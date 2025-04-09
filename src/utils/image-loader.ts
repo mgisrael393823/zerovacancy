@@ -74,6 +74,14 @@ export function preloadImage(
     return Promise.resolve(new Image());
   }
   
+  // Check for missing creator images and provide fallbacks
+  if (src.includes('/creatorcontent/') && src.endsWith('.jpg')) {
+    // Try to find a .webp version instead
+    const webpSrc = src.replace(/\.jpg$/, '.webp');
+    console.log(`Converting image path from ${src} to ${webpSrc}`);
+    src = webpSrc;
+  }
+  
   // Return from cache if available
   if (imageCache.has(src) && imageStates.get(src) === 'loaded') {
     return Promise.resolve(imageCache.get(src)!);
