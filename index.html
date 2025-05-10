@@ -5,6 +5,22 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/png" href="/favicon.png" />
     
+    <!-- Fix to remove carousel indicators -->
+    <style>
+      /* Hide carousel indicators at bottom of creator cards */
+      section#find-creators .flex.justify-center.mt-space-md.space-x-space-xs,
+      .mt-space-md.space-x-space-xs,
+      div[class*="mt-space-md"][class*="space-x-space-xs"] {
+        display: none !important;
+        height: 0 !important;
+        opacity: 0 !important;
+        visibility: hidden !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        overflow: hidden !important;
+      }
+    </style>
+    
     <!-- Inline critical CSS to prevent FOUC / Visual Jump -->
     <style>
       /* Critical rendering styles */
@@ -36,8 +52,26 @@
         z-index: 10;
       }
       
+      /* Ensure header is sticky on mobile with higher z-index than hero */
+      @media (max-width: 768px) {
+        header, 
+        header[role="banner"],
+        .header, 
+        .mobile-header, 
+        nav[role="navigation"] {
+          position: fixed !important;
+          top: 0 !important;
+          left: 0 !important;
+          right: 0 !important;
+          width: 100% !important;
+          z-index: 1000 !important; /* Higher than anything else */
+          background-color: white !important;
+          box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08) !important;
+        }
+      }
+      
       /* Critical hero section styles */
-      .hero, section[class*="hero"] {
+      .hero, section[class*="hero"], section#hero {
         min-height: 60vh;
         display: flex;
         flex-direction: column;
@@ -45,6 +79,54 @@
         justify-content: center;
         text-align: center;
         padding: 2rem 1rem;
+        /* Modified containment to prevent interfering with header */
+        contain: style paint;
+        position: relative;
+        z-index: 1; /* Lower than header z-index */
+      }
+      
+      /* Mobile hero specific fixes to prevent CLS */
+      @media (max-width: 768px) {
+        section#hero, div[data-hero-section="true"], section[data-hero-section="true"], .hero, section[class*="hero"] {
+          /* Explicit fixed height for mobile for stability */
+          height: 450px !important;
+          min-height: 450px !important;
+          max-height: 450px !important;
+          
+          /* Override any lazy loading or animations causing shifts */
+          transition: none !important;
+          animation: none !important;
+        }
+        
+        /* Mobile hero title container with stable height */
+        #hero-title, h1#hero-title {
+          min-height: 120px !important;
+          height: auto !important;
+          position: relative !important;
+          margin-top: 0 !important;
+          width: 100% !important;
+        }
+        
+        /* Mobile hero rotating text container */
+        #hero-title > div, .text-rotate-container {
+          height: 60px !important;
+          min-height: 60px !important;
+          max-height: 60px !important;
+          width: 100% !important;
+          position: relative !important;
+          display: flex !important;
+          align-items: center !important;
+          justify-content: center !important;
+        }
+        
+        /* Pre-allocate mobile CTA button space */
+        .mobile-cta-button, #mobile-hero-cta-section, .hero-cta-container {
+          width: 100% !important;
+          max-width: 280px !important;
+          min-height: 54px !important;
+          display: block !important;
+          margin: 0 auto !important;
+        }
       }
       
       /* Critical button styles */
@@ -280,7 +362,10 @@
       }
     </script>
     
-    <!-- Event listener monitoring and protection - runs FIRST to catch all listener registrations -->
+    <!-- Emergency header fix - must run FIRST to ensure header is fixed properly -->
+    <script src="/text-fouc-fix.js"></script>
+    
+    <!-- Event listener monitoring and protection -->
     <script src="/event-listener-guard.js"></script>
     <script src="/event-listener-diagnostics.js"></script>
     
@@ -290,17 +375,8 @@
     <!-- Ultra-fast mobile optimization script - runs immediately -->
     <script src="/quick-perf.js"></script>
     
-    <!-- Development-only image path checker -->
-    <script>
-      // Only load image checker in development
-      if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
-        const imageChecker = document.createElement('script');
-        imageChecker.src = '/check-images.js';
-        imageChecker.async = true;
-        document.head.appendChild(imageChecker);
-        console.info('Image path checker enabled (development only)');
-      }
-    </script>
+    <!-- Development-only image path checker removed to prevent floating UI elements -->
+    <!-- No image checker to prevent CLS and clean up UI -->
     
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
@@ -341,7 +417,7 @@
       .below-fold {
         content-visibility: var(--cv-value, auto);
         contain-intrinsic-size: 1px 5000px;
-        contain: layout style paint;
+        /* Removed contain property to avoid stacking context issues */
       }
       
       /* Optimize rendering with will-change for hardware acceleration */
@@ -354,7 +430,8 @@
       .hero, section[class*="hero"] {
         min-height: 70vh;
         position: relative;
-        contain: layout style;
+        /* Removed contain property entirely to avoid stacking context issues */
+        z-index: 1; /* Lower than header z-index */
       }
       
       /* Desktop-specific hero sizing */
@@ -412,33 +489,28 @@
         isolation: isolate;
       }
       
-      /* Loading spinner */
-      .page-loader {
-        position: fixed;
-        inset: 0;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        background-color: #fff;
-        z-index: 9999;
-      }
-      
-      .spinner {
-        width: 40px;
-        height: 40px;
-        border-radius: 50%;
-        border: 4px solid #f5f5f5;
-        border-top-color: #6633ff;
-        animation: spin 1s linear infinite;
-      }
-      
-      @keyframes spin {
-        0% { transform: rotate(0deg); }
-        100% { transform: rotate(360deg); }
+      /* Spinner styles removed to eliminate CLS */
+      .page-loader, .spinner {
+        display: none !important;
+        opacity: 0 !important;
+        visibility: hidden !important;
+        position: absolute !important;
+        height: 0 !important;
+        width: 0 !important;
+        overflow: hidden !important;
+        clip: rect(0, 0, 0, 0) !important;
+        margin: -1px !important;
+        padding: 0 !important;
+        border: 0 !important;
       }
       
       /* Mobile performance and layout fixes */
       @media (max-width: 767px) {
+        /* Add padding to body for fixed header */
+        body {
+          padding-top: 60px !important; /* Match header height */
+        }
+        
         /* Standardize section spacing */
         section {
           padding-top: 16px !important;
@@ -514,16 +586,8 @@
     </script>
   </head>
   <body>
-    <!-- Initial loading state - visible immediately -->
-    <div id="page-loader" class="page-loader">
-      <div class="spinner"></div>
-      <!-- Add branded elements to enhance loading experience -->
-      <div style="text-align: center; margin-top: 20px; opacity: 0.8;">
-        <div style="font-family: system-ui, -apple-system, sans-serif; font-size: 16px; color: #6741d9; margin-top: 16px;">
-          Loading ZeroVacancy...
-        </div>
-      </div>
-    </div>
+    <!-- Loading elements completely removed to eliminate CLS -->
+    <!-- No spinners or loaders to prevent layout shifts -->
     
     <div id="root"></div>
     
@@ -587,46 +651,7 @@
         }
       })();
       
-      // Simpler, more reliable loader handling that doesn't interfere with React
-      const hideLoader = () => {
-        const loader = document.getElementById('page-loader');
-        if (!loader) return;
-        
-        // Wait briefly to ensure the page starts rendering
-        setTimeout(() => {
-          if (loader) {
-            // Add transition if it doesn't exist
-            if (!loader.style.transition) {
-              loader.style.transition = 'opacity 0.5s ease';
-            }
-            
-            // Start fade out
-            loader.style.opacity = '0';
-            
-            // Remove from DOM after animation completes
-            loader.addEventListener('transitionend', () => {
-              if (loader.parentNode) {
-                loader.parentNode.removeChild(loader);
-              }
-            }, { once: true });
-          }
-        }, 500); // Short delay to allow React initialization
-      };
-      
-      // Apply loader handling after DOM is initially ready
-      if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', hideLoader);
-      } else {
-        hideLoader();
-      }
-      
-      // Backup timeout to ensure loader disappears even if animation fails
-      setTimeout(() => {
-        const loader = document.getElementById('page-loader');
-        if (loader && loader.parentNode) {
-          loader.parentNode.removeChild(loader);
-        }
-      }, 3000);
+      // Loader code completely removed to eliminate CLS
     </script>
     
     <!-- Efficiently load the main script -->
@@ -659,12 +684,26 @@
     <script>
       // Only load in development environments
       if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
-        const perfScript = document.createElement('script');
-        perfScript.src = '/performance-monitor.js';
-        perfScript.async = true;
-        document.head.appendChild(perfScript);
         console.info('Performance monitoring enabled (development only)');
+        // Avoid loading non-existent script
+        // Performance monitoring is handled by web-vitals.ts imported in App.tsx
       }
+    </script>
+    
+    <!-- Cookie consent positioning fix -->
+    <script>
+      // Fix cookie consent positioning
+      document.addEventListener('DOMContentLoaded', function() {
+        // Wait for the cookie consent to be added to the DOM
+        setTimeout(function() {
+          const cookieConsent = document.querySelector('.cookie-consent-container');
+          if (cookieConsent) {
+            cookieConsent.setAttribute('data-position', 'bottom');
+            cookieConsent.setAttribute('data-contain-force', 'false');
+            console.log('Cookie consent container fixed');
+          }
+        }, 1000);
+      });
     </script>
     
     <!-- Enhanced service worker registration with desktop optimization -->
