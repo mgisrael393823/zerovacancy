@@ -23,12 +23,12 @@ export default defineConfig(({ mode }) => ({
     viteTipTapPlugin(),
 
     // Bundle visualizer when ANALYZE_BUNDLE is set
-    process.env.ANALYZE_BUNDLE ? visualizer({
+    ...(process.env.ANALYZE_BUNDLE ? [visualizer({
       filename: 'bundle-analysis.html',
       template: 'treemap',
       gzipSize: true,
       open: false
-    }) : null,
+    })] : []),
 
     // Copy web-vitals.iife.js to assets/js directory during build
     {
