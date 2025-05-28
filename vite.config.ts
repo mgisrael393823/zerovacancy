@@ -5,6 +5,7 @@ import path from "path";
 import { componentTagger } from "lovable-tagger";
 import excludeArchivedAssets from "./vite-exclude-archived-plugin.js";
 import viteTipTapPlugin from "./vite-tiptap-plugin.js";
+import { visualizer } from "rollup-plugin-visualizer";
 import { configDefaults } from "vitest/config";
 
 // https://vitejs.dev/config/
@@ -20,6 +21,14 @@ export default defineConfig(({ mode }) => ({
 
     // Plugin to properly handle TipTap dependencies
     viteTipTapPlugin(),
+
+    // Bundle visualizer when ANALYZE_BUNDLE is set
+    process.env.ANALYZE_BUNDLE ? visualizer({
+      filename: 'bundle-analysis.html',
+      template: 'treemap',
+      gzipSize: true,
+      open: false
+    }) : null,
 
     // Copy web-vitals.iife.js to assets/js directory during build
     {
