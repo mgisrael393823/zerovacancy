@@ -14,13 +14,12 @@ Our solution consists of several complementary approaches to permanently fix the
 
 ### 1. FOUCPrevention Component
 
-A dedicated React component (`src/components/FOUCPrevention.tsx`) that:
-
-- Adds a loading class to the HTML element during initial page load
-- Injects CSS that hides all images during the loading phase
-- Contains specific rules to block any elements with "heroparallax" in the src or style
-- Monitors the DOM for any dynamically added heroparallax images
-- Sets proper transitions for smooth image appearance once the page is loaded
+- A dedicated React component (`src/components/FOUCPrevention.tsx`) that:
+  - Removes the `loading` class once initial styles have loaded
+  - Injects CSS that hides all images during the loading phase
+  - Contains specific rules to block any elements with "heroparallax" in the src or style
+  - Monitors the DOM for any dynamically added heroparallax images
+  - Sets proper transitions for smooth image appearance once the page is loaded
 
 ### 2. Asset Management
 

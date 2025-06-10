@@ -37,12 +37,9 @@
     <!-- Debug script removed for production -->
     <!-- <script src="/debug-blank-page.js"></script> -->
     <script>
-      // Add loading class but make sure it's removed within 1 second
+      /* Apply the loading class immediately. The FOUCPrevention component
+         will handle removing it once the application is ready. */
       document.documentElement.classList.add('loading');
-      setTimeout(function() {
-        document.documentElement.classList.remove('loading');
-        document.documentElement.classList.add('content-loaded');
-      }, 1000);
     </script>
     <style>
       /* Hide just heroparallax elements which are known to cause problems */
