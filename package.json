@@ -41,6 +41,7 @@
     "asset-cleanup": "npm run audit-assets && npm run archive-unused",
     "extract-critical-css": "node scripts/critical-css.js",
     "analyze-web-vitals": "vite preview --port 8080 & sleep 2 && open http://localhost:8080?debug=vitals",
+    "analyze:bundle": "ANALYZE_BUNDLE=true vite build",
     "perf-build": "npm run optimize-images && npm run optimize-creator-images && npm run build:perf",
     "perf-test": "npm run perf-build && npm run analyze-web-vitals",
     "perf-full": "npm run asset-cleanup && npm run perf-images && npm run build:perf",
@@ -145,7 +146,7 @@
     "zod": "^3.23.8"
   },
   "devDependencies": {
-    "@eslint/js": "^9.22.0",
+    "@eslint/js": "^9.27.0",
     "@tailwindcss/typography": "^0.5.15",
     "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^16.3.0",
@@ -168,6 +169,7 @@
     "msw": "^2.7.6",
     "postcss": "^8.4.47",
     "puppeteer": "^24.4.0",
+    "rollup-plugin-visualizer": "^5.9.0",
     "sharp": "^0.33.5",
     "tailwindcss": "^3.4.11",
     "typescript": "^5.5.3",

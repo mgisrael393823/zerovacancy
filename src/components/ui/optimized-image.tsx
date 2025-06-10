@@ -64,6 +64,10 @@ export const OptimizedImage = memo(function OptimizedImage({
   // Calculate optimized image path with appropriate format
   const optimizedSrc = withWebp ? getOptimizedImageUrl(src) : src;
   const imageFormat = getOptimalImageFormat();
+
+  // Force eager loading for priority or LCP images
+  const finalLoading: 'lazy' | 'eager' =
+    priority || lcpCandidate ? 'eager' : loading;
   
   // Get sizes for responsive image loading
   const responsiveSizes = sizes || calculateSizes({
@@ -209,7 +213,7 @@ export const OptimizedImage = memo(function OptimizedImage({
               alt={seoKeywords ? optimizeImageAlt(alt, seoKeywords) : alt}
               width={width}
               height={height}
-              loading={loading}
+              loading={finalLoading}
               decoding="async"
               fetchPriority={(priority || lcpCandidate) ? "high" : "auto"}
               onLoad={handleLoad}
@@ -232,7 +236,7 @@ export const OptimizedImage = memo(function OptimizedImage({
             alt={seoKeywords ? optimizeImageAlt(alt, seoKeywords) : alt}
             width={width}
             height={height}
-            loading={loading}
+            loading={finalLoading}
             decoding="async"
             fetchPriority={(priority || lcpCandidate) ? "high" : "auto"}
             onLoad={handleLoad}

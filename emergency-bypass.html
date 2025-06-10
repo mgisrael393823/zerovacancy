@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
+  <title>ZeroVacancy - Loading...</title>
+  
+  <style>
+    body, html {
+      margin: 0;
+      padding: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #ffffff;
+      height: 100%;
+    }
+    .loader {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      flex-direction: column;
+    }
+    .spinner {
+      width: 48px;
+      height: 48px;
+      border: 4px solid rgba(103, 65, 217, 0.1);
+      border-radius: 50%;
+      border-left-color: #6741d9;
+      animation: spin 1s linear infinite;
+      margin-bottom: 20px;
+    }
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    h2 {
+      color: #6741d9;
+      margin-bottom: 10px;
+    }
+    p {
+      color: #666;
+      max-width: 400px;
+      text-align: center;
+      margin: 0;
+    }
+    #app-container {
+      height: 100%;
+      width: 100%;
+    }
+    #redirect-button {
+      margin-top: 30px;
+      background: linear-gradient(135deg, #6741d9 0%, #8a57de 100%);
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 500;
+    }
+  </style>
+  
+  <!-- Direct Supabase environment variables -->
+  <script>
+    // Set Supabase environment variables directly
+    window.RUNTIME_ENV = {
+      VITE_SUPABASE_URL: "https://pozblfzhjqlsxkakhowp.supabase.co",
+      VITE_SUPABASE_ANON_KEY: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBvemJsZnpoanFsc3hrYWtob3dwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDAxMDM0MDUsImV4cCI6MjA1NTY3OTQwNX0.qICEbtyj5hsnu489FuQFiwfFgAJbQ0zmul4sQX5ODbM"
+    };
+
+    // Also set on window.env for compatibility
+    window.env = {
+      VITE_SUPABASE_URL: "https://pozblfzhjqlsxkakhowp.supabase.co",
+      VITE_SUPABASE_ANON_KEY: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBvemJsZnpoanFsc3hrYWtob3dwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDAxMDM0MDUsImV4cCI6MjA1NTY3OTQwNX0.qICEbtyj5hsnu489FuQFiwfFgAJbQ0zmul4sQX5ODbM"
+    };
+
+    // Export a direct createClient function
+    window.createSupabaseClient = function() {
+      console.log('Using direct Supabase client');
+      return true;
+    };
+  </script>
+</head>
+<body>
+  <div id="app-container">
+    <div class="loader">
+      <div class="spinner"></div>
+      <h2>Loading ZeroVacancy...</h2>
+      <p>Please wait while we initialize the application</p>
+      <button id="redirect-button" onclick="window.location.href = '/?ts=' + Date.now()">Click here if loading takes too long</button>
+    </div>
+  </div>
+
+  <script>
+    // Wait for DOM to be ready
+    document.addEventListener('DOMContentLoaded', function() {
+      // Load the actual application after a short delay
+      setTimeout(function() {
+        window.location.href = '/?bypass=1&ts=' + Date.now();
+      }, 1500);
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,18 @@
+Asset Usage Audit - Sat May 17 14:43:35 CDT 2025
+=======================
+
+## Checking heroparallax references
+
+✅ Not referenced: *.jpg
+✅ Not referenced: *.webp
+
+## Large Media Files
+
+
+## Preload-only References
+
+
+## Checking vite.config.ts and build process
+
+No specific build options found
+
