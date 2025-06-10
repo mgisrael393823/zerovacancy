@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, Suspense } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { 
   Save, 
@@ -31,7 +31,7 @@ import SEO from '@/components/SEO';
 import { useAuth } from '@/components/auth/AuthContext';
 import RichTextEditor from '@/components/blog/RichTextEditor';
 import ImageUploader from '@/components/blog/ImageUploader';
-import CategorySelector from '@/components/blog/CategorySelector';
+const CategorySelector = React.lazy(() => import('@/components/blog/CategorySelector'));
 import SEOPanel from '@/components/blog/SEOPanel';
 import KeyboardShortcutsHelp from '@/components/blog/KeyboardShortcutsHelp';
 import { useBlogAutosave } from '@/hooks/use-blog-autosave';
@@ -1315,12 +1315,14 @@ const BlogEditor = () => {
                   
                   {/* Categories */}
                   <div className="bg-white rounded-lg shadow-sm p-4 border border-gray-200">
-                    <CategorySelector
-                      categories={categories}
-                      selectedCategoryId={categoryId}
-                      onChange={setCategoryId}
-                      onCategoriesChange={setCategories}
-                    />
+                    <Suspense fallback={<div>Loading...</div>}>
+                      <CategorySelector
+                        categories={categories}
+                        selectedCategoryId={categoryId}
+                        onChange={setCategoryId}
+                        onCategoriesChange={setCategories}
+                      />
+                    </Suspense>
                   </div>
                   
                   {/* Authors */}

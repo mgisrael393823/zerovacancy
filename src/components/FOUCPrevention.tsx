@@ -58,12 +58,11 @@ export function FOUCPrevention() {
     `;
     document.head.appendChild(style);
 
-    // 3. Wait for content to be ready before removing the loading class
+    // 3. Wait for content and fonts to be ready before removing the loading class
     const markAsLoaded = () => {
       // Wait 2 frames to ensure CSS has been properly applied
       requestAnimationFrame(() => {
         requestAnimationFrame(() => {
-          // Remove loading class and add loaded class
           document.documentElement.classList.remove('loading');
           document.documentElement.classList.add('content-loaded');
           console.log('✅ Content marked as loaded - FOUC prevention active');
@@ -71,14 +70,21 @@ export function FOUCPrevention() {
       });
     };
 
-    // 4. Set up various events to try to catch when content is ready
-    if (document.readyState === 'complete') {
-      markAsLoaded();
-    } else {
-      window.addEventListener('load', markAsLoaded);
-      // Fallback timeout in case 'load' doesn't fire
-      setTimeout(markAsLoaded, isMobile ? 1000 : 500);
-    }
+    // 4. Set up events to remove the loading class
+    const waitForLoad = () => {
+      if ('fonts' in document && (document as any).fonts.ready) {
+        // Wait for fonts to load to avoid flashes when they swap in
+        (document as any).fonts.ready.then(markAsLoaded).catch(markAsLoaded);
+      } else if (document.readyState === 'complete') {
+        markAsLoaded();
+      } else {
+        window.addEventListener('load', markAsLoaded);
+        // Fallback timeout in case 'load' doesn't fire
+        setTimeout(markAsLoaded, isMobile ? 1000 : 500);
+      }
+    };
+
+    waitForLoad();
 
     // 5. Ensure any images with "heroparallax" in their URL are completely removed
     const removeHeroparallaxImages = () => {
