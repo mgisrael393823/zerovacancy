@@ -70,16 +70,7 @@ export function optimizeFontLoading() {
       font-family: 'Inter', 'Inter Fallback', ${fontDefinitions[1].fallbackFamily}, system-ui, sans-serif;
     }
     
-    /* Apply slight opacity during font loading to minimize FOUT */
-    html:not(.fonts-loaded) body {
-      opacity: 0.995;
-    }
-    
-    /* Restore full opacity once either fonts load or timeout occurs */
-    html.fonts-loaded body {
-      opacity: 1;
-      transition: opacity 0.1s ease-in;
-    }
+    /* Font loaded state handled via font-display: swap; no opacity tweaks */
   `;
   document.head.appendChild(fontStyles);
   

@@ -12,10 +12,7 @@ export function FOUCPrevention() {
     const isMobile = window.innerWidth < 768 || 
                     /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 
-    // 1. Add a class to the HTML element to indicate loading state
-    document.documentElement.classList.add('loading');
-
-    // 2. Create the style element with FOUC-prevention CSS
+    // 1. Create the style element with FOUC-prevention CSS
     const style = document.createElement('style');
     style.id = 'fouc-prevention-styles';
     style.textContent = `
