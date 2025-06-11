@@ -1,5 +1,5 @@
 import React, { useRef, useState, useEffect } from 'react';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { ChevronLeft, ChevronRight } from '@/icons';
 import { CreatorCard } from '../creator/CreatorCard';
 import type { Creator } from '../creator/types';
 

@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { UserCircle } from 'lucide-react';
+import { UserCircle } from '@/icons';
 import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,

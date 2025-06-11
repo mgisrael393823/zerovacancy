@@ -5,7 +5,7 @@ import { MobileCreatorCarousel } from '../search/MobileCreatorCarousel';
 import { cn } from '@/lib/utils';
 import { Dialog, DialogContent, DialogTitle } from "../ui/dialog";
 import { VisuallyHidden } from "../ui/visually-hidden";
-import { X } from 'lucide-react';
+import { X } from '@/icons';
 import { CreatorCardSkeleton } from './CreatorCardSkeleton';
 
 // Creator data is static, so memoize it outside the component

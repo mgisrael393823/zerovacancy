@@ -6,7 +6,7 @@ import { useToast } from '@/hooks/use-toast';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { Button } from '@/components/ui/button';
-import { RefreshCw } from 'lucide-react';
+import { RefreshCw } from '@/icons';
 
 const ConnectRefresh = () => {
   const [loading, setLoading] = useState(true);

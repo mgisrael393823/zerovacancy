@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight } from '@/icons';
 import { BlogPostPreview } from '@/types/blog';
 import BlogCard from './BlogCard';
 import { BlogService } from '@/services/BlogService';

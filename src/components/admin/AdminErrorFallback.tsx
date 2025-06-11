@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { AlertTriangle, Database, RefreshCw } from 'lucide-react';
+import { AlertTriangle, Database, RefreshCw } from '@/icons';
 import { checkSupabaseConnection } from '@/integrations/supabase/client-enhanced';
 
 interface AdminErrorFallbackProps {

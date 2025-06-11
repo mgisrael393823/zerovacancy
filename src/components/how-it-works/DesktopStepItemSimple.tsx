@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { Check, ArrowRight } from 'lucide-react';
+import { Check, ArrowRight } from '@/icons';
 import { cn } from '@/lib/utils';
 import { Step } from './types';
 

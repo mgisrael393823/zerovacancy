@@ -3,7 +3,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '@/components/auth/AuthContext';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
-import { ChevronDown, X, Menu } from 'lucide-react';
+import { ChevronDown, X, Menu } from '@/icons';
 import AuthForms from '@/components/auth/AuthForms';
 import {
   Sheet,

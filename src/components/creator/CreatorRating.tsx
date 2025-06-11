@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { Star, Calendar, Clock, Crown } from 'lucide-react';
+import { Star, Calendar, Clock, Crown } from '@/icons';
 import { cn } from '@/lib/utils';
 import { useIsMobile } from '@/hooks/use-mobile';
 import type { AvailabilityStatus } from './types';

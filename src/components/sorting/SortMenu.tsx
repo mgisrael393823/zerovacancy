@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { Button } from '../ui/button';
-import { ArrowUpDown } from 'lucide-react';
+import { ArrowUpDown } from '@/icons';
 import {
   DropdownMenu,
   DropdownMenuContent,

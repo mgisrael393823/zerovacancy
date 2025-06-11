@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { MapPin } from 'lucide-react';
+import { MapPin } from '@/icons';
 import { cn } from '@/lib/utils';
 import { LocationSuggestion, GroupedSuggestions } from '@/utils/locationData';
 

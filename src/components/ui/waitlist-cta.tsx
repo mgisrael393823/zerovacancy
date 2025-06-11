@@ -1,7 +1,7 @@
 
 import React, { useState, useRef } from 'react';
 import { cn } from '@/lib/utils';
-import { ShieldCheck } from 'lucide-react'; // Changed to shield/lock icon for security
+import { ShieldCheck } from '@/icons'; // Changed to shield/lock icon for security
 import { Button3DPhysical } from './button-3d-physical';
 import { WaitlistButton } from './waitlist/waitlist-button';
 import { SocialProof } from './waitlist/social-proof';

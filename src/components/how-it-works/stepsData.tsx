@@ -1,5 +1,5 @@
 
-import { Search, Users, Calendar, FileCheck } from 'lucide-react';
+import { Search, Users, Calendar, FileCheck } from '@/icons';
 import { StepColor } from './StepItem';
 import React from 'react';
 

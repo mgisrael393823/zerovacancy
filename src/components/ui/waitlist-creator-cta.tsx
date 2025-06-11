@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { cn } from '@/lib/utils';
-import { UserPlus } from 'lucide-react'; // Added user-plus icon for creator signup
+import { UserPlus } from '@/icons'; // Added user-plus icon for creator signup
 import { Button3DPhysical } from './button-3d-physical';
 import { WaitlistCreatorButton } from './waitlist/waitlist-creator-button';
 import { SocialProof } from './waitlist/social-proof';

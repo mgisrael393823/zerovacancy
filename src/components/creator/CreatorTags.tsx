@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { cn } from '@/lib/utils';
-import { Tag } from 'lucide-react';
+import { Tag } from '@/icons';
 import { useIsMobile } from '@/hooks/use-mobile';
 
 interface CreatorTagsProps {

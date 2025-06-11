@@ -1,5 +1,5 @@
 
-import { Search, Users, FileCheck, Calendar } from 'lucide-react';
+import { Search, Users, FileCheck, Calendar } from '@/icons';
 import { Step } from './types';
 
 // Define step data to avoid repetition

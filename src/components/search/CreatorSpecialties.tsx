@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { Camera, Compass, Video, Laptop, Grid3x3, Share2 } from 'lucide-react';
+import { Camera, Compass, Video, Laptop, Grid3x3, Share2 } from '@/icons';
 import { useIsMobile } from '@/hooks/use-mobile';
 import { cn } from '@/lib/utils';
 

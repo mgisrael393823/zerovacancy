@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { ChevronDown } from 'lucide-react';
+import { ChevronDown } from '@/icons';
 import { MenuItem } from '@/types/navigation';
 import {
   DropdownMenu,

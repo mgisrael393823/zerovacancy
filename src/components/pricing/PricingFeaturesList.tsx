@@ -1,5 +1,5 @@
 
-import { Check, Camera, Plane, Video, Users, Clock, Award } from 'lucide-react';
+import { Check, Camera, Plane, Video, Users, Clock, Award } from '@/icons';
 import { cn } from "@/lib/utils";
 import { ColorVariant } from './PricingCardColors';
 

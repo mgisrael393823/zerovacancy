@@ -3,7 +3,7 @@ import { Button } from '@/components/ui/button';
 import { Button3DBorder } from '@/components/ui/button-3d-border';
 import { Button3DEnhanced } from '@/components/ui/button-3d-enhanced';
 import { Button3DPhysical } from '@/components/ui/button-3d-physical';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight } from '@/icons';
 
 interface ButtonStylesDemoProps {
   className?: string;

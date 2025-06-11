@@ -1,6 +1,6 @@
 import React, { useState, useCallback, useRef, useEffect } from 'react';
 import { Card } from '../ui/card';
-import { ArrowRight, Star, X, Clock, Crown, CheckCircle, ShieldCheck, Loader2 } from 'lucide-react';
+import { ArrowRight, Star, X, Clock, Crown, CheckCircle, ShieldCheck, Loader2 } from '@/icons';
 import { Dialog, DialogContent } from "../ui/dialog";
 import './creator-card.css'; // Import CSS for custom animations
 import { cn } from '@/lib/utils';

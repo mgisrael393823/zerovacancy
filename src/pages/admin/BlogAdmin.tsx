@@ -16,7 +16,7 @@ import {
   Users, 
   Settings,
   LogOut
-} from 'lucide-react';
+} from '@/icons';
 import { BlogService } from '@/services/BlogService';
 import { BlogPostPreview, BlogPostsFilters, BlogCategory } from '@/types/blog';
 import { formatDate } from '@/lib/utils';

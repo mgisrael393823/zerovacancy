@@ -12,7 +12,7 @@ import {
   shadowStyles, 
   getCompleteButtonStyles 
 } from '@/styles/button-style-guide';
-import { ShieldCheck, UserPlus, ArrowRight, Check, Plus, Settings } from 'lucide-react';
+import { ShieldCheck, UserPlus, ArrowRight, Check, Plus, Settings } from '@/icons';
 
 export function ButtonStyleGuide() {
   return (

@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { Link } from 'lucide-react';
+import { Link } from '@/icons';
 import { cn } from '@/lib/utils';
 
 interface SectionAnchorProps {

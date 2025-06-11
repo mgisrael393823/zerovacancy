@@ -1,6 +1,6 @@
 
 import React, { useState, ChangeEvent, useRef, useEffect } from 'react';
-import { MapPin, X } from 'lucide-react';
+import { MapPin, X } from '@/icons';
 import { cn } from '@/lib/utils';
 import { LocationSuggestions } from './LocationSuggestions';
 import { filterLocations } from '@/utils/locationData';

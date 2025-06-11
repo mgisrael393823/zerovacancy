@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Check, ArrowRight } from 'lucide-react';
+import { Check, ArrowRight } from '@/icons';
 import { cn } from '@/lib/utils';
 import { Step, StepStyle } from './stepsUtils';
 import { ConnectingLines } from './ConnectingLines';

@@ -6,7 +6,7 @@ import Footer from '@/components/Footer';
 import { useAuth } from '@/components/auth/AuthContext';
 import { useToast } from '@/hooks/use-toast';
 import { supabase } from '@/integrations/supabase/client';
-import { Building, Calendar, Camera, CreditCard, FileText, Home, Settings, User } from 'lucide-react';
+import { Building, Calendar, Camera, CreditCard, FileText, Home, Settings, User } from '@/icons';
 import { Button } from '@/components/ui/button';
 
 const PropertyDashboard = () => {

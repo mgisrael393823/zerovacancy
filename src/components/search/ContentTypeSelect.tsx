@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { Camera, ChevronDown } from 'lucide-react';
+import { Camera, ChevronDown } from '@/icons';
 import { cn } from '@/lib/utils';
 import { useIsMobile } from '@/hooks/use-mobile';
 
