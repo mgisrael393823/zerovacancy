@@ -111,6 +111,21 @@ const FontLoader: React.FC = () => {
       
       // Add fonts-loading class immediately, will be replaced with fonts-loaded when complete
       document.documentElement.classList.add('fonts-loading');
+
+      if (document.fonts && document.fonts.ready) {
+        document.fonts.ready
+          .then(() => {
+            document.documentElement.classList.remove('fonts-loading');
+            document.documentElement.classList.add('fonts-loaded');
+          })
+          .catch(() => {
+            document.documentElement.classList.remove('fonts-loading');
+          });
+        setTimeout(() => {
+          document.documentElement.classList.remove('fonts-loading');
+          document.documentElement.classList.add('fonts-loaded');
+        }, 3000);
+      }
     }
   }, []);
 

@@ -16,7 +16,6 @@ self.addEventListener('install', (event) => {
   event.waitUntil(
     caches.open(CACHE_NAME)
       .then((cache) => {
-        console.log('Service worker pre-caching critical assets');
         return cache.addAll(CRITICAL_ASSETS);
       })
       .catch(err => {
@@ -32,7 +31,6 @@ self.addEventListener('activate', (event) => {
       return Promise.all(
         cacheNames.map((cacheName) => {
           if (cacheName !== CACHE_NAME) {
-            console.log('Service worker removing old cache:', cacheName);
             return caches.delete(cacheName);
           }
         })
@@ -49,11 +47,10 @@ const handleCssRequest = async (request) => {
     const protocol = url.protocol;
     if (!['http:', 'https:'].includes(protocol)) {
       // Skip any non-HTTP(S) requests
-      console.log('Skipping CSS handling for non-HTTP request:', protocol);
       return fetch(request);
     }
   } catch (urlError) {
-    console.warn('Invalid URL in CSS handler:', request.url);
+    // Invalid URL, skip service worker handling
     return fetch(request);
   }
   
@@ -71,7 +68,7 @@ const handleCssRequest = async (request) => {
         try {
           cache.put(request, responseToCache);
         } catch (cacheError) {
-          console.warn('Failed to cache CSS response:', cacheError);
+          // Ignore caching errors
         }
       });
     }
@@ -112,7 +109,7 @@ self.addEventListener('fetch', (event) => {
     try {
       url = new URL(event.request.url);
     } catch (urlError) {
-      console.warn('Invalid URL in fetch handler:', event.request.url);
+    // Invalid URL - skip service worker handling
       return; // Skip service worker handling for invalid URLs
     }
     
@@ -167,17 +164,17 @@ self.addEventListener('fetch', (event) => {
                   try {
                     cache.put(event.request, responseToCache);
                   } catch (cacheError) {
-                    console.warn('Failed to cache response:', cacheError);
+                    // Ignore caching failure
                   }
                 })
                 .catch(err => {
-                  console.warn('Cache open failed:', err);
+                // Ignore cache open failure
                 });
               
               return networkResponse;
             })
             .catch(fetchError => {
-              console.warn('Network fetch failed:', fetchError);
+              // Network failed; allow fallback logic to handle
               
               // Check if this is an image and return a placeholder if so
               if (url.pathname.match(/\.(jpg|jpeg|png|gif|webp|svg)$/)) {
@@ -192,7 +189,7 @@ self.addEventListener('fetch', (event) => {
             });
         })
         .catch((error) => {
-          console.warn('Cache match error:', error);
+          // Ignore cache match errors
           // Let the browser handle other failed requests by passing through
           return fetch(event.request).catch(() => {
             // Last resort fallback for critical resources
@@ -222,7 +219,6 @@ self.addEventListener('message', (event) => {
   // Handle unregister request
   if (event.data && event.data.type === 'UNREGISTER') {
     self.registration.unregister()
-      .then(() => console.log('Service worker unregistered successfully'))
       .catch(err => console.error('Service worker unregister failed:', err));
   }
   
@@ -242,7 +238,7 @@ self.addEventListener('message', (event) => {
               // Only cache successful responses
               if (response.status === 200 && response.ok) {
                 // We could cache these responses, but for now just warm up the browser cache
-                console.log('Prefetched resource: ' + urlString);
+                // Prefetched resource warmed in browser cache
               }
             })
             .catch(() => {
@@ -251,7 +247,7 @@ self.addEventListener('message', (event) => {
         }
       } catch (error) {
         // Silently handle invalid URLs
-        console.warn('Invalid prefetch URL: ' + urlString);
+        // Invalid prefetch URL - ignore
       }
     });
   }
