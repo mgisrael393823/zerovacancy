@@ -427,7 +427,10 @@
     <!-- Resource hints - optimized for performance -->
     <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;700&display=swap" onload="this.rel='stylesheet'" crossorigin>
+    <noscript>
+      <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;700&display=swap" rel="stylesheet">
+    </noscript>
     <link rel="preconnect" href="https://pozblfzhjqlsxkakhowp.supabase.co" crossorigin />
     <link rel="dns-prefetch" href="https://pozblfzhjqlsxkakhowp.supabase.co" />
     <link rel="preconnect" href="https://js.stripe.com" crossorigin />

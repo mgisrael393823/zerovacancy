@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, Suspense } from 'react';
 import RichTextEditor from '@/components/blog/RichTextEditor';
 import ImageUploader from '@/components/blog/ImageUploader';
-import CategorySelector from '@/components/blog/CategorySelector';
+const CategorySelector = React.lazy(() => import('@/components/blog/CategorySelector'));
 import { BlogCategory } from '@/types/blog';
 
 const BlogTest = () => {
@@ -78,12 +78,14 @@ const BlogTest = () => {
           
           <div className="bg-white p-6 rounded-lg shadow">
             <h2 className="text-xl font-bold mb-4">Category Selector Test</h2>
-            <CategorySelector
-              categories={categories}
-              selectedCategoryId={selectedCategoryId}
-              onChange={handleCategoryChange}
-              onCategoriesChange={handleCategoriesChange}
-            />
+            <Suspense fallback={<div>Loading...</div>}>
+              <CategorySelector
+                categories={categories}
+                selectedCategoryId={selectedCategoryId}
+                onChange={handleCategoryChange}
+                onCategoriesChange={handleCategoriesChange}
+              />
+            </Suspense>
           </div>
           
           <div className="bg-white p-6 rounded-lg shadow">
