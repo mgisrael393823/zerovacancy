@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { iconColors, featureIcons } from "./feature-colors";
-import { ChevronRight, Sparkles } from "lucide-react";
+import { ChevronRight, Sparkles } from "@/icons";
 import { mobileOptimizationClasses } from "@/utils/mobile-optimization";
 
 interface FeatureItemProps {

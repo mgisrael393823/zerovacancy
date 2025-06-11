@@ -3,7 +3,7 @@ import * as React from "react";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { useIsMobile } from "@/hooks/use-mobile";
-import { Calendar, CalendarDays, Check } from "lucide-react";
+import { Calendar, CalendarDays, Check } from "@/icons";
 import { MobilePricingToggle } from "./MobilePricingToggle";
 import { mobileOptimizationClasses as moc } from "@/utils/mobile-optimization";
 

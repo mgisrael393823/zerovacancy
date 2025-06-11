@@ -7,7 +7,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { FeatureItem } from "./FeatureItem";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, ChevronDown } from "lucide-react";
+import { ArrowRight, ChevronDown } from "@/icons";
 import { cn } from "@/lib/utils";
 
 export function FeaturesSectionWithHoverEffects() {

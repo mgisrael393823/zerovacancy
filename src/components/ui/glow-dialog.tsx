@@ -2,7 +2,7 @@ import * as React from "react";
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import { motion } from "framer-motion";
 import { useRef, useState, useCallback, useEffect } from "react";
-import { Loader2, X, Mail, Building, Camera, CheckCircle, ArrowRight } from "lucide-react";
+import { Loader2, X, Mail, Building, Camera, CheckCircle, ArrowRight } from "@/icons";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
 import { SuccessConfirmation } from "@/components/ui/waitlist/success-confirmation";

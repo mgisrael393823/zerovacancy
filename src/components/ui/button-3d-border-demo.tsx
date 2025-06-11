@@ -1,6 +1,6 @@
 import React from "react";
 import { Button3DBorder } from "./button-3d-border";
-import { ArrowRight, Star, Check, Settings } from "lucide-react";
+import { ArrowRight, Star, Check, Settings } from "@/icons";
 
 export function Button3DBorderDemo() {
   return (

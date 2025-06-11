@@ -1,7 +1,7 @@
 
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight } from "@/icons";
 
 interface ButtonColorfulProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
     label?: string;

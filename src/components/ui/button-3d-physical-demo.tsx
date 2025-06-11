@@ -1,6 +1,6 @@
 import React from "react";
 import { Button3DPhysical } from "./button-3d-physical";
-import { ArrowRight, Star, PlusCircle, CheckCircle2, Zap, Globe, Settings, Check } from "lucide-react";
+import { ArrowRight, Star, PlusCircle, CheckCircle2, Zap, Globe, Settings, Check } from "@/icons";
 
 export function Button3DPhysicalDemo() {
   return (

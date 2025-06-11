@@ -6,7 +6,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { usePricing } from "./PricingContext";
 import PricingHeader from "./PricingHeader";
 import { PLAN_DESCRIPTIONS, VALUE_PROPOSITIONS, PLAN_CTAS, FEATURES } from "./pricingData";
-import { ChevronDown, Check, X, ChevronRight, Sparkles, Loader2 } from "lucide-react";
+import { ChevronDown, Check, X, ChevronRight, Sparkles, Loader2 } from "@/icons";
 import { PricingPopularTag } from "./PricingPopularTag";
 import { PricingFeature } from "./types";
 import { Button } from "../ui/button";

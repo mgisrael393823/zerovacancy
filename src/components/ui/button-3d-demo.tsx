@@ -1,6 +1,6 @@
 import React from "react";
 import { Button3D } from "./button-3d";
-import { ArrowRight, Star, Check, Settings } from "lucide-react";
+import { ArrowRight, Star, Check, Settings } from "@/icons";
 
 export function Button3DDemo() {
   return (
