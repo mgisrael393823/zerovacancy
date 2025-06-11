@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { Search, Users, FileCheck, Calendar } from 'lucide-react';
+import { Search, Users, FileCheck, Calendar } from '@/icons';
 
 // Define colorful backgrounds for each step with enhanced styling options
 export const stepColors = [{

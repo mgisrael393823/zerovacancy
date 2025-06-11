@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Hash } from 'lucide-react';
+import { Hash } from '@/icons';
 import BlogSearch from './BlogSearch';
 import BlogCategories from './BlogCategories';
 import BlogCard from './BlogCard';

@@ -1,6 +1,6 @@
 
 import { useState } from "react";
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight } from '@/icons';
 import { cn } from "@/lib/utils";
 import { ColorVariant } from './PricingCardColors';
 

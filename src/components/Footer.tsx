@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import TermsModal from './TermsModal';
-import { Mail, Clock, MapPin, ExternalLink, Search, Users, HelpCircle, ChevronUp } from 'lucide-react';
+import { Mail, Clock, MapPin, ExternalLink, Search, Users, HelpCircle, ChevronUp } from '@/icons';
 import { cn } from '@/lib/utils';
 import { useIsMobile } from '@/hooks/use-mobile';
 import { GlowDialog } from '@/components/ui/glow-dialog';

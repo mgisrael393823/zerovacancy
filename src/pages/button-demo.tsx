@@ -3,7 +3,7 @@ import { Button } from '@/components/ui/button';
 import { Button3DBorder } from '@/components/ui/button-3d-border';
 import { Button3DEnhanced } from '@/components/ui/button-3d-enhanced';
 import { Button3DPhysical } from '@/components/ui/button-3d-physical';
-import { ArrowRight, Check } from 'lucide-react';
+import { ArrowRight, Check } from '@/icons';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import SEO from '@/components/SEO';

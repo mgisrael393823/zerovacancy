@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Check } from 'lucide-react';
+import { Check } from '@/icons';
 import { cn } from '@/lib/utils';
 import { Step } from './stepsUtils';
 

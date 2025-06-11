@@ -1,6 +1,6 @@
 
 import { CSSProperties } from 'react';
-import { LucideIcon } from 'lucide-react';
+import { LucideIcon } from '@/icons';
 
 export interface Step {
   icon: LucideIcon;

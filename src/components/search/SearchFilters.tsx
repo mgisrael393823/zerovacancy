@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { DollarSign, Star, ChevronDown, Users, Palette, Map, Compass, SlidersHorizontal } from 'lucide-react';
+import { DollarSign, Star, ChevronDown, Users, Palette, Map, Compass, SlidersHorizontal } from '@/icons';
 import { cn } from '@/lib/utils';
 import { useIsMobile } from '@/hooks/use-mobile';
 

@@ -3,7 +3,7 @@ import * as React from "react"
 const { useEffect, useState } = React
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog"
 import { VisuallyHidden } from "@/components/ui/visually-hidden"
-import { CheckCircle, X } from "lucide-react"
+import { CheckCircle, X } from "@/icons"
 import { Confetti } from "@/components/ui/confetti"
 import confetti from "canvas-confetti"
 import { useIsMobile } from "@/hooks/use-mobile"

@@ -1,7 +1,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Home, Search, MessageSquare, User } from 'lucide-react';
+import { Home, Search, MessageSquare, User } from '@/icons';
 import { cn } from '@/lib/utils';
 import { useIsMobile } from '@/hooks/use-mobile';
 import { GlowDialog } from '@/components/ui/glow-dialog';

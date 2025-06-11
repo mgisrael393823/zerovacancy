@@ -6,7 +6,7 @@ import { HeroSection } from '../components/hero/new';
 import Footer from '../components/Footer';
 import { Banner } from '@/components/ui/banner';
 import { Button } from '@/components/ui/button';
-import { Star } from 'lucide-react';
+import { Star } from '@/icons';
 import { GlowDialog } from '@/components/ui/glow-dialog';
 import { AnimatedShinyText } from '@/components/ui/animated-shiny-text';
 import { cn } from '@/lib/utils';

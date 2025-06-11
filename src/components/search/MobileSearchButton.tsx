@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { Search } from 'lucide-react';
+import { Search } from '@/icons';
 import { Button } from '../ui/button';
 import { cn } from '@/lib/utils';
 import { useNavigate } from 'react-router-dom';

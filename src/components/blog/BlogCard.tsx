@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Calendar, Clock, User, Image } from 'lucide-react';
+import { Calendar, Clock, User, Image } from '@/icons';
 import { BlogPostPreview } from '@/types/blog';
 import { formatDate } from '@/lib/utils';
 

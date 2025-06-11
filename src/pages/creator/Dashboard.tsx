@@ -6,7 +6,7 @@ import Footer from '@/components/Footer';
 import { useAuth } from '@/components/auth/AuthContext';
 import { useToast } from '@/hooks/use-toast';
 import { supabase } from '@/integrations/supabase/client';
-import { Building, Calendar, Clock, FileText, Home, Settings, User } from 'lucide-react';
+import { Building, Calendar, Clock, FileText, Home, Settings, User } from '@/icons';
 
 const CreatorDashboard = () => {
   const { isAuthenticated, isLoading, user } = useAuth();

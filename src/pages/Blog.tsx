@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { BookOpen, ChevronRight } from 'lucide-react';
+import { BookOpen, ChevronRight } from '@/icons';
 import { BlogService } from '@/services/BlogService';
 import { BlogCategory, BlogPostPreview } from '@/types/blog';
 import BlogCard from '@/components/blog/BlogCard';

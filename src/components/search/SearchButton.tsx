@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { Search } from 'lucide-react';
+import { Search } from '@/icons';
 import { cn } from '@/lib/utils';
 
 export const SearchButton: React.FC = () => {

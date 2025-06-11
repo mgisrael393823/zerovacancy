@@ -1,6 +1,6 @@
 import React, { ReactNode } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { LogOut, Settings, FileText, Users, Tag } from 'lucide-react';
+import { LogOut, Settings, FileText, Users, Tag } from '@/icons';
 import { useAuth } from '@/components/auth/AuthContext';
 
 interface AdminLayoutProps {

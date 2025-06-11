@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { CreditCard, Info, CheckCircle } from 'lucide-react';
+import { CreditCard, Info, CheckCircle } from '@/icons';
 
 type AccountStatusProps = {
   accountStatus: {

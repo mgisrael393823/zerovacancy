@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { cn } from '@/lib/utils';
 import { useIsMobile } from '@/hooks/use-mobile';
-import { ArrowRight, X, ExternalLink } from 'lucide-react';
+import { ArrowRight, X, ExternalLink } from '@/icons';
 import { Dialog, DialogContent, DialogTitle } from '../ui/dialog';
 import { VisuallyHidden } from '../ui/visually-hidden';
 

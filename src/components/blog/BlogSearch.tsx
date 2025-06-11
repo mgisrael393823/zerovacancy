@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Search } from 'lucide-react';
+import { Search } from '@/icons';
 
 interface BlogSearchProps {
   onSearch: (query: string) => void;

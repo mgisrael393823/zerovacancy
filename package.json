@@ -44,6 +44,7 @@
     "analyze:bundle": "ANALYZE_BUNDLE=true vite build",
     "perf-build": "npm run optimize-images && npm run optimize-creator-images && npm run build:perf",
     "perf-test": "npm run perf-build && npm run analyze-web-vitals",
+    "perf:lhci": "npx lhci collect --url=http://localhost:8080 && npx lhci assert",
     "perf-full": "npm run asset-cleanup && npm run perf-images && npm run build:perf",
     "mobile-perf": "npm run optimize-creator-images && npm run build:perf",
     "test:cls": "node scripts/automated-cls-testing.js",

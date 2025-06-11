@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
-import { Menu, ChevronDown } from 'lucide-react';
+import { Menu, ChevronDown } from '@/icons';
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { cn } from '@/lib/utils';
 import { motion, AnimatePresence } from "framer-motion";

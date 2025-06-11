@@ -1,5 +1,5 @@
 import React from 'react';
-import { Keyboard, X, KeyRound } from 'lucide-react';
+import { Keyboard, X, KeyRound } from '@/icons';
 import { KeyboardShortcut, formatShortcut } from '@/utils/keyboard-shortcuts';
 
 interface KeyboardShortcutsHelpProps {

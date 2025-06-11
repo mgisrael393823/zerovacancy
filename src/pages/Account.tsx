@@ -4,7 +4,7 @@ import Header from '@/components/Header';
 import { Button } from '@/components/ui/button';
 import { useNavigate } from 'react-router-dom';
 import Footer from '@/components/Footer';
-import { CreditCard, LogOut, User } from 'lucide-react';
+import { CreditCard, LogOut, User } from '@/icons';
 import { useAuth } from '@/components/auth/AuthContext';
 import { useToast } from '@/hooks/use-toast';
 import { supabase } from '@/integrations/supabase/client';

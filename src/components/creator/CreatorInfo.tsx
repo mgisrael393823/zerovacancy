@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { cn } from '@/lib/utils';
-import { MapPin, Image, BadgeCheck } from 'lucide-react';
+import { MapPin, Image, BadgeCheck } from '@/icons';
 import { useIsMobile } from '@/hooks/use-mobile';
 
 interface Creator {

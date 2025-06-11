@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { cn } from '@/lib/utils';
-import { BadgeCheck, Sparkles } from 'lucide-react';
+import { BadgeCheck, Sparkles } from '@/icons';
 
 export interface StepColor {
   iconBg: string;

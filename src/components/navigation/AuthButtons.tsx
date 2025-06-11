@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { LogIn } from 'lucide-react';
+import { LogIn } from '@/icons';
 import { Button3DPhysical } from '@/components/ui/button-3d-physical';
 import { useAuth } from '@/components/auth/AuthContext';
 

@@ -44,7 +44,7 @@ import {
   ChevronsLeftRight,
   Sparkles,
   Type
-} from 'lucide-react';
+} from '@/icons';
 import { BlogService } from '@/services/BlogService';
 
 // Let's create a button for manual formatting instead

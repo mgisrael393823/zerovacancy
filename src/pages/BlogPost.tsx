@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import { Link, useParams, useNavigate } from 'react-router-dom';
-import { BookOpen, ChevronRight } from 'lucide-react';
+import { BookOpen, ChevronRight } from '@/icons';
 import { BlogService } from '@/services/BlogService';
 import { BlogPost as BlogPostType } from '@/types/blog';
 import SafeBlogPostContent from '@/components/blog/SafeBlogPostContent';

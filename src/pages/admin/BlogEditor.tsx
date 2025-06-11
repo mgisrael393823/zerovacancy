@@ -22,7 +22,7 @@ import {
   Search,
   Keyboard,
   KeyRound
-} from 'lucide-react';
+} from '@/icons';
 import { OptimizedImage } from '@/components/ui/optimized-image';
 import { BlogService } from '@/services/BlogService';
 import { BlogPost, BlogCategory, BlogAuthor } from '@/types/blog';

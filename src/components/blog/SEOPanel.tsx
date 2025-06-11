@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Search, Globe, Share2, AlertCircle, Check, XCircle, Info, Star, Lightbulb } from 'lucide-react';
+import { Search, Globe, Share2, AlertCircle, Check, XCircle, Info, Star, Lightbulb } from '@/icons';
 
 interface SEOPanelProps {
   title: string;

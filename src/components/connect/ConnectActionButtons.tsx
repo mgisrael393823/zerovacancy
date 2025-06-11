@@ -2,7 +2,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
-import { CreditCard, DollarSign, RefreshCw } from 'lucide-react';
+import { CreditCard, DollarSign, RefreshCw } from '@/icons';
 
 type ConnectActionButtonsProps = {
   accountStatus: {

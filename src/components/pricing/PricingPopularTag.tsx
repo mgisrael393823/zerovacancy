@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Sparkles } from 'lucide-react';
+import { Sparkles } from '@/icons';
 import { cn } from "@/lib/utils";
 
 interface PricingPopularTagProps {

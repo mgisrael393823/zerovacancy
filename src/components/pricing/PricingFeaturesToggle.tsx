@@ -1,5 +1,5 @@
 
-import { ChevronDown } from 'lucide-react';
+import { ChevronDown } from '@/icons';
 import { cn } from "@/lib/utils";
 
 interface PricingFeaturesToggleProps {

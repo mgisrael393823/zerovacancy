@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { LucideIcon } from 'lucide-react';
+import { LucideIcon } from '@/icons';
 import { cn } from '@/lib/utils';
 import { mobileOptimizationClasses } from '@/utils/mobile-optimization';
 import { useIsMobile } from '@/hooks/use-mobile';

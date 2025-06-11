@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { supabase, getErrorMessage } from '@/integrations/supabase/client-enhanced';
 import SEO from '@/components/SEO';
-import { LockKeyhole, AlertCircle } from 'lucide-react';
+import { LockKeyhole, AlertCircle } from '@/icons';
 
 /**
  * Simplified AdminLogin component

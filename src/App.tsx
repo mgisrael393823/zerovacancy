@@ -55,8 +55,7 @@ const ConnectOnboarding = lazy(() => import('./pages/ConnectOnboarding'));
 const Blog = lazy(() => import('./pages/Blog'));
 const BlogPost = lazy(() => import('./pages/BlogPost'));
 const BlogTest = lazy(() => import('./pages/blog-test'));
-const BlogAdmin = lazy(() => import('./pages/admin/BlogAdmin'));
-const BlogEditor = lazy(() => import('./pages/admin/BlogEditor'));
+const AdminRoutes = lazy(() => import('./routes/AdminRoutes'));
 const AdminLogin = lazy(() => import('./pages/admin/AdminLogin'));
 const NotFound = lazy(() => import('./pages/NotFound'));
 
@@ -461,11 +460,8 @@ function App() {
                   <Route path="/connect/onboarding" element={<ConnectOnboarding />} />
 
                   {/* Admin Routes */}
-                  <Route path="/admin/login" element={<AdminLogin />} />
+                  <Route path="/admin/*" element={<AdminRoutes />} />
                   <Route path="/hidden-admin-login" element={<AdminLogin />} />
-                  <Route path="/admin/blog" element={<BlogAdmin />} />
-                  <Route path="/admin/blog/new" element={<BlogEditor />} />
-                  <Route path="/admin/blog/edit/:id" element={<BlogEditor />} />
 
                   {/* 404 Route */}
                   <Route path="*" element={<NotFound />} />

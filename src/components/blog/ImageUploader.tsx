@@ -1,5 +1,5 @@
 import React, { useState, useRef, useCallback } from 'react';
-import { Upload as UploadIcon, X, ImageIcon, Loader, Maximize2, Crop, Check, RotateCcw } from 'lucide-react';
+import { Upload as UploadIcon, X, ImageIcon, Loader, Maximize2, Crop, Check, RotateCcw } from '@/icons';
 import { OptimizedImage } from '@/components/ui/optimized-image';
 import ReactCrop, { Crop as CropType, PixelCrop, centerCrop, makeAspectCrop } from 'react-image-crop';
 import 'react-image-crop/dist/ReactCrop.css';

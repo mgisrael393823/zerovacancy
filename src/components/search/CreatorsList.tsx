@@ -7,7 +7,7 @@ import { mobileOptimizationClasses } from '@/utils/mobile-optimization';
 import { ErrorBoundary } from 'react-error-boundary';
 import { ErrorFallback } from '../ErrorFallback';
 import { Dialog, DialogContent, DialogTitle } from '../ui/dialog';
-import { X } from 'lucide-react';
+import { X } from '@/icons';
 import { cn } from '@/lib/utils';
 import { useStableViewportHeight } from '@/utils/web-vitals';
 
