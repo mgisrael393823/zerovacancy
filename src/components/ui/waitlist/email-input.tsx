@@ -4,7 +4,7 @@
 import { useState, useRef, forwardRef, useEffect } from "react";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
-import { CheckCircle, Mail } from "lucide-react";
+import { CheckCircle, Mail } from "@/icons";
 import { useIsMobile } from "@/hooks/use-mobile";
 
 interface EmailInputProps {

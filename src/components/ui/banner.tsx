@@ -1,6 +1,6 @@
 import * as React from "react";
 import { cva, type VariantProps } from "class-variance-authority";
-import { Star, Sparkle } from "lucide-react";
+import { Star, Sparkle } from "@/icons";
 import { cn } from "@/lib/utils";
 import { Button } from "./button";
 import { useIsMobile } from "@/hooks/use-mobile";
