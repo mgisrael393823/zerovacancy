@@ -49,3 +49,4 @@ review_summary.md
 .turbo
 
 **/.claude/settings.local.json
+cls-violations.json

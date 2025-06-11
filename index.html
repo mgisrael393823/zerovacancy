@@ -478,15 +478,42 @@
     <!-- Emergency header fix with viewport height integration for CLS prevention - removed for production -->
     <!-- <script src="/text-fouc-fix.js"></script> -->
     
-    <!-- Event listener monitoring and protection -->
-    <script src="/event-listener-guard.js"></script>
-    <script src="/event-listener-diagnostics.js"></script>
+    <!-- Event listener monitoring and protection - development only -->
+    <script>
+      // Only load event listener diagnostics in development
+      if (window.location.hostname === 'localhost' || 
+          window.location.hostname === '127.0.0.1' ||
+          window.location.port === '5173' || 
+          window.location.port === '3000') {
+        
+        const guardScript = document.createElement('script');
+        guardScript.src = '/event-listener-guard.js';
+        document.head.appendChild(guardScript);
+        
+        const diagnosticsScript = document.createElement('script');
+        diagnosticsScript.src = '/event-listener-diagnostics.js';
+        document.head.appendChild(diagnosticsScript);
+        
+        console.log('[Development] Event listener monitoring enabled');
+      }
+    </script>
     
     <!-- Fix for admin pages - run before other scripts to unregister service worker for admin routes -->
     <script src="/admin-sw-fix.js"></script>
     
-    <!-- Environment variables debugging tool -->
-    <script src="/debug-env-vars.js"></script>
+    <!-- Environment variables debugging tool - development only -->
+    <script>
+      // Only load environment debugging in development
+      if (window.location.hostname === 'localhost' || 
+          window.location.hostname === '127.0.0.1' ||
+          window.location.port === '5173' || 
+          window.location.port === '3000') {
+        
+        const debugScript = document.createElement('script');
+        debugScript.src = '/debug-env-vars.js';
+        document.head.appendChild(debugScript);
+      }
+    </script>
     
     <!-- Ultra-fast mobile optimization script - removed for production -->
     <!-- <script src="/quick-perf.js"></script> -->

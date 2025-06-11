@@ -84,6 +84,11 @@ const CLS_SENSITIVE_SELECTORS = [
 function detectPotentialFixedElements(): boolean {
   if (typeof document === 'undefined') return false;
   
+  // Skip debug logging in production
+  const isProduction = process.env.NODE_ENV === 'production' || 
+                      window.location.hostname !== 'localhost' && 
+                      window.location.hostname !== '127.0.0.1';
+  
   // Check for fixed headers
   const fixedHeaderElements = document.querySelectorAll('header, [role="banner"], .header, #header, .app-header, .fixed-header, .sticky-header, nav, .nav, [role="navigation"]');
   
@@ -94,7 +99,9 @@ function detectPotentialFixedElements(): boolean {
       const computedStyle = window.getComputedStyle(element);
       
       if (computedStyle.position === 'fixed' || computedStyle.position === 'sticky') {
-        console.debug(`Detected fixed/sticky header: ${element.tagName}${element.id ? '#' + element.id : ''}${element.className ? '.' + element.className.split(' ').join('.') : ''}`);
+        if (!isProduction) {
+          console.debug(`Detected fixed/sticky header: ${element.tagName}${element.id ? '#' + element.id : ''}${element.className ? '.' + element.className.split(' ').join('.') : ''}`);
+        }
         foundFixed = true;
         
         // Add data attributes to ensure it's never contained and marked for CLS protection
@@ -135,7 +142,9 @@ function detectPotentialFixedElements(): boolean {
   });
   
   if (highZIndexElements.length > 0) {
-    console.debug(`Detected ${highZIndexElements.length} elements with high z-index (>100)`);
+    if (!isProduction) {
+      console.debug(`Detected ${highZIndexElements.length} elements with high z-index (>100)`);
+    }
     
     // Add data attribute to make sure they're never contained
     highZIndexElements.forEach(el => {
@@ -228,7 +237,14 @@ function initContainmentWithTimeout(): void {
   );
   
   if (!supportsContainment) {
-    console.log('CSS containment not supported in this browser. Applying CLS prevention only.');
+    // Skip debug logging in production
+    const isProduction = process.env.NODE_ENV === 'production' || 
+                        window.location.hostname !== 'localhost' && 
+                        window.location.hostname !== '127.0.0.1';
+    
+    if (!isProduction) {
+      console.log('CSS containment not supported in this browser. Applying CLS prevention only.');
+    }
     // Even without containment support, we can still apply CLS prevention
     applyClSPreventionStyles();
     return;
@@ -341,7 +357,14 @@ function applyClSPreventionStyles(): void {
  * Main initialization function for CSS containment
  */
 function initializeContainment() {
-  console.log('Initializing CSS containment with CLS prevention...');
+  // Skip debug logging in production
+  const isProduction = process.env.NODE_ENV === 'production' || 
+                      window.location.hostname !== 'localhost' && 
+                      window.location.hostname !== '127.0.0.1';
+  
+  if (!isProduction) {
+    console.log('Initializing CSS containment with CLS prevention...');
+  }
   
   // Add containment stylesheet with enhanced CLS prevention
   const styleElement = document.createElement('style');
@@ -538,7 +561,9 @@ function initializeContainment() {
   // Add CLS prevention styles
   applyClSPreventionStyles();
   
-  console.log('CSS containment initialized with CLS prevention');
+  if (!isProduction) {
+    console.log('CSS containment initialized with CLS prevention');
+  }
 }
 
 /**
@@ -598,7 +623,14 @@ function shouldApplyContainment(element: HTMLElement): boolean {
   // Check for fixed/sticky positioning - never apply containment
   const position = computedStyle.position;
   if (position === 'fixed' || position === 'sticky') {
-    console.debug(`Skipping containment for ${element.tagName} with position: ${position}`);
+    // Skip debug logging in production
+    const isProduction = process.env.NODE_ENV === 'production' || 
+                        window.location.hostname !== 'localhost' && 
+                        window.location.hostname !== '127.0.0.1';
+    
+    if (!isProduction) {
+      console.debug(`Skipping containment for ${element.tagName} with position: ${position}`);
+    }
     
     // Apply CLS prevention to fixed/sticky elements
     element.style.transform = 'translateZ(0)';
@@ -627,13 +659,27 @@ function shouldApplyContainment(element: HTMLElement): boolean {
   // Check if element has a high z-index (likely in stacking context)
   const zIndex = parseInt(computedStyle.zIndex, 10);
   if (!isNaN(zIndex) && zIndex > 10) {
-    console.debug(`Skipping containment for ${element.tagName} with high z-index: ${zIndex}`);
+    // Skip debug logging in production
+    const isProduction = process.env.NODE_ENV === 'production' || 
+                        window.location.hostname !== 'localhost' && 
+                        window.location.hostname !== '127.0.0.1';
+    
+    if (!isProduction) {
+      console.debug(`Skipping containment for ${element.tagName} with high z-index: ${zIndex}`);
+    }
     return false;
   }
   
   // Check if element or its children are part of a stacking context
   if (element.querySelector('[style*="position: fixed"], [style*="position: sticky"], [data-cls-fixed="true"]')) {
-    console.debug(`Skipping containment for ${element.tagName} with fixed/sticky children`);
+    // Skip debug logging in production
+    const isProduction = process.env.NODE_ENV === 'production' || 
+                        window.location.hostname !== 'localhost' && 
+                        window.location.hostname !== '127.0.0.1';
+    
+    if (!isProduction) {
+      console.debug(`Skipping containment for ${element.tagName} with fixed/sticky children`);
+    }
     return false;
   }
   
@@ -641,7 +687,14 @@ function shouldApplyContainment(element: HTMLElement): boolean {
   for (const selector of CLS_SENSITIVE_SELECTORS) {
     try {
       if (element.matches(selector)) {
-        console.debug(`Skipping containment for CLS-sensitive element matching: ${selector}`);
+        // Skip debug logging in production
+        const isProduction = process.env.NODE_ENV === 'production' || 
+                            window.location.hostname !== 'localhost' && 
+                            window.location.hostname !== '127.0.0.1';
+        
+        if (!isProduction) {
+          console.debug(`Skipping containment for CLS-sensitive element matching: ${selector}`);
+        }
         element.setAttribute('data-cls-sensitive', 'true');
         return false;
       }
@@ -754,8 +807,14 @@ function applyContainmentToCommonPatterns(): void {
     }
   });
   
-  // Log containment status
-  console.debug('CLS-safe containment applied to elements that passed position checks');
+  // Log containment status only in development
+  const isProduction = process.env.NODE_ENV === 'production' || 
+                      window.location.hostname !== 'localhost' && 
+                      window.location.hostname !== '127.0.0.1';
+  
+  if (!isProduction) {
+    console.debug('CLS-safe containment applied to elements that passed position checks');
+  }
 }
 
 /**
@@ -765,6 +824,11 @@ function applyContainmentToCommonPatterns(): void {
  */
 function auditFixedElements(): Record<string, unknown>[] {
   if (typeof document === 'undefined') return [];
+  
+  // Skip audit in production to prevent console spam
+  const isProduction = process.env.NODE_ENV === 'production' || 
+                      window.location.hostname !== 'localhost' && 
+                      window.location.hostname !== '127.0.0.1';
   
   const results: Record<string, unknown>[] = [];
   
@@ -823,7 +887,9 @@ function auditFixedElements(): Record<string, unknown>[] {
                 el.getAttribute('role') === 'banner') {
               el.style.top = '0';
               el.style.bottom = 'auto';
-              console.debug(`Fixed header-like element: ${selector} - forced bottom: auto`);
+              if (!isProduction) {
+                console.debug(`Fixed header-like element: ${selector} - forced bottom: auto`);
+              }
             }
             
             // 2. If this is a bottom navigation, force top: auto
@@ -834,11 +900,13 @@ function auditFixedElements(): Record<string, unknown>[] {
                      style.bottom === '0px') {
               el.style.bottom = '0';
               el.style.top = 'auto';
-              console.debug(`Fixed bottom nav element: ${selector} - forced top: auto`);
+              if (!isProduction) {
+                console.debug(`Fixed bottom nav element: ${selector} - forced top: auto`);
+              }
             }
             
-            // 3. For other fixed elements with non-auto, non-zero bottom, add special handling
-            else if (style.bottom !== '0px') {
+            // 3. For other fixed elements with non-auto, non-zero bottom, add special handling - SILENCE IN PRODUCTION
+            else if (style.bottom !== '0px' && !isProduction) {
               console.debug(`Fixed element with non-zero bottom value detected: ${selector}`);
             }
             
@@ -849,11 +917,13 @@ function auditFixedElements(): Record<string, unknown>[] {
     }
   });
   
-  // Log results once
-  if (results.length > 0) {
-    console.debug('Fixed elements with bottom positioning:', results);
-  } else {
-    console.debug('No fixed elements with bottom positioning found');
+  // Only log results in development
+  if (!isProduction) {
+    if (results.length > 0) {
+      console.debug('Fixed elements with bottom positioning:', results);
+    } else {
+      console.debug('No fixed elements with bottom positioning found');
+    }
   }
   
   return results;

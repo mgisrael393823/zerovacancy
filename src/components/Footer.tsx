@@ -1,20 +1,30 @@
 
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
 import TermsModal from './TermsModal';
 import { Mail, Clock, MapPin, ExternalLink, Search, Users, HelpCircle, ChevronUp } from '@/icons';
 import { cn } from '@/lib/utils';
-import { useIsMobile } from '@/hooks/use-mobile';
 import { GlowDialog } from '@/components/ui/glow-dialog';
 
 const Footer = () => {
   const [showTerms, setShowTerms] = useState(false);
   const [showGlowDialog, setShowGlowDialog] = useState(false);
   const currentYear = new Date().getFullYear();
-  const isMobile = useIsMobile();
   
   const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    try {
+      if (typeof window !== 'undefined' && window.scrollTo) {
+        window.scrollTo({ 
+          top: 0, 
+          behavior: 'smooth' 
+        });
+      }
+    } catch (error) {
+      console.warn('Failed to scroll to top:', error);
+      // Fallback for older browsers
+      if (typeof window !== 'undefined') {
+        window.scrollTo(0, 0);
+      }
+    }
   };
 
   return (
@@ -23,32 +33,7 @@ const Footer = () => {
         <div className="grid gap-8 grid-cols-1 sm:grid-cols-2 md:grid-cols-4">
           {/* Column 1: Company Info */}
           <div className="space-y-4">
-            <h3 
-              className="text-xl font-bold bg-gradient-to-r from-brand-purple-dark to-brand-purple-medium bg-clip-text text-transparent font-jakarta"
-              onTouchEnd={(e) => {
-                // Hidden admin access for mobile devices
-                const clickCount = (e.currentTarget as any)._adminClickCount || 0;
-                (e.currentTarget as any)._adminClickCount = clickCount + 1;
-                
-                // After 5 taps, prompt for password
-                if ((e.currentTarget as any)._adminClickCount >= 5) {
-                  // Reset the counter
-                  (e.currentTarget as any)._adminClickCount = 0;
-                  
-                  // Prompt for password
-                  const secretWord = prompt('Enter admin verification word:');
-                  if (secretWord === 'zerovacancy2025') {
-                    sessionStorage.setItem('adminAccessToken', 'granted');
-                    window.location.href = '/hidden-admin-login';
-                  }
-                }
-                
-                // Reset counter after 3 seconds
-                setTimeout(() => {
-                  (e.currentTarget as any)._adminClickCount = 0;
-                }, 3000);
-              }}
-            >
+            <h3 className="text-xl font-bold bg-gradient-to-r from-brand-purple-dark to-brand-purple-medium bg-clip-text text-transparent font-jakarta">
               ZeroVacancy
             </h3>
             <p className="text-brand-text-primary text-sm leading-relaxed font-inter">
@@ -57,18 +42,28 @@ const Footer = () => {
             
             {/* Social media icons */}
             <div className="flex space-x-3 pt-2">
-              <div className="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center transition-colors hover:bg-gray-200 cursor-pointer relative group" onClick={() => setShowGlowDialog(true)}>
-                <Users size={16} className="text-brand-purple-medium" />
-                <div className="absolute -top-8 left-1/2 transform -translate-x-1/2 bg-gray-800 text-white text-xs py-1 px-2 rounded opacity-0 group-hover:opacity-100 whitespace-nowrap transition-opacity">
+              <button 
+                className="w-11 h-11 rounded-full bg-gray-100 flex items-center justify-center transition-colors hover:bg-gray-200 cursor-pointer relative group focus:outline-none focus:ring-2 focus:ring-brand-purple focus:ring-offset-2" 
+                onClick={() => setShowGlowDialog(true)}
+                aria-label="Join our community (Coming Soon)"
+                title="Join our community (Coming Soon)"
+              >
+                <Users size={18} className="text-brand-purple-medium" />
+                <span className="absolute -top-10 left-1/2 transform -translate-x-1/2 bg-gray-800 text-white text-xs py-1 px-2 rounded opacity-0 group-hover:opacity-100 group-focus:opacity-100 whitespace-nowrap transition-opacity pointer-events-none">
                   Coming Soon
-                </div>
-              </div>
-              <div className="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center transition-colors hover:bg-gray-200 cursor-pointer relative group" onClick={() => setShowGlowDialog(true)}>
-                <Search size={16} className="text-brand-purple-medium" />
-                <div className="absolute -top-8 left-1/2 transform -translate-x-1/2 bg-gray-800 text-white text-xs py-1 px-2 rounded opacity-0 group-hover:opacity-100 whitespace-nowrap transition-opacity">
+                </span>
+              </button>
+              <button 
+                className="w-11 h-11 rounded-full bg-gray-100 flex items-center justify-center transition-colors hover:bg-gray-200 cursor-pointer relative group focus:outline-none focus:ring-2 focus:ring-brand-purple focus:ring-offset-2" 
+                onClick={() => setShowGlowDialog(true)}
+                aria-label="Search creators (Coming Soon)"
+                title="Search creators (Coming Soon)"
+              >
+                <Search size={18} className="text-brand-purple-medium" />
+                <span className="absolute -top-10 left-1/2 transform -translate-x-1/2 bg-gray-800 text-white text-xs py-1 px-2 rounded opacity-0 group-hover:opacity-100 group-focus:opacity-100 whitespace-nowrap transition-opacity pointer-events-none">
                   Coming Soon
-                </div>
-              </div>
+                </span>
+              </button>
             </div>
           </div>
 
@@ -244,15 +239,19 @@ const Footer = () => {
       <button 
         onClick={scrollToTop}
         className={cn(
-          "fixed bottom-8 right-8 sm:bottom-6 sm:right-6 w-10 h-10 rounded-full bg-white shadow-md",
-          "flex items-center justify-center hover:bg-gray-50 transition-colors",
-          "border border-gray-200",
-          "touch-manipulation", // Better mobile handling
-          "z-20" // Ensure it's above all content
+          "fixed right-4 w-12 h-12 rounded-full bg-white shadow-lg",
+          "flex items-center justify-center hover:bg-gray-50 transition-all duration-200",
+          "border border-gray-200 hover:shadow-xl hover:scale-105",
+          "touch-manipulation focus:outline-none focus:ring-2 focus:ring-brand-purple focus:ring-offset-2",
+          "z-20", // Ensure it's above all content
+          // Use transform instead of bottom positioning to prevent CLS
+          "bottom-0 transform translate-y-[-5rem] sm:translate-y-[-4rem]"
         )}
-        aria-label="Back to top"
+        aria-label="Scroll back to top of page"
+        role="button"
+        tabIndex={0}
       >
-        <ChevronUp className="w-5 h-5 text-brand-purple-medium" />
+        <ChevronUp className="w-6 h-6 text-brand-purple-medium" />
       </button>
 
       <TermsModal
