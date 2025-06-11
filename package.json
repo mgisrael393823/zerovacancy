@@ -15,7 +15,7 @@
     "build:perf": "npm run copy-web-vitals && vite build && npm run extract-critical-css",
     "build:test": "npm run copy-web-vitals && vite build --mode test",
     "lint": "eslint .",
-    "lint:cls": "node scripts/lint-cls-problems.js",
+    "lint:cls": "node scripts/lint-cls-problems.cjs",
     "lint:cls:eslint": "eslint --rule 'cls/img-explicit-dimensions: error' --rule 'cls/safe-fixed-positioning: error' --rule 'cls/safe-animations: error' .",
     "lint:full": "npm run lint && npm run lint:cls && npm run lint:cls:eslint",
     "preview": "vite preview",
