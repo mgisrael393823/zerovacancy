@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, lazy, Suspense } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { 
   Save, 
@@ -29,11 +29,11 @@ import { BlogPost, BlogCategory, BlogAuthor } from '@/types/blog';
 import { formatDate } from '@/lib/utils';
 import SEO from '@/components/SEO';
 import { useAuth } from '@/components/auth/AuthContext';
-import RichTextEditor from '@/components/blog/RichTextEditor';
-import ImageUploader from '@/components/blog/ImageUploader';
-import CategorySelector from '@/components/blog/CategorySelector';
-import SEOPanel from '@/components/blog/SEOPanel';
-import KeyboardShortcutsHelp from '@/components/blog/KeyboardShortcutsHelp';
+const RichTextEditor = lazy(() => import('@/components/blog/RichTextEditor'));
+const ImageUploader = lazy(() => import('@/components/blog/ImageUploader'));
+const CategorySelector = lazy(() => import('@/components/blog/CategorySelector'));
+const SEOPanel = lazy(() => import('@/components/blog/SEOPanel'));
+const KeyboardShortcutsHelp = lazy(() => import('@/components/blog/KeyboardShortcutsHelp'));
 import { useBlogAutosave } from '@/hooks/use-blog-autosave';
 import { usePreventNavigation } from '@/hooks/use-prevent-navigation';
 import { registerShortcuts, commonEditorShortcuts, KeyboardShortcut } from '@/utils/keyboard-shortcuts';
@@ -916,8 +916,9 @@ const BlogEditor = () => {
       </div>
       
       {/* Keyboard shortcuts help dialog */}
-      <KeyboardShortcutsHelp
-        shortcuts={[
+      <Suspense fallback={null}>
+        <KeyboardShortcutsHelp
+          shortcuts={[
           ...commonEditorShortcuts({
             save: () => {}, // Dummy functions that aren't used
             publish: () => {},
@@ -933,7 +934,8 @@ const BlogEditor = () => {
         ]}
         isOpen={showKeyboardShortcuts}
         onClose={() => setShowKeyboardShortcuts(false)}
-      />
+        />
+      </Suspense>
       
       {/* Validation error message */}
       {validationError && (
@@ -1167,7 +1169,8 @@ const BlogEditor = () => {
                     >
                       Content
                     </label>
-                    <RichTextEditor
+                    <Suspense fallback={null}>
+                      <RichTextEditor
                       value={content}
                       onChange={(newContent) => {
                         // Update the content state
@@ -1183,6 +1186,7 @@ const BlogEditor = () => {
                       onImageUpload={handleContentImageUpload}
                       editorId={`blog-editor-${id || 'new'}`}
                     />
+                    </Suspense>
                   </div>
                 </div>
 
@@ -1209,13 +1213,15 @@ const BlogEditor = () => {
                   
                   {/* SEO Panel */}
                   {showSeoPanel && (
-                    <SEOPanel
-                      title={seoTitle || title}
-                      description={seoDescription || excerpt}
-                      slug={slug}
-                      onTitleChange={setSeoTitle}
-                      onDescriptionChange={setSeoDescription}
-                    />
+                    <Suspense fallback={null}>
+                      <SEOPanel
+                        title={seoTitle || title}
+                        description={seoDescription || excerpt}
+                        slug={slug}
+                        onTitleChange={setSeoTitle}
+                        onDescriptionChange={setSeoDescription}
+                      />
+                    </Suspense>
                   )}
                   
                   {/* Publish Options */}
@@ -1305,22 +1311,26 @@ const BlogEditor = () => {
                       Featured Image
                     </h3>
                     
-                    <ImageUploader
-                      initialImage={coverImage}
-                      postId={id}
-                      onImageChange={setCoverImage}
-                      aspectRatio={16/9}
-                    />
+                    <Suspense fallback={null}>
+                      <ImageUploader
+                        initialImage={coverImage}
+                        postId={id}
+                        onImageChange={setCoverImage}
+                        aspectRatio={16/9}
+                      />
+                    </Suspense>
                   </div>
                   
                   {/* Categories */}
                   <div className="bg-white rounded-lg shadow-sm p-4 border border-gray-200">
-                    <CategorySelector
-                      categories={categories}
-                      selectedCategoryId={categoryId}
-                      onChange={setCategoryId}
-                      onCategoriesChange={setCategories}
-                    />
+                    <Suspense fallback={null}>
+                      <CategorySelector
+                        categories={categories}
+                        selectedCategoryId={categoryId}
+                        onChange={setCategoryId}
+                        onCategoriesChange={setCategories}
+                      />
+                    </Suspense>
                   </div>
                   
                   {/* Authors */}
