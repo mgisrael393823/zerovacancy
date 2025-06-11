@@ -32,8 +32,7 @@ window.RUNTIME_ENV.VITE_SUPABASE_ANON_KEY = window.RUNTIME_ENV.VITE_SUPABASE_ANO
 window.env.VITE_SUPABASE_URL = window.env.VITE_SUPABASE_URL || window.RUNTIME_ENV.VITE_SUPABASE_URL;
 window.env.VITE_SUPABASE_ANON_KEY = window.env.VITE_SUPABASE_ANON_KEY || window.RUNTIME_ENV.VITE_SUPABASE_ANON_KEY;
 
-// Log for debugging (hiding sensitive parts of key)
-console.log('[env-config.js] Environment variables loaded:', {
-  VITE_SUPABASE_URL: window.env.VITE_SUPABASE_URL,
-  VITE_SUPABASE_ANON_KEY: window.env.VITE_SUPABASE_ANON_KEY ? 'Key present (hidden)' : 'MISSING'
-});
+// Minimal log only if a variable is missing
+if (!window.env.VITE_SUPABASE_URL || !window.env.VITE_SUPABASE_ANON_KEY) {
+  console.warn('[env-config.js] Environment variables loaded with fallbacks');
+}

@@ -7,25 +7,13 @@
     <!-- Runtime environment variables -->
     <script src="/env-config.js"></script>
     
-    <!-- Debug script to log errors in production -->
-    <script>
-      // Log any errors to the console
-      window.addEventListener('error', function(e) {
-        console.error('Global error:', e.message, e.error);
-      });
-      
-      // Log unhandled promise rejections
-      window.addEventListener('unhandledrejection', function(e) {
-        console.error('Unhandled rejection:', e.reason);
-      });
-    </script>
+
     
     <!-- Service worker management - normal operation -->
     <script>
       // Service worker management for production
       if ('serviceWorker' in navigator) {
         // Normal service worker management - no emergency unregistration
-        console.log('Service worker management initialized');
       }
     </script>
     
@@ -282,8 +270,6 @@
                       loadingContainer.parentNode.removeChild(loadingContainer);
                     }
                   } catch (e) {
-                    console.log('Non-critical error removing loading container:', e);
-                    // Alternative removal method
                     if (loadingContainer) {
                       loadingContainer.style.display = 'none';
                     }
@@ -329,7 +315,6 @@
                 }
               `;
               document.head.appendChild(styleTag);
-              console.log('Blog editor layout fix applied');
             }, 2000);
           }
         };
@@ -358,12 +343,11 @@
         const existingLinks = document.querySelectorAll('link[rel="stylesheet"]');
         for (let i = 0; i < existingLinks.length; i++) {
           if (existingLinks[i].href.includes(href)) {
-            console.log('CSS already loaded:', href);
             return;
           }
         }
         
-        console.log('Loading CSS:', href);
+        
         const link = document.createElement('link');
         link.rel = 'stylesheet';
         link.href = href;
@@ -374,10 +358,7 @@
       document.addEventListener('DOMContentLoaded', function() {
         // Find any CSS links that Vite may have injected
         const existingStyles = document.querySelectorAll('link[rel="stylesheet"][href*="assets"]');
-        if (existingStyles.length > 0) {
-          console.log('Vite styles found:', existingStyles.length);
-        } else {
-          console.log('No Vite styles found, loading common paths');
+        if (existingStyles.length === 0) {
           
           // Standard Vite output paths
           [
@@ -409,11 +390,10 @@
           
           // Clear cache and reload if this is a CSS preload error
           if (target.href && target.href.includes('/assets/css/')) {
-            console.log('Attempting to recover from CSS load failure');
             
             // Try to fetch the resource directly to force refresh
             fetch(target.href, { cache: 'reload', mode: 'no-cors' })
-              .catch(() => console.log('Fetch recovery attempt completed'));
+              .catch(() => {});
             
             // Create and inject a simple recovery stylesheet
             var recoveryStyle = document.createElement('style');
@@ -445,11 +425,8 @@
       // Force clear service worker cache and all browser caches
       if ('caches' in window) {
         caches.keys().then(function(cacheNames) {
-          console.log('Clearing all caches to refresh fixed navigation dots');
           cacheNames.forEach(function(cacheName) {
-            caches.delete(cacheName).then(() => {
-              console.log('Cache deleted:', cacheName);
-            });
+            caches.delete(cacheName);
           });
         });
       }
@@ -459,19 +436,15 @@
         navigator.serviceWorker.getRegistrations().then(function(registrations) {
           registrations.forEach(function(registration) {
             registration.update();
-            console.log('Updating service worker');
           });
         });
       }
       
       // Safer approach - don't override fetch as it can cause MIME type issues
-      console.log('Cache busting initialized with version:', window.APP_VERSION);
       
       // Instead, clear cache explicitly
       if ('caches' in window) {
-        caches.keys().then(function(cacheNames) {
-          console.log('Found', cacheNames.length, 'caches to clear');
-        });
+        caches.keys();
       }
     </script>
     
@@ -479,14 +452,11 @@
     <!-- <script src="/text-fouc-fix.js"></script> -->
     
     <!-- Event listener monitoring and protection -->
-    <script src="/event-listener-guard.js"></script>
-    <script src="/event-listener-diagnostics.js"></script>
     
     <!-- Fix for admin pages - run before other scripts to unregister service worker for admin routes -->
     <script src="/admin-sw-fix.js"></script>
     
     <!-- Environment variables debugging tool -->
-    <script src="/debug-env-vars.js"></script>
     
     <!-- Ultra-fast mobile optimization script - removed for production -->
     <!-- <script src="/quick-perf.js"></script> -->
@@ -712,19 +682,17 @@
         return isProduction;
       }
       
-      // Log the environment detection
       const envType = isProductionEnvironment() ? 'PRODUCTION' : 'DEVELOPMENT/STAGING';
-      console.log(`Environment detected: ${envType}`);
       
       // Unregister service workers in ANY non-production environment
       if ('serviceWorker' in navigator && !isProductionEnvironment()) {
-        console.log('Non-production environment detected - unregistering all service workers');
+        // Cleanup service workers in non-production
         
         try {
           // First unregister all service workers
           navigator.serviceWorker.getRegistrations().then(function(registrations) {
             if (!registrations || registrations.length === 0) {
-              console.log('No service workers found to unregister');
+              // No service workers found
               return Promise.resolve();
             }
             
@@ -732,11 +700,7 @@
             const unregisterPromises = registrations.map(registration => {
               if (!registration) return Promise.resolve();
               
-              console.log('Unregistering service worker:', registration.scope);
-              return registration.unregister().catch(err => {
-                console.warn('Failed to unregister service worker (continuing):', err);
-                return Promise.resolve(); // Continue with other operations even if one fails
-              });
+              return registration.unregister().catch(() => Promise.resolve());
             });
             
             // After all are unregistered, clear caches to ensure clean state
@@ -744,7 +708,7 @@
               if ('caches' in window) {
                 return caches.keys().then(function(cacheNames) {
                   if (!cacheNames || cacheNames.length === 0) {
-                    console.log('No caches found to clear');
+                    // No caches found
                     return Promise.resolve();
                   }
                   
@@ -753,34 +717,19 @@
                     cacheNames.map(function(cacheName) {
                       if (!cacheName) return Promise.resolve();
                       
-                      console.log('Clearing cache:', cacheName);
                       return caches.delete(cacheName).catch(err => {
-                        console.warn('Failed to clear cache (continuing):', cacheName, err);
+                    // Ignore cache clear errors
                         return Promise.resolve(); // Continue with other operations
                       });
                     })
                   ).then(() => {
-                    console.log('Cache clearing complete');
-                  }).catch(err => {
-                    console.warn('Error in cache clearing (non-critical):', err);
-                    return Promise.resolve();
-                  });
-                }).catch(err => {
-                  console.warn('Error getting cache keys (non-critical):', err);
-                  return Promise.resolve();
-                });
+                  }).catch(() => Promise.resolve());
+                }).catch(() => Promise.resolve());
               }
               return Promise.resolve();
-            }).then(() => {
-              console.log('Service worker cleanup complete');
-            }).catch(err => {
-              console.warn('Non-critical error in service worker cleanup:', err);
-            });
-          }).catch(error => {
-            console.warn('Error getting service worker registrations (non-critical):', error);
-          });
+            }).catch(() => {});
+          }).catch(() => {});
         } catch (e) {
-          console.warn('Error in service worker unregistration process (non-critical):', e);
         }
       }
       
@@ -789,7 +738,7 @@
     </script>
     
     <!-- Stripe JavaScript SDK - optimized loading -->
-    <script defer src="https://js.stripe.com/v3/" data-load-delay="2000" onload="if(window.Stripe){console.log('Stripe loaded successfully');}" onerror="console.error('Error loading Stripe');"></script>
+    <script defer src="https://js.stripe.com/v3/" data-load-delay="2000" onerror="console.error('Error loading Stripe');"></script>
     <script>
       // Delayed Stripe loading to improve initial page performance
       document.addEventListener('DOMContentLoaded', function() {
@@ -886,7 +835,6 @@
       // Wait for body to be available before appending scripts - enhanced with error protection
       function loadScript(src, type, isModule) {
         if (!src) {
-          console.warn('Invalid script source provided');
           return;
         }
         
@@ -900,7 +848,6 @@
             // Check if script already exists to prevent duplicates
             const existingScript = document.querySelector(`script[src*="${src}"]`);
             if (existingScript) {
-              console.log('Script already loaded, skipping:', src);
               return;
             }
             
@@ -913,33 +860,29 @@
               script.type = type;
             }
             
-            script.onerror = (e) => {
-              console.warn('Failed to load script (non-critical):', src, e);
-              // Keep the element in the DOM but mark as failed
+            script.onerror = () => {
               script.dataset.loadFailed = 'true';
             };
             script.async = false; // Maintain execution order
             
             try {
               document.body.appendChild(script);
-              console.log('Added script:', src);
             } catch (appendErr) {
-              console.warn('Error appending script (non-critical):', src, appendErr);
+              // Ignore append errors
               
               // Try alternative approach if direct append fails
               setTimeout(() => {
                 try {
                   if (document.body) {
                     document.body.appendChild(script);
-                    console.log('Added script (retry):', src);
                   }
                 } catch (retryErr) {
-                  console.warn('Failed to append script on retry (non-critical):', src);
+                  // Ignore retry failure
                 }
               }, 500);
             }
           } catch (e) {
-            console.warn('Error in script loading process (non-critical):', src, e);
+            // Ignore script loading errors
           }
         }
         
@@ -954,7 +897,7 @@
         
         if (isProduction) {
         // In production, load the exact asset paths Vite generates
-        console.log('Production environment - loading Vite assets');
+        
         
         // Try loading the standard Vite output assets
         const loadProductionAssets = () => {
@@ -963,26 +906,20 @@
             // Look for the entry point script in the HTML - this is what Vite generates
             const viteScripts = document.querySelectorAll('script[src*="assets"]');
             if (viteScripts && viteScripts.length > 0) {
-              console.log('Found Vite-generated scripts:', viteScripts.length);
               
               // Use those scripts first
               viteScripts.forEach(script => {
                 if (script && script.src) {
-                  console.log('Using existing Vite script:', script.src);
                 }
               });
             } else {
-              // If no scripts found, log warning but don't try to load additional scripts
-              console.warn('No Vite-generated scripts found. This is likely a build configuration issue.');
-              
-              // Alert developer through console - don't try to load non-existent files
               console.error('IMPORTANT: Check that Vite has correctly generated JS outputs');
             }
           } catch (assetErr) {
-            console.warn('Error loading production assets (non-critical):', assetErr);
+            
             
             // Log error but don't try to load specific scripts that may not exist
-            console.error('Could not load application scripts - check build configuration');
+            console.error('Could not load application scripts');
             
             // Add visible error message to DOM when possible
             try {
@@ -991,7 +928,7 @@
                 rootEl.innerHTML = '<div style="padding: 20px; color: #721c24; background-color: #f8d7da; border: 1px solid #f5c6cb; border-radius: 4px; margin: 20px;">Failed to load application scripts. Please check your network connection and try again.</div>';
               }
             } catch (e) {
-              console.warn('Could not display error message:', e);
+              
             }
           }
         };
@@ -1004,17 +941,13 @@
             loadProductionAssets();
           }
         } catch (readyErr) {
-          console.warn('Error in readyState handler (non-critical):', readyErr);
-          // Try loading anyway
           setTimeout(loadProductionAssets, 100);
         }
       } else {
         // Development mode - use Vite development server
-        console.log('Development environment - using Vite dev server');
         try {
           loadScript('/src/main.tsx', null, true);
         } catch (devErr) {
-          console.warn('Error loading development script (non-critical):', devErr);
         }
       }
       
@@ -1023,36 +956,22 @@
         try {
           const rootContent = document.getElementById('root');
           if (rootContent && rootContent.children && rootContent.children.length <= 1) {
-            console.log('Root still empty after timeout, trying additional loading strategies');
-            
-            // Log warning that content didn't load but don't try to load non-existent files
-            console.warn('Application content failed to load within timeout window');
+            // Root still empty after timeout
           }
         } catch (fallbackErr) {
-          console.warn('Error in fallback script loading (non-critical):', fallbackErr);
         }
       }, 3000);
     } catch (envErr) {
-      console.warn('Error in environment detection (non-critical):', envErr);
       
       // Ultra-fallback - just try to load the main script
       try {
         loadScript('/src/main.tsx', 'module', true);
       } catch (ultraErr) {
-        console.warn('Ultra-fallback failed (non-critical):', ultraErr);
       }
     }
     </script>
     
-    <!-- Performance monitoring in development environment only -->
-    <script>
-      // Basic performance marks for monitoring page load
-      performance.mark('body-loaded');
-      window.addEventListener('load', function() {
-        performance.mark('page-loaded');
-        performance.measure('total-load-time', 'app-init-start', 'page-loaded');
-      });
-    </script>
+
     
     <!-- Cookie consent positioning fix -->
     <script>
@@ -1064,7 +983,6 @@
           if (cookieConsent) {
             cookieConsent.setAttribute('data-position', 'bottom');
             cookieConsent.setAttribute('data-contain-force', 'false');
-            console.log('Cookie consent container fixed');
           }
         }, 1000);
       });
@@ -1082,7 +1000,6 @@
           // Register the service worker
           navigator.serviceWorker.register('/service-worker.js?v=3') // Cache-busting query param
             .then(registration => {
-              console.log('ServiceWorker registration successful');
               
               // Detect service worker updates
               registration.addEventListener('updatefound', () => {
@@ -1158,7 +1075,6 @@
               }
             })
             .catch(error => {
-              console.log('ServiceWorker registration failed:', error);
             });
         });
       }
