@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
-import { Plus, CheckCheck, X } from 'lucide-react';
+import React, { useState, lazy, Suspense } from 'react';
+
+const CheckCheck = lazy(() => import('lucide-react').then(m => ({ default: m.CheckCheck })));
 import { BlogCategory } from '@/types/blog';
 import { BlogService } from '@/services/BlogService';
 
@@ -116,7 +117,9 @@ const CategorySelector: React.FC<CategorySelectorProps> = ({
               {isSubmitting ? (
                 <div className="animate-spin w-4 h-4 border-2 border-white border-t-transparent rounded-full" />
               ) : (
-                <CheckCheck size={18} />
+                <Suspense fallback={null}>
+                  <CheckCheck size={18} />
+                </Suspense>
               )}
             </button>
           </div>
