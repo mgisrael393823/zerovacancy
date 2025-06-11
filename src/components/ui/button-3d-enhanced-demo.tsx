@@ -1,6 +1,6 @@
 import React from "react";
 import { Button3DEnhanced } from "./button-3d-enhanced";
-import { ArrowRight, Star, Check, Settings, CheckCircle2, PlusCircle, Globe, Zap } from "lucide-react";
+import { ArrowRight, Star, Check, Settings, CheckCircle2, PlusCircle, Globe, Zap } from "@/icons";
 
 export function Button3DEnhancedDemo() {
   return (

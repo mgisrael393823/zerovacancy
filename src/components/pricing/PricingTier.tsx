@@ -1,7 +1,7 @@
 
 import React, { useState } from "react";
 import { cn } from "@/lib/utils";
-import { Sparkles, Check, Info } from "lucide-react";
+import { Sparkles, Check, Info } from "@/icons";
 import { motion } from "framer-motion";
 import NumberFlow from '@number-flow/react';
 import { PricingFeatures } from "./PricingFeatures";

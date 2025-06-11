@@ -1,5 +1,5 @@
 
-import { Camera, Image, Video, Instagram, UserCheck, Clock, CreditCard, Award } from "lucide-react";
+import { Camera, Image, Video, Instagram, UserCheck, Clock, CreditCard, Award } from "@/icons";
 
 // Updated color palette to match the How It Works section color scheme
 export const iconColors = {

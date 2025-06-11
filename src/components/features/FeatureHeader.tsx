@@ -1,6 +1,6 @@
 
 import { motion } from "framer-motion";
-import { Star } from "lucide-react";
+import { Star } from "@/icons";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { cn } from "@/lib/utils";
 

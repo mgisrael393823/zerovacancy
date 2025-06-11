@@ -1,7 +1,7 @@
 
 import React from "react";
 import { cn } from "@/lib/utils";
-import { Check, ChevronDown, Info } from "lucide-react";
+import { Check, ChevronDown, Info } from "@/icons";
 import { PricingFeature } from "./types";
 import { motion } from "framer-motion";
 

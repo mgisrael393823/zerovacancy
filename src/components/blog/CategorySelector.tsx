@@ -1,6 +1,6 @@
 import React, { useState, lazy, Suspense } from 'react';
 
-const CheckCheck = lazy(() => import('lucide-react').then(m => ({ default: m.CheckCheck })));
+const CheckCheck = lazy(() => import('@/icons').then(m => ({ default: m.CheckCheck })));
 import { BlogCategory } from '@/types/blog';
 import { BlogService } from '@/services/BlogService';
 

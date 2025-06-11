@@ -9,7 +9,7 @@ import { TextRotate } from "../ui/text-rotate";
 import { SocialProof } from "../ui/waitlist/social-proof";
 import { SuccessConfirmation } from "../ui/waitlist/success-confirmation";
 import { toast } from "sonner";
-import { CheckCircle, ShieldCheck, ArrowRight, Loader2 } from "lucide-react";
+import { CheckCircle, ShieldCheck, ArrowRight, Loader2 } from "@/icons";
 import { supabase } from "@/integrations/supabase/client";
 import confetti from "canvas-confetti";
 import { heroPatternDotMatrix } from "@/utils/background-patterns";
